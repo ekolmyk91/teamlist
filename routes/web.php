@@ -13,8 +13,18 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('front');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/404', 'DefaultController@notFound');
+
+Route::group(['middleware' => ['auth']], function (){
+    Route::get('/member', 'DemoController@memberDemo')->name('member');
+
+    Route::group(['middleware' => ['admin']], function (){
+        Route::get('/admin', 'Dashboard\AdminController@index')->name('admin');
+    });
+
+});
