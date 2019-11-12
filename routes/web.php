@@ -24,7 +24,10 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('/member', 'DemoController@memberDemo')->name('member');
 
     Route::group(['middleware' => ['admin']], function (){
-        Route::get('/admin', 'Dashboard\AdminController@index')->name('admin');
+        Route::prefix('admin')->group(function(){
+            Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
+            Route::get('/members', 'Dashboard\AdminController@index')->name('admin_members');
+        });
     });
 
 });
