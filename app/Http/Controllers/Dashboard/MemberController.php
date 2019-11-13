@@ -20,9 +20,9 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $memberss = Member::all();
+        $members = Member::all();
 
-        return view('dashboard.member.index', compact('contacts'));
+        return view('dashboard.member.index', ['members' => $members]);
     }
 
 

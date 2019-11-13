@@ -32,14 +32,14 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item active  ">
+                <li class="nav-item {{request()->routeIs('dashboard') ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('dashboard')}}">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{url('/admin/members')}}">
+                <li class="nav-item {{ (request()->is('admin/members')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{url('admin/members')}}">
                         <i class="material-icons">person</i>
                         <p>Members</p>
                     </a>
@@ -74,29 +74,6 @@
     </div>
     <div class="main-panel">
         <!-- Navbar -->
-        {{--<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">--}}
-        {{--<div class="container-fluid">--}}
-        {{--<div class="navbar-wrapper">--}}
-        {{--<a class="navbar-brand" href="#pablo">Dashboard</a>--}}
-        {{--</div>--}}
-        {{--<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">--}}
-        {{--<span class="sr-only">Toggle navigation</span>--}}
-        {{--<span class="navbar-toggler-icon icon-bar"></span>--}}
-        {{--<span class="navbar-toggler-icon icon-bar"></span>--}}
-        {{--<span class="navbar-toggler-icon icon-bar"></span>--}}
-        {{--</button>--}}
-        {{--<div class="collapse navbar-collapse justify-content-end">--}}
-        {{--<ul class="navbar-nav">--}}
-        {{--<li class="nav-item">--}}
-        {{--<a class="nav-link" href="#pablo">--}}
-        {{--<i class="material-icons">notifications</i> Notifications--}}
-        {{--</a>--}}
-        {{--</li>--}}
-        {{--<!-- your navbar here -->--}}
-        {{--</ul>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</nav>--}}
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
@@ -169,6 +146,7 @@
         <div class="content">
             <div class="container-fluid">
                 <!-- your content here -->
+                @yield('content')
             </div>
         </div>
         <footer class="footer">
