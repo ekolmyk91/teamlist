@@ -32,14 +32,14 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item {{request()->routeIs('dashboard') ? 'active' : ''}}">
-                    <a class="nav-link" href="{{route('dashboard')}}">
+                <li class="nav-item {{request()->routeIs('admin.dashboard') ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('admin.dashboard')}}">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('admin/members')) ? 'active' : '' }}">
-                    <a class="nav-link" href="{{url('admin/members')}}">
+                <li class="nav-item {{(strpos(Route::currentRouteName(), 'admin.members') == 0) ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('admin.members.index')}}">
                         <i class="material-icons">person</i>
                         <p>Members</p>
                     </a>

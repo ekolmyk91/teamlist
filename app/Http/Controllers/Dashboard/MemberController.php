@@ -33,7 +33,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.member.create');
     }
 
     /**
