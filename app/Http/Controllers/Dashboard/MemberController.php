@@ -44,7 +44,28 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+          'name'=>'required',
+          'surname'=>'required',
+          'email'=>'required'
+        ]);
+
+
+        //@TODO: user create
+//        $user = new User();
+        $member = new Member([
+          'name' => $request->get('name'),
+          'surname' => $request->get('surname'),
+          'email' => $request->get('email'),
+          'phone_1' => $request->get('phone_1'),
+          'phone_2' => $request->get('phone_2'),
+          'about' => $request->get('about')
+        ]);
+
+        $member->save();
+
+        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
     }
 
     /**

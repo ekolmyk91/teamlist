@@ -38,7 +38,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{(strpos(Route::currentRouteName(), 'admin.members') == 0) ? 'active' : ''}}">
+                <li class="nav-item {{ (Request::is('admin/members*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('admin.members.index')}}">
                         <i class="material-icons">person</i>
                         <p>Members</p>

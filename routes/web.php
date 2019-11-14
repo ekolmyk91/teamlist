@@ -22,13 +22,12 @@ Route::get('/404', 'DefaultController@notFound');
 
 Route::group(['middleware' => ['auth']], function (){
     Route::get('/member', 'DemoController@memberDemo')->name('member');
-    Route::resource('members', 'Dashboard\MemberController');
+//    Route::resource('members', 'Dashboard\MemberController');
 
 //    Route::group(['middleware' => ['admin']], function (){
         Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
             Route::resource('members', 'Dashboard\MemberController');
-//            Route::get('/members', 'Dashboard\AdminController@index')->name('admin_members');
         });
 //    });
 

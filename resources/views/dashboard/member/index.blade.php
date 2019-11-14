@@ -16,7 +16,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('members.create')}}" class="btn btn-primary">Add Member</a>
+            <a href="{{ route('admin.members.create')}}" class="btn btn-primary">Add Member</a>
             <div class="card">
                 <div class="card-header card-header-danger">
                     <h4 class="card-title ">Members</h4>
