@@ -40,19 +40,19 @@
                 </li>
                 <li class="nav-item {{ (Request::is('admin/members*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('admin.members.index')}}">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">group</i>
                         <p>Members</p>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{url('/admin/members')}}">
-                        <i class="material-icons">person</i>
+                <li class="nav-item {{ (Request::is('admin/departments*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.departments.index')}}">
+                        <i class="material-icons">group_work</i>
                         <p>Departments</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{url('/admin/members')}}">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">loyalty</i>
                         <p>Skils</p>
                     </a>
                 </li>

@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function (){
         Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
             Route::resource('members', 'Dashboard\MemberController');
+            Route::resource('departments', 'Dashboard\DepartmentController');
         });
 //    });
 
