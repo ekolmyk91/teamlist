@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function (){
             Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
             Route::resource('members', 'Dashboard\MemberController');
             Route::resource('departments', 'Dashboard\DepartmentController');
+            Route::resource('skills', 'Dashboard\SkillController');
         });
 //    });
 
