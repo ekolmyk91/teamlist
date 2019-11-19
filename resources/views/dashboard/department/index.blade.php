@@ -31,16 +31,16 @@
                                     <td>
                                         {{$department->name}}
                                     </td>
-                                     <td class="td-actions">
-                                        <a href="{{ route('admin.departments.edit', $department->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>
-                                        <form action="{{ route('admin.departments.destroy', $department->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" rel="tooltip" class="btn btn-danger" type="submit">
-                                                <i class="material-icons">delete</i>
-                                            </button>
-                                        </form>
-                                     <td>
+                                    <td class="td-actions">
+                                       <a href="{{ route('admin.departments.edit', $department->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>
+                                       <form action="{{ route('admin.departments.destroy', $department->id)}}" method="post">
+                                           @csrf
+                                           @method('DELETE')
+                                           <button type="submit" rel="tooltip" class="btn btn-danger" type="submit">
+                                               <i class="material-icons">delete</i>
+                                           </button>
+                                       </form>
+                                    <td>
                                 </tr>
                             @endforeach
                     </tbody>

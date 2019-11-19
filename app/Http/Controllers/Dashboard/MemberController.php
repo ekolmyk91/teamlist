@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Member;
+use App\User;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -53,14 +54,22 @@ class MemberController extends Controller
 
 
         //@TODO: user create
-//        $user = new User();
+        $user = new User([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => User::generatePassword()
+        ]);
+        $user->save();
+
         $member = new Member([
           'name' => $request->get('name'),
           'surname' => $request->get('surname'),
           'email' => $request->get('email'),
           'phone_1' => $request->get('phone_1'),
           'phone_2' => $request->get('phone_2'),
-          'about' => $request->get('about')
+          'birthday' => $request->get('birthday'),
+          'about' => $request->get('about'),
+          'user'  => $user
         ]);
 
         $member->save();
@@ -82,12 +91,15 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($user_id)
     {
-        //
+        $member = Member::find($user_id);
+
+        return view('dashboard.member.edit', ['department' => $member]);
+
     }
 
     /**

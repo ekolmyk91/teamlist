@@ -15,4 +15,12 @@ class Member extends Model
       'phone_2',
       'about'
     ];
+
+    /**
+     * Get the user that owns the phone.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

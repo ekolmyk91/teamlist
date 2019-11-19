@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -46,6 +47,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the phone record associated with the user.
+     */
+    public function member()
+    {
+        return $this->hasOne('App\Member');
+    }
+
+
+    /**
      * Check if user has choosen role.
      */
     public function hasRole($role)
@@ -57,5 +67,11 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public static function generatePassword()
+    {
+        // Generate random string and encrypt it.
+        return bcrypt(Str::random(35));
     }
 }

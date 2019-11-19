@@ -32,13 +32,10 @@
                                 Name
                             </th>
                             <th>
-                                Country
+                                Surname
                             </th>
                             <th>
-                                City
-                            </th>
-                            <th>
-                                Salary
+                                Email
                             </th>
                             <th>Actions</th>
                             </thead>
@@ -46,31 +43,31 @@
                             @foreach ($members as $member)
                             <tr>
                                 <td>
-                                    {{$member->id}}
+                                    {{$member->user_id}}
                                 </td>
                                 <td>
-                                    {{$member->created_at}}
+                                    {{$member->name}}
                                 </td>
                                 <td>
-                                    Niger
+                                    {{$member->surname}}
                                 </td>
                                 <td>
-                                    Oud-Turnhout
-                                </td>
-                                <td class="text-primary">
-                                    $36,738
+                                    {{$member->email}}
                                 </td>
                                 <td class="td-actions">
                                     <button type="button" rel="tooltip" class="btn btn-info">
                                         <i class="material-icons">person</i>
                                     </button>
-                                    <button type="button" rel="tooltip" class="btn btn-success">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button type="button" rel="tooltip" class="btn btn-danger">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                                </td>
+                                    {{--<a href="{{ route('admin.members.edit', $member->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>--}}
+                                    <a href="{{ route('admin.members.edit', $member->user_id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>
+                                    <form action="{{ route('admin.members.destroy', $member->user_id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" rel="tooltip" class="btn btn-danger" type="submit">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </form>
+                                <td>
                             </tr>
                             @endforeach
                             </tbody>
