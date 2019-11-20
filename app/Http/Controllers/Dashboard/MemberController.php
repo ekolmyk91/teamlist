@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Member;
+use App\Department;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,9 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('dashboard.member.create');
+        $departments = Department::all();
+
+        return view('dashboard.member.create', ['departments' => $departments]);
     }
 
     /**
@@ -96,10 +99,13 @@ class MemberController extends Controller
      */
     public function edit($user_id)
     {
-        $member = Member::find($user_id);
+        $member      = Member::find($user_id);
+        $departments = Department::all();
 
-        return view('dashboard.member.edit', ['department' => $member]);
-
+        return view('dashboard.member.edit', [
+          'member'      => $member,
+          'departments' => $departments,
+        ]);
     }
 
     /**

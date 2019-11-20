@@ -71,10 +71,10 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Department</label>
                                         <select name='department' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
-                                            <option>Wordpress/Drupal/Frameworks</option>
-                                            <option>Magento</option>
-                                            <option>Designers</option>
-                                            <option>Managers</option>
+                                            <option value="">-- Select --</option>
+                                            @foreach($departments as $department)
+                                                <option value="{{$department->id}}">{{$department->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
