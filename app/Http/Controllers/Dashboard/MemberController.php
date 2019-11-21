@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Member;
 use App\Department;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -48,13 +49,12 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
           'name'=>'required',
           'surname'=>'required',
-          'email'=>'required'
+          'email'=>'required|email|unique:users',
+          'birthday'=>'required',
         ]);
-
 
         //@TODO: user create
         $user = new User([
@@ -70,8 +70,9 @@ class MemberController extends Controller
           'email' => $request->get('email'),
           'phone_1' => $request->get('phone_1'),
           'phone_2' => $request->get('phone_2'),
-          'birthday' => $request->get('birthday'),
+          'birthday' => Carbon::parse($request->get('birthday')),
           'about' => $request->get('about'),
+          'department_id' => $request->get('department') ?: null,
           'user'  => $user
         ]);
 

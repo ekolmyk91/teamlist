@@ -55,7 +55,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="label-control">Birthday</label>
-                                            <input id='datepicker' name='birthday' type="text" class="form-control datetimepicker" value="{{$member->birthday}}" placeholder="dd/mm/yyyy"/>
+                                            <input id='datepicker' name='birthday' type="text" class="form-control datetimepicker" value="{{ Carbon\Carbon::parse($member->birthday)->format('d/m/Y') }}" placeholder="dd/mm/yyyy"/>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +82,12 @@
                                             <select name='department' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
                                                 <option value="">-- Select --</option>
                                                 @foreach($departments as $department)
-                                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                                    <option value="{{$department->id}}"
+                                                            @if($department->id == $member->department_id)
+                                                                selected="selected"
+                                                            @endif >
+                                                        {{$department->name}}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -50,12 +50,12 @@
                         <p>Departments</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (Request::is('admin/skills*')) ? 'active' : '' }}">
-                    <a class="nav-link" href="{{route('admin.skills.index')}}">
-                        <i class="material-icons">loyalty</i>
-                        <p>Skils</p>
-                    </a>
-                </li>
+                {{--<li class="nav-item {{ (Request::is('admin/skills*')) ? 'active' : '' }}">--}}
+                    {{--<a class="nav-link" href="{{route('admin.skills.index')}}">--}}
+                        {{--<i class="material-icons">loyalty</i>--}}
+                        {{--<p>Skils</p>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
                 <li class="nav-item ">
                     <a class="nav-link" href="{{url('/  admin/members')}}">
                         <i class="material-icons">person</i>
