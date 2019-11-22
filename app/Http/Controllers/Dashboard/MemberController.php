@@ -53,17 +53,33 @@ class MemberController extends Controller
           'name'=>'required',
           'surname'=>'required',
           'email'=>'required|email|unique:users',
-          'birthday'=>'required',
+          'birthday'=>'required'
+//          'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //@TODO: user create
-        $user = new User([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => User::generatePassword()
-        ]);
+        $userFields = [
+          'name'     => $request->get('name'),
+          'email'    => $request->get('email'),
+          'password' => User::generatePassword(),
+        ];
+
+        //Save and set avatar image.
+        if($request->get('avatar')){
+            $filename = time() . '_avatar_' . $request->get('avatar');
+            $path = $request->file('avatar')->storeAs(
+              'avatar', $filename
+            );
+
+            if($path){
+                $userFields['avatar'] = $filename;
+            }
+        }
+
+        //Create User entity.
+        $user = new User($userFields);
         $user->save();
 
+        //Create Member entity and attach User.
         $member = new Member([
           'name' => $request->get('name'),
           'surname' => $request->get('surname'),
@@ -118,7 +134,11 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $filename = time() . '_avatar_' . $request->file('avatar')->getClientOriginalName();
+
+        $path = $request->file('avatar')->storeAs(
+          'avatar', $filename
+        );
     }
 
     /**

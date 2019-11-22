@@ -43,6 +43,8 @@
                                         <input name='email' type="email" class="form-control">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="label-control">Birthday</label>
@@ -50,8 +52,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -77,6 +77,12 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="bmd-label-floating">Avatar</label>
+                                    <input name='avatar' type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp">
                                 </div>
                             </div>
                             <div class="row">
