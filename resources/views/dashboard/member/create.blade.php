@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <form action="{{ route('admin.members.store') }}" method="post">
+                        <form action="{{ route('admin.members.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
@@ -79,12 +79,24 @@
                                     </div>
                                 </div>
                             </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-6">--}}
+                                    {{--<label class="bmd-label-floating">Avatar</label>--}}
+                                    {{--<input name='avatar' type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp">--}}
+
+                                        {{--<input type="file" class="form-control-file" name="avatar" id="avatarFile" aria-describedby="fileHelp">--}}
+                                        {{--<small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+
+
                             <div class="row">
-                                <div class="col-md-4">
-                                    <label class="bmd-label-floating">Avatar</label>
-                                    <input name='avatar' type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp">
+                                <div class="col-md-6">
+                                    <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
+                                    <input id="avatar" type="file" class="form-control" name="avatar">
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">

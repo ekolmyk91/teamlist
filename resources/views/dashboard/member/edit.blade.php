@@ -120,6 +120,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Active</label>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="active"
+                                            @if($member->user->active)
+                                                checked
+                                            @endif
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary pull-right">Update Member</button>
                             <div class="clearfix"></div>
                         </form>
@@ -129,22 +143,24 @@
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
-                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail img-raised">
-                                <img src="/storage/avatar/{{ $member->user->avatar }}" alt="...">
+                        @if($member->user->avatar)
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail img-raised">
+                                    <img src="/storage/avatar/{{ $member->user->avatar }}" alt="...">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
                             </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-                        </div>
+                        @endif
                     </div>
 
                     <div class="card-body">
                         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                             <div>
-                                <span class="btn btn-raised btn-round btn-default btn-file">
-                                    <span class="fileinput-new">Select image</span>
-                                    <span class="fileinput-exists">Change</span>
-                                    <input type="file" name="avatar"/>
-                                </span>
+                                {{--<span class="btn btn-raised btn-round btn-default btn-file">--}}
+                                    {{--<span class="fileinput-new">Select image</span>--}}
+                                    {{--<span class="fileinput-exists">Change</span>--}}
+                                    {{--<input type="file" name="avatar"/>--}}
+                                {{--</span>--}}
                                 <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
                                    data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                             </div>

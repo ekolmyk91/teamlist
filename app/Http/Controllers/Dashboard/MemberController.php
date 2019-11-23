@@ -7,6 +7,7 @@ use App\Member;
 use App\Department;
 use App\User;
 use Carbon\Carbon;
+use Image;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -64,16 +65,16 @@ class MemberController extends Controller
         ];
 
         //Save and set avatar image.
-        if($request->get('avatar')){
-            $filename = time() . '_avatar_' . $request->get('avatar');
-            $path = $request->file('avatar')->storeAs(
-              'avatar', $filename
-            );
-
-            if($path){
-                $userFields['avatar'] = $filename;
-            }
-        }
+//        if($request->get('avatar')){
+//            $filename = time() . '_avatar_' . $request->get('avatar');
+//            $path = $request->file('avatar')->storeAs(
+//              'avatar', $filename
+//            );
+//
+//            if($path){
+//                $userFields['avatar'] = $filename;
+//            }
+//        }
 
         //Create User entity.
         $user = new User($userFields);
@@ -134,11 +135,47 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $filename = time() . '_avatar_' . $request->file('avatar')->getClientOriginalName();
+        $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+            'email' => 'required',
+            'birthday' => 'required'
+//          'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $path = $request->file('avatar')->storeAs(
-          'avatar', $filename
-        );
+        $member = Member::find($id);
+
+        $active = $request->get('active');
+        $userFields = [
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'active' => isset($active) ? 1 : 0,
+        ];
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '-' . $avatar->getClientOriginalName();
+
+            request()->file('avatar')->storeAs('avatar', $filename);
+            $userFields['avatar'] = $filename;
+        }
+        $user = $member->user()->update($userFields);
+
+        $member->update([
+            'name' => $request->get('name'),
+            'surname' => $request->get('surname'),
+            'email' => $request->get('email'),
+            'phone_1' => $request->get('phone_1'),
+            'phone_2' => $request->get('phone_2'),
+            'birthday' => Carbon::parse($request->get('birthday')),
+            'about' => $request->get('about'),
+            'department_id' => $request->get('department_id'),
+        ]);
+
+
+//        $member->save();
+
+
+        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
     }
 
     /**
