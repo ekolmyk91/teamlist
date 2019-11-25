@@ -29,6 +29,9 @@
                                 ID
                             </th>
                             <th>
+                                Avatar
+                            </th>
+                            <th>
                                 Name
                             </th>
                             <th>
@@ -44,6 +47,20 @@
                             <tr>
                                 <td>
                                     {{$member->user_id}}
+                                </td>
+                                <td>
+                                    @if($member->user->avatar)
+                                        <div class="card-profile-preview">
+                                            <div class="card-avatar-preview">
+                                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail img-raised">
+                                                        <img src="/storage/avatar/{{ $member->user->avatar }}" width="45px" heigh="45px"  alt="...">
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td>
                                     {{$member->name}}

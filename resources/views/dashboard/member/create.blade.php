@@ -129,29 +129,39 @@
 
                     <div class="card-body">
 
-                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                            <div>
-                                <span class="btn btn-raised btn-round btn-default btn-file">
-                                    <span class="fileinput-new">Select image</span>
-                                    <span class="fileinput-exists">Change</span>
-                                    <input type="file" name="avatar"/>
-                                </span>
-                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
-                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                            </div>
-                        </div>
+                        {{--<div class="fileinput fileinput-new text-center" data-provides="fileinput">--}}
+                            {{--<div>--}}
+                                {{--<span class="btn btn-raised btn-round btn-default btn-file">--}}
+                                    {{--<span class="fileinput-new">Select image</span>--}}
+                                    {{--<span class="fileinput-exists">Change</span>--}}
+                                    {{--<input type="file" name="avatar"/>--}}
+                                {{--</span>--}}
+                                {{--<a href="#pablo" class="btn btn-danger btn-round fileinput-exists"--}}
+                                   {{--data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @push('scripts')
+    {{--@push('scripts')--}}
+        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector:'textarea',
+                width: 900,
+                height: 300
+            });
+        </script>
         <script>
             <!-- javascript for init -->
             $( function() {
                 $( "#datepicker" ).datepicker();
             } );
+
+
         </script>
-    @endpush
+    {{--@endpush--}}
 @endsection
 

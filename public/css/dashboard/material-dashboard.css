@@ -17374,6 +17374,20 @@ label {
   max-height: 130px;
 }
 
+.card-profile-preview .card-avatar-preview {
+  /*width: 45px;*/
+  /*height: 45px;*/
+  /*object-fit: none;*/
+  max-width: 45px;
+  max-height: 45px;
+
+  margin: -20px 0;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
 .card-plain {
   background: transparent;
   box-shadow: none;

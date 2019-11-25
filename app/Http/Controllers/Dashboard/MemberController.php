@@ -148,7 +148,6 @@ class MemberController extends Controller
         $active = $request->get('active');
         $userFields = [
             'name' => $request->get('name'),
-            'email' => $request->get('email'),
             'active' => isset($active) ? 1 : 0,
         ];
         if($request->hasFile('avatar')){
@@ -158,8 +157,10 @@ class MemberController extends Controller
             request()->file('avatar')->storeAs('avatar', $filename);
             $userFields['avatar'] = $filename;
         }
-        $user = $member->user()->update($userFields);
 
+//        dd($userFields);
+        $member->user()->update($userFields);
+//
         $member->update([
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),

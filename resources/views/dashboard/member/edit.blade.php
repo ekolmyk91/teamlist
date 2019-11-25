@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label>About</label>
                                         <div class="form-group">
-                                            <textarea name="about" class="form-control"
+                                            <textarea name="about" class="form-control about"
                                                       rows="5">{{$member->about}}</textarea>
                                         </div>
                                     </div>
@@ -170,5 +170,15 @@
             </div>
         </div>
     </div>
+    {{--@push('scripts')--}}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector:'textarea',
+            width: 900,
+            height: 300
+        });
+    </script>
+    {{--@endpush--}}
 @endsection
 

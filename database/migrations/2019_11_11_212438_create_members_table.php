@@ -22,7 +22,8 @@ class CreateMembersTable extends Migration
             $table->string('phone_1');
             $table->string('phone_2');
             $table->bigInteger('department_id')->nullable();
-            $table->mediumText('about');
+            $table->bigInteger('room_id')->nullable();
+            $table->mediumText('about')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
