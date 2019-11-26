@@ -1,0 +1,121 @@
+header {
+    background-color: $summerSky;
+    a {
+        display: block;
+    }
+    .divHeader {
+        display: flex;
+        .header-logo {
+            display: flex;
+            width: 50%;
+            svg {
+                width: 170px;
+                height: 75px;
+            }
+        }
+        .navMenu {
+            display: none;
+            width: 50%;
+            li {
+                margin-right: 25px;
+                a {
+                    color: $white;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                    font-size: $fontSize-small;
+                    transition: .3s all;
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+            }
+            @media (min-width: 769px) {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }
+    }
+}
+.hamburger {
+    position: absolute;
+    right: 40px;
+    top: 25px;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    @media (min-width: 769px) {
+        display: none;
+    }
+    span {
+        position: absolute;
+        width: 26px;
+        height: 3px;
+        left: 0;
+        content: '';
+        opacity: 1;
+        transition: none 0.5s ease 0.5s;
+        transition-property: transform, top, bottom, left, opacity;
+        background: $white;
+        top:10px;
+    }
+    &:before {
+        position: absolute;
+        width: 26px;
+        height: 3px;
+        left: 0;
+        content: '';
+        opacity: 1;
+        transition: none 0.5s ease 0.5s;
+        transition-property: transform, top, bottom, left, opacity;
+        background: $white;
+        top: 0;
+    }
+    &:after {
+        position: absolute;
+        width: 26px;
+        height: 3px;
+        left: 0;
+        content: '';
+        opacity: 1;
+        transition: none 0.5s ease 0.5s;
+        transition-property: transform, top, bottom, left, opacity;
+        background: $white;
+        top: 20px;
+    }
+}
+.navUpMenu {
+    background-color: $summerSky;
+    vertical-align: top;
+    background-size: cover;
+    position: absolute;
+    top: 75px;
+    color: $white;
+    width: 100%;
+    padding: 25px;
+    z-index: 999;
+    display: none;
+    @media (min-width: 769px) {
+        display: none !important;
+    }
+    ul {
+        list-style-type:none;
+      li {
+          padding: 0 0 15px;
+          margin: 0 0 15px;
+          border-bottom: 1px solid $white-60;
+            a {
+                font-size: $fontSize-small;
+                color: $white;
+                transition: opacity 0.7s;
+                text-align: left;
+                display: block;
+                width: 100%;
+                &:hover {
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
+}

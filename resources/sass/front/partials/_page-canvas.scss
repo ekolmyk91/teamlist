@@ -1,0 +1,133 @@
+.sectionCanvas {
+    padding: 50px 0;
+}
+
+.js-openInfo {
+    display: block !important;
+}
+
+.BclokTable {
+    min-width: 220px;
+    height: max-content;
+    display: none;
+    #tail {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: #eae5e5 transparent transparent transparent;
+        border-width: 31px;
+        border-style: solid;
+    }
+}
+
+.blockRelativ {
+    position: relative;
+    padding: 10px;
+    img {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        float: left;
+    }
+    p {
+        margin: 0;
+        font-size: 10px;
+        @media (min-width: 768px) {
+            font-size: $fontSize-small;
+        }
+    }
+    em {
+        font-weight: $fontWeight-bold;
+        font-size: 11px;
+        @media (min-width: 768px) {
+            font-size: $fontSize-small;
+        }
+    }
+    b {
+        padding: 5px 10px;
+        font-size: 10px;
+        display: inline-block;
+        @media (min-width: 768px) {
+            font-size: $fontSize-small;
+            padding: 15px 10px;
+        }
+    }
+}
+
+.blockCanvasFlex {
+    //display: block;
+    display: none;
+    overflow: hidden;
+    @media (min-width: 992px) {
+       // display: flex;
+       display: none;
+    }
+}
+.blockCanvasFlexClass {
+    display: block;
+    overflow: hidden;
+    @media (min-width: 992px) {
+       display: flex;
+    }
+}
+
+.sidebar {
+    margin-left: 0;
+    background-color: $fliceBlue;
+    padding: 20px;
+    @media (min-width: 1024px) {
+        margin-left: 25px;
+        width: 750px;
+    }
+    .inputSearch {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid $black;
+        padding: 10px;
+        &:focus {
+            outline: none;
+        }
+    }
+    .inputSearchOffice {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid $black;
+        padding: 10px;
+        &:focus {
+            outline: none;
+        }
+    }
+    ul {
+        padding-top: 25px;
+    }
+}
+
+input[type=checkbox] {
+    width: 10%;
+}
+
+#c {
+    background-color: lightgrey;
+    height: 100%;
+    width: 99%;
+}
+.upper-canvas {
+       border: 2px solid;
+}
+
+#WrappBalocCanvas {
+    position: absolute;
+    width: 700px;
+    height: 585px;
+}
+
+#WrappBalocCanvas2 {
+    position: absolute;
+    width: 700px;
+    height: 585px;
+}
+
+#canvasMapOffice {
+    background-color: lightgrey;
+}
+

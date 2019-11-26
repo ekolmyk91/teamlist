@@ -1,0 +1,207 @@
+.pageHeaderForm {
+    background-color: $summersPro;
+    color: $white;
+    h2 {
+        margin: 0;
+        @media (min-width: 769px) {
+            font-size: $fontSize-largestl;
+        }
+    }
+    h3 {
+        @media (min-width: 769px) {
+            font-size: $fontSize-large;
+        }
+    }
+}
+
+.wrapperHeaderForm {
+    max-width: 840px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 25px 15px;
+    @media (min-width: 769px) {
+        padding: 40px 15px 30px;
+    }
+}
+
+.pageHomeFeatures {
+    background-color: $fliceBlue;
+    padding: 30px 0;
+    ul {
+        display: block;
+        @media (min-width: 768px) {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        li {
+            width: 100%;
+            padding: 25px;
+            transition: .3s all;
+            @media (min-width: 768px) {
+                text-align: center;
+                width: 50.33%;
+                padding: 0;
+            }
+            @media (min-width: 992px) {
+                text-align: center;
+                width: 43.33%;
+                padding: 0;
+            }
+            @media (min-width: 1100px) {
+                text-align: center;
+                width: 33.33%;
+                padding: 0;
+            }
+            a {
+                font-size: $fontSize-medium;
+                color: $nero;
+                display: block;
+                text-align: center;
+                padding: 20px;
+                margin: 0;
+                svg {
+                    width: 92%;
+                    height: 100px;
+                }
+            }
+            i {
+                color: $summerSky;
+                font-size: 40px;
+                float: left;
+                padding-top: 5px;
+                @media (min-width: 768px) {
+                    float: none;
+                }
+                @media (min-width: 992px) {
+                    float: left;
+                }
+            }
+            h5 {
+                font-size: $fontSize-small;
+                color: $nobel;
+                margin: 0;
+                font-weight: $fontWeight-lightPlus;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.pageHomeArticles {
+    padding-top: 30px;
+    .wrapperCustomBlock {
+        display: block;
+        @media (min-width: 768px) {
+            display: flex;
+        }
+        .popularArticles {
+            width: 100%;
+            padding: 0 0 20px 0;
+            @media (min-width: 768px) {
+                width: 33.33%;
+                padding: 0 25px 25px 25px;
+            }
+        }
+        .helpfulArticles {
+            width: 100%;
+            padding: 0 0 20px 0;
+            @media (min-width: 768px) {
+                width: 33.33%;
+                padding: 0 25px 25px 25px;
+            }
+        }
+        .popularThemes {
+            width: 100%;
+            padding: 0 0 20px 0;
+            @media (min-width: 768px) {
+                width: 33.33%;
+                padding: 0 25px 25px 25px;
+            }
+            li {
+                transition: .3s all;
+                &:hover {
+                    opacity: 1;
+                }
+                &:before {
+                    font-family: FontAwesome;
+                    content: "\f0e5";
+                    margin: 0 12px 0 0;
+                    font-size: 15px;
+                    color: #6d6d6d;
+                    position: absolute;
+                    left: 0;
+                    top: 2px;
+                }
+            }
+        }
+        li {
+            position: relative;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            padding-left: 25px;
+            transition: .3s all;
+            &:hover {
+                opacity: .6;
+            }
+            & > div {
+                a {
+                    color: $summersPro;
+                    transition: .3s all;
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
+            }
+            &:last-child {
+                border-bottom: none;
+            }
+            &:before {
+                font-family: FontAwesome;
+                content: "\f0f6";
+                color: #6d6d6d;
+                font-size: 100%;
+                position: absolute;
+                top: 2px;
+                bottom: 0;
+                left: 0;
+            }
+            a {
+                color: $grey;
+                font-size: $fontSize-small;
+                transition: .3s all;
+            }
+        }
+    }
+    h4 {
+        margin: 0 0 20px;
+        font-size: $fontSize-base;
+        font-weight: $fontWeight-lightPlus;
+        color: $nero;
+    }
+}
+
+.tagsBlock {
+    background-color: $fliceBlue;
+    padding: 30px 0;
+    .tx3-tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        li {
+            display: block;
+            list-style: none;
+            margin-left: 10px!important;
+            a {
+                display: block;
+                text-decoration: none;
+                color: #c9c9c9;
+                &:hover {
+                    color: #000000;
+                    transition: color 250ms linear;
+                }
+            }
+        }
+    }
+}

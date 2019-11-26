@@ -1,0 +1,234 @@
+.team-page {
+    .blockFlex {
+        display: flex;
+        padding-bottom: 25px;
+        flex-direction: column;
+        @media (min-width: 768px) {
+            flex-direction: row;
+        }
+    }
+    .mainContent {
+        order: 2;
+        padding-top: 0;
+        @media (min-width: 768px) {
+            width: 70%;
+            margin-right: 0;
+            padding: 30px 0 0;
+            order: 1;
+        }
+        @media (min-width: 992px) {
+            width: 75%;
+        }
+        @media (min-width: 1200px) {
+            margin-right: -20px;
+            padding-right: 50px;
+        }
+    }
+    .team-box {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        .dev-name {
+            font-size: $fontSize-large;
+            font-weight: $fontWeight-extraBold;
+        }
+        info {
+           &__text {
+               font-size: $fontSize-small;
+           }
+        }
+        .img {
+            max-width: 190px;
+            max-height: 190px;
+            margin: 0 auto 20px;
+            img {
+                object-fit: cover;
+                object-position: center;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+        }
+        &__popup {
+            display: flex;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 32px);
+            min-height: 310px;
+            text-align: left;
+            padding: 30px;
+            background-color: $fliceBlue;
+            height: 100vh;
+            overflow-y: auto;
+            @media (min-width: 768px) {
+                height: auto;
+            }
+            @media (min-width: 992px) {
+                width: 776px;
+            }
+            .close-icon {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+                opacity: 0.6;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                svg {
+                    width: 25px;
+                    height: 25px;
+                    fill: $gunPowder;
+                }
+            }
+            .img {
+                width: 300px;
+                margin: 0 auto 30px;
+                @media (min-width: 768px) {
+                    margin: 0 30px 0 0;
+                }
+            }
+            .info {
+                flex-direction: column;
+                justify-content: space-between;
+                width: 100%;
+                text-align: center;
+                @media (min-width: 768px) {
+                    text-align: left;
+                }
+                &__label {
+                    font-weight: $fontWeight-bold;
+                }
+            }
+            .sertificate {
+                margin-top: 15px;
+                &__item {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 10px;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+        &__card {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid transparent;
+            background-color: $fliceBlue;
+            transition: 0.3s;
+            cursor: pointer;
+            @media (min-width: 576px) {
+                width: 48%;
+            }
+            @media (min-width: 768px) {
+                width: 46%;
+                margin: 0 20px 20px 0;
+            }
+            @media (min-width: 992px) {
+                width: 30.4%;
+            }
+            @media (min-width: 1200px) {
+                width: 30.8%;
+            }
+            &:hover {
+                border: 1px solid $silver;
+            }
+            &--active {
+                .team-box__popup {
+                    opacity: 1;
+                    z-index: 99999;
+                }
+            }
+        }
+        &__item {
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+    }
+    .sidebar-team {
+        width: 100%;
+        position: sticky;
+        top: 0;
+        height: max-content;
+        margin-top: 15px;
+        padding: 0 0 10px 0;
+        background-color: $white;
+        order: 1;
+        @media (min-width: 768px) {
+            top: 30px;
+            width: 30%;
+            margin-top: 30px;
+            padding: 0;
+            order: 2;
+        }
+        @media (min-width: 992px) {
+            width: 25%;
+        }
+        @media (min-width: 1024px) {
+            margin-left: 25px;
+        }
+        &__filter {
+            display: flex;
+            justify-content: flex-end;
+            &--link {
+                width: 30px;
+                height: 30px;
+                margin-top: 10px;
+                cursor: pointer;
+                svg {
+                    width: 30px;
+                    height: 30px;
+                    fill: $gunPowder;
+                }
+            }
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+        &__wrap {
+            background-color: $fliceBlue;
+            padding: 20px;
+            display: none;
+            @media (min-width: 768px) {
+                display: block;
+            }
+        }
+        .input,
+        .select {
+            margin-bottom: 10px;
+        }
+        &__mobile-open {
+            display: block;
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba( 000, 000, 000, 0.6);
+    z-index: -1;
+    opacity: 0;
+    transition: 0.1s;
+
+    &--show {
+        opacity: 1;
+        z-index: 9999;
+    }
+}
+
+
+

@@ -161,8 +161,8 @@
                                     {{--<span class="fileinput-exists">Change</span>--}}
                                     {{--<input type="file" name="avatar"/>--}}
                                 {{--</span>--}}
-                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
-                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                {{--<a href="#pablo" class="btn btn-danger btn-round fileinput-exists"--}}
+                                   {{--data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>--}}
                             </div>
                         </div>
                     </div>

@@ -64,18 +64,6 @@ class MemberController extends Controller
           'password' => User::generatePassword(),
         ];
 
-        //Save and set avatar image.
-//        if($request->get('avatar')){
-//            $filename = time() . '_avatar_' . $request->get('avatar');
-//            $path = $request->file('avatar')->storeAs(
-//              'avatar', $filename
-//            );
-//
-//            if($path){
-//                $userFields['avatar'] = $filename;
-//            }
-//        }
-
         //Create User entity.
         $user = new User($userFields);
         $user->save();

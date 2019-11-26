@@ -1,0 +1,78 @@
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="checkbox"],
+select,
+textarea {
+    width: 100%;
+    padding: 7px 10px 8px;
+    border-radius: 0;
+    &::placeholder {
+    }
+}
+select {
+    background-color: $white;
+}
+textarea {
+    resize: vertical;
+    height: 150px;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.btn {
+    display: inline-block;
+    margin: 12px 0;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0;
+    border: 1px solid $black;
+    color: $black;
+    transition: all .3s ease-out;
+    -webkit-appearance: none;
+    appearance: none;
+    &:hover,
+    &:active {
+        cursor: pointer;
+    }
+}
+.btn--fullWidth {
+    width: 100%;
+}
+.pageHeaderForm {
+    form {
+        padding-top: 25px;
+        display: flex;
+        position: relative;
+    }
+    input {
+        border: none;
+        border-radius: 5px 0 0 5px;
+    }
+    button {
+        margin: 0;
+        border: none;
+        color: $white;
+        background-color: $zambezi;
+        width: 100px;
+        height: 45px;
+        border-radius: 0 5px 5px 0;
+        &:hover {
+            background-color: $black;
+        }
+    }
+    .hiddenSearch {
+        display: none;
+        position: absolute;
+        top: 70px;
+        background-color: $white;
+        height: 50px;
+        color: $black;
+        text-align: left;
+        padding: 10px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    }
+}

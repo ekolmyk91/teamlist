@@ -1,0 +1,151 @@
+.pageHeaderForm {
+    .wrapper {
+        padding: 50px 15px;
+        @media (min-width: 768px) {
+            input {
+                width: 50%;
+            }
+        }
+    }
+}
+
+.searchQuery {
+    .blockFlex {
+        display: block;
+        padding-bottom: 25px;
+        @media (min-width: 768px) {
+            display: flex;
+        }
+        .pageHomeArticles {
+            width: 100%;
+            background-color: $fliceBlue;
+            padding: 20px;
+            height: max-content;
+            margin-top: 30px;
+            @media (min-width: 768px) {
+                width: 25%;
+            }
+            .listLiBlock {
+                position: relative;
+                padding-left: 25px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid $silver;
+                margin-bottom: 10px;
+                &:last-child {
+                    border-bottom: none;
+                }
+                &:before {
+                    font-family: FontAwesome;
+                    content: "\f0f6";
+                    color: #6d6d6d;
+                    font-size: 100%;
+                    position: absolute;
+                    top: 2px;
+                    bottom: 0;
+                    left: 0;
+                }
+                a {
+                    font-size: $fontSize-small;
+                }
+            }
+        }
+    }
+}
+
+.mainContent {
+    padding-top: 30px;
+    padding-right: 0;
+    display: flex;
+    width: 100%;
+    border-bottom: none;
+    flex-wrap: wrap;
+    @media (min-width: 768px) {
+        padding-right: 50px;
+        width: 75%;
+    }
+    .ulArticles {
+        width: 100%;
+        li {
+            display: flex;
+            padding-bottom: 10px;
+            padding-top: 20px;
+            border-bottom: 1px solid $silver;
+            justify-content: space-between;
+            &:first-child {
+                padding-top: 0;
+            }
+            a {
+                display: block;
+                cursor: pointer;
+                h3 {
+                    margin: 0;
+                    color: $zambezi;
+                }
+            }
+        }
+    }
+}
+
+.metaBlock {
+    display: flex;
+    align-items: center;
+    .metaLike {
+        display: flex;
+        background-color: $green;
+        border-radius: 5px;
+        padding: 0 5px !important;
+        border-bottom: none;
+        height: max-content;
+        margin-right: 5px;
+        a {
+            font-size: $fontSize-xsmall !important;
+            color: $white;
+        }
+        &:before {
+            content: "\f164";
+            color: #fff;
+            font-family: FontAwesome;
+            margin-right: 3px;
+            font-size: $fontSize-xsmall;
+        }
+    }
+    .metaViews {
+        display: flex;
+        background-color: $silver;
+        border-radius: 5px;
+        padding: 0 5px !important;
+        border-bottom: none;
+        height: max-content;
+        margin-right: 5px;
+        a {
+            font-size: $fontSize-xsmall !important;
+        }
+        &:before {
+            content: "\f06e";
+            color: #6d6d6d;
+            display: inline-block;
+            font-family: FontAwesome;
+            margin-right: 3px;
+            font-size: $fontSize-xsmall;
+        }
+    }
+    .metaComments {
+        display: flex;
+        background-color: $silver;
+        border-radius: 5px;
+        padding: 0 5px !important;
+        border-bottom: none;
+        height: max-content;
+        a {
+            font-size: $fontSize-xsmall !important;
+        }
+        &:before {
+            content: "\f075";
+            color: #6d6d6d;
+            display: inline-block;
+            font-family: FontAwesome;
+            margin-right: 3px;
+            font-size: $fontSize-xsmall;
+        }
+    }
+}
