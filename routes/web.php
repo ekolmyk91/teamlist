@@ -15,7 +15,7 @@
 //    return view('welcome');
 //})->name('front');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/404', 'DefaultController@notFound');
@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function (){
         Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
             Route::resource('members', 'Dashboard\MemberController');
+            Route::resource('solutions', 'Dashboard\SolutionController');
             Route::resource('departments', 'Dashboard\DepartmentController');
             Route::resource('skills', 'Dashboard\SkillController');
         });
