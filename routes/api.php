@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('members', 'API\MemberController@index');
 Route::get('members/{id}', 'API\MemberController@show');
+
+Route::get('solutions', 'API\SolutionController@index');
+Route::get('solutions/{id}', 'API\SolutionController@show');

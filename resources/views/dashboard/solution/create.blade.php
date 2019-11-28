@@ -41,6 +41,32 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Categories</label>
+                                        <select name='tags' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
+                                            <option value="">-- Select --</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Tags</label>
+                                        <select name='tags' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
+                                            <option value="">-- Select --</option>
+                                            @foreach($tags as $tag)
+                                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <input type="file" class="form-control-file" name="archive" id="archiveFile" aria-describedby="fileHelp">
                                     <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>

@@ -56,6 +56,20 @@
                         <p>Solutions</p>
                     </a>
                 </li>
+                <li class="nav-item {{ (Request::is('admin/categories*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.categories.index')}}">
+                        <i class="material-icons">category</i>
+                        <p>Categories</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {{ (Request::is('admin/tags*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.tags.index')}}">
+                        <i class="material-icons">tag_faces</i>
+                        <p>Tags</p>
+                    </a>
+                </li>
+
                 {{--<li class="nav-item ">--}}
                     {{--<a class="nav-link" href="{{url('/  admin/members')}}">--}}
                         {{--<i class="material-icons">person</i>--}}

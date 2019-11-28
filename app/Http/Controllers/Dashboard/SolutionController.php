@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Category;
 use App\Solution;
 use App\Http\Controllers\Controller;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class SolutionController extends Controller
@@ -33,7 +35,14 @@ class SolutionController extends Controller
      */
     public function create()
     {
-        return view('dashboard.solution.create');
+
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('dashboard.solution.create', [
+          'categories' => $categories,
+          'tags' => $tags,
+        ]);
     }
 
     /**
@@ -47,6 +56,11 @@ class SolutionController extends Controller
         $request->validate([
           'title'=>'required',
         ]);
+
+//        if($request->get('tags')){
+//            $tag = Tag::find();
+//        }
+
 
         //Create Solution entity.
         $solution = new Solution([

@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function (){
             Route::resource('members', 'Dashboard\MemberController');
             Route::resource('solutions', 'Dashboard\SolutionController');
             Route::resource('departments', 'Dashboard\DepartmentController');
+            Route::resource('categories', 'Dashboard\CategoryController');
+            Route::resource('tags', 'Dashboard\TagController');
             Route::resource('skills', 'Dashboard\SkillController');
         });
 //    });

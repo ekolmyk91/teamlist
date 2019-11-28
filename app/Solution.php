@@ -13,4 +13,20 @@ class Solution extends Model
       'archive',
       'active',
     ];
+
+    /**
+     * The tags that belong to the Solution.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
+
+    /**
+     * The tags that belong to the Solution.
+     */
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category');
+    }
 }
