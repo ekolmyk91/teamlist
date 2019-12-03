@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -73,9 +74,21 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * Get the user's first name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+        return '/storage/avatar/' . $value;
+    }
+
     public static function generatePassword()
     {
         // Generate random string and encrypt it.
-        return bcrypt(Str::random(35));
+        return Hash::make(Str::random(35));
     }
+
 }

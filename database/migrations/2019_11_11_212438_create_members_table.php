@@ -15,12 +15,12 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('user_id')->unique()->unsigned();
-            $table->string('name');
-            $table->string('surname');
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
             $table->timestamp('birthday')->nullable();
             $table->string('email')->unique();
-            $table->string('phone_1');
-            $table->string('phone_2');
+            $table->string('phone_1')->nullable();
+            $table->string('phone_2')->nullable();
             $table->bigInteger('department_id')->nullable();
             $table->bigInteger('room_id')->nullable();
             $table->mediumText('about')->nullable();

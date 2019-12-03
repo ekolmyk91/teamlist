@@ -10,7 +10,7 @@ class MemberInfoPopup extends Component {
                 {/*<svg><use xlink:href="#close-icon"></use></svg>*/}
                 </div>
                 <div className="img">
-                    <img src="/images/front/logo8.png" alt="develop image" />
+                    <img src={member.user.avatar} alt="develop image" />
                 </div>
                 <div className="info blockFlex">
                     <div className="dev-name">

@@ -15,7 +15,8 @@
 //    return view('welcome');
 //})->name('front');
 
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
+Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/404', 'DefaultController@notFound');
@@ -24,7 +25,7 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('/member', 'DemoController@memberDemo')->name('member');
 //    Route::resource('members', 'Dashboard\MemberController');
 
-//    Route::group(['middleware' => ['admin']], function (){
+    Route::group(['middleware' => ['admin']], function (){
         Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
             Route::resource('members', 'Dashboard\MemberController');
@@ -34,7 +35,7 @@ Route::group(['middleware' => ['auth']], function (){
             Route::resource('tags', 'Dashboard\TagController');
             Route::resource('skills', 'Dashboard\SkillController');
         });
-//    });
+    });
 
 });
 
