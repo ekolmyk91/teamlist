@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Member;
 use App\Department;
+use App\Role;
 use App\User;
 use Carbon\Carbon;
 use Image;

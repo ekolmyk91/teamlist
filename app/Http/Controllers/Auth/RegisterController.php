@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Member;
+use App\Role;
 use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -65,11 +66,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //Default role
+        $role = Role::where('name', 'member')->first();
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'active' => 1
+            'active' => 1,
+            'roles'  => $role
         ]);
 
         //Create Member entity and attach User.
