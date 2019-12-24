@@ -23,9 +23,13 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $members = Member::all();
+
+        if ($request->filled('department')) {
+            $members->where('department_id', $request->get('department'));
+        }
 
         return view('dashboard.member.index', ['members' => $members]);
     }
@@ -56,7 +60,6 @@ class MemberController extends Controller
           'surname'=>'required',
           'email'=>'required|email|unique:users',
           'birthday'=>'required'
-//          'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $userFields = [
@@ -64,6 +67,14 @@ class MemberController extends Controller
           'email'    => $request->get('email'),
           'password' => User::generatePassword(),
         ];
+
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '-' . $avatar->getClientOriginalName();
+
+            request()->file('avatar')->storeAs('avatar', $filename);
+            $userFields['avatar'] = $filename;
+        }
 
         //Create User entity.
         $user = new User($userFields);
@@ -147,9 +158,7 @@ class MemberController extends Controller
             $userFields['avatar'] = $filename;
         }
 
-//        dd($userFields);
         $member->user()->update($userFields);
-//
         $member->update([
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
@@ -160,10 +169,6 @@ class MemberController extends Controller
             'about' => $request->get('about'),
             'department_id' => $request->get('department_id'),
         ]);
-
-
-//        $member->save();
-
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
     }

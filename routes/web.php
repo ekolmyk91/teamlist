@@ -15,8 +15,8 @@
 //    return view('welcome');
 //})->name('front');
 
-//Auth::routes(['register' => false]);
-Auth::routes();
+Auth::routes(['register' => false]);
+//Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/404', 'DefaultController@notFound');

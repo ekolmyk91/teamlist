@@ -12,17 +12,26 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $members = Member::with('user:id,avatar,active')->get([
-          'user_id',
-          'name',
-          'surname',
-          'birthday',
-          'email',
-        ])->where('user.active', '=', 1);
+        $members = Member::select([
+            'user_id',
+            'name',
+            'surname',
+            'birthday',
+            'email',
+            'department_id',
+        ])->with('user:id,avatar,active');
 
-        return response()->json($members);
+        if ($request->filled('department')) {
+            $members->where('department_id', $request->get('department'));
+        }
+
+        if ($request->filled('name')) {
+            $members->where('name', 'like', '%' . $request->get('name') . '%');
+        }
+
+        return response()->json($members->get()->where('user.active', 1));
     }
 
     public function show($id)
