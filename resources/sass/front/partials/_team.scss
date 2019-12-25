@@ -42,11 +42,12 @@
             max-width: 190px;
             max-height: 190px;
             margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
             img {
                 object-fit: cover;
-                object-position: center;
-                border-radius: 50%;
-                overflow: hidden;
+                width: auto;
+                height: 190px;
             }
         }
         &__popup {

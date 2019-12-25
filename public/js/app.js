@@ -73716,7 +73716,7 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/dev01/Projects/teamlist/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/dev01/Konstant/Project/Web4Pro(inner-project)/teamlist/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

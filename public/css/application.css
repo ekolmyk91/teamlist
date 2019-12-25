@@ -1561,15 +1561,15 @@ input[type=checkbox] {
   max-width: 190px;
   max-height: 190px;
   margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .team-page .team-box .img img {
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
-  border-radius: 50%;
-  overflow: hidden;
+  width: auto;
+  height: 190px;
 }
 
 .team-page .team-box__popup {
