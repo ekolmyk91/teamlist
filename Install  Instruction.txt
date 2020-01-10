@@ -1,0 +1,38 @@
+Deploy
+1. Clone project from repo https://github.com/ekolmyk91/teamlist.git to your local dir.
+2. Install required packages - composer install
+3. make .env file from .env.example  - cp .env.example .env
+4. Make DB and add db connection config to .env file
+5. Execute in root folder of the project - php artisan migrate
+6. php artisan storage:link
+7. Start project via command - php artisan serve
+8. Now project available by the URL - http://127.0.0.1:8000/
+
+
+Admin panel
+
+1. Open http://127.0.0.1:8000/login
+Access
+admin@example.test / JyBpigmtnB
+
+2. Add test departments http://127.0.0.1:8000/admin/departments
+
+3. Add test members http://127.0.0.1:8000/admin/members
+
+API
+
+Members list - http://127.0.0.1:8000/api/members
+Current member http://127.0.0.1:8000/api/members/{id}
+
+Solutions list - http://127.0.0.1:8000/api/solutions/
+Solution item http://127.0.0.1:8000/api/solutions/{id}
+
+
+
+
+
+
+
+
+
+
