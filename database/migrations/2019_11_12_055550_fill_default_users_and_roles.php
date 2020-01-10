@@ -46,7 +46,7 @@ class FillDefaultUsersAndRoles extends Migration
         $this->users = [
           [
             'name' => 'Administrator',
-            'email' => 'ekolmyk@corp.web4pro.com.ua',
+            'email' => 'admin@example.test',
             'email_verified_at' => null,
             'password' => Hash::make($this->password),
             'remember_token' => null,
