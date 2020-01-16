@@ -1673,6 +1673,7 @@ input[type=checkbox] {
   margin-bottom: 20px;
   text-align: center;
   border: 1px solid transparent;
+  border-radius: 15px;
   background-color: #F5F8FA;
   -webkit-transition: 0.3s;
   transition: 0.3s;
