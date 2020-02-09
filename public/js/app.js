@@ -67654,7 +67654,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73676,7 +73676,9 @@ function (_Component) {
           members = _this$state.members;
 
       if (!isLoaded) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading...");
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          "class": "preloader"
+        }, "Loading...");
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "team-page"
@@ -73689,11 +73691,12 @@ function (_Component) {
         }, members.map(function (member) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "team-box__card",
-            key: member.id
+            "data-id": "asd",
+            key: member.user_id
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_2__["default"], {
             member: member,
-            showPopup: _this3.togglePopup.bind(_this3, member.id)
-          }), _this3.state.showPopupId == member.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            showPopup: _this3.togglePopup.bind(_this3, member.user_id)
+          }), _this3.state.showPopupId == member.user_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__["default"], {
             member: member,
             closePopup: _this3.togglePopup.bind(_this3, null)
           }) : null);
@@ -73716,7 +73719,7 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/dev01/Projects/teamlist/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\projects\reactivkaion\jeksonProject\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

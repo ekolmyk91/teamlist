@@ -34,7 +34,7 @@ class TeamList extends Component {
     render () {
         const { isLoaded, members } = this.state;
         if(!isLoaded){
-            return <div>Loading...</div>;
+            return <div class="preloader">Loading...</div>;
         }else{
 
             return (
@@ -44,9 +44,9 @@ class TeamList extends Component {
                             <div className="team-box">
                                 { members.map((member) => {
                                     return (
-                                        <div className='team-box__card' key={member.id}>
-                                            <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.id)}/>
-                                            {this.state.showPopupId ==  member.id ?
+                                        <div className='team-box__card' data-id='asd' key={member.user_id}>
+                                            <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
+                                            {this.state.showPopupId ==  member.user_id ?
                                                 <MemberInfoPopup member={member} closePopup={this.togglePopup.bind(this, null)} /> :
                                                 null
                                             }

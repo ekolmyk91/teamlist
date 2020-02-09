@@ -126,9 +126,9 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/dev01/Projects/teamlist/resources/js/front/frontapp.js */"./resources/js/front/frontapp.js");
-__webpack_require__(/*! /home/dev01/Projects/teamlist/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/dev01/Projects/teamlist/resources/sass/front/application.scss */"./resources/sass/front/application.scss");
+__webpack_require__(/*! D:\projects\reactivkaion\jeksonProject\resources\js\front\frontapp.js */"./resources/js/front/frontapp.js");
+__webpack_require__(/*! D:\projects\reactivkaion\jeksonProject\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! D:\projects\reactivkaion\jeksonProject\resources\sass\front\application.scss */"./resources/sass/front/application.scss");
 
 
 /***/ })
