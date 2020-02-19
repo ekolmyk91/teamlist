@@ -10,7 +10,7 @@ class TeamList extends Component {
             members: [],
             error: null,
             isLoaded: false,
-            showPopupId: false
+            showPopupId: false,
         }
     }
 
@@ -27,14 +27,16 @@ class TeamList extends Component {
 
     togglePopup(id, e) {
         this.setState({
-            showPopupId: id ? id : null
+            showPopupId: id ? id : null,
+            stateClass: 'overlay--show'
         });
+        $(".overlay").toggleClass("overlay--show")
     }
 
     render () {
         const { isLoaded, members } = this.state;
         if(!isLoaded){
-            return <div class="preloader">Loading...</div>;
+            return <div className="preloader">Loading...</div>;
         }else{
 
             return (
@@ -47,7 +49,7 @@ class TeamList extends Component {
                                         <div className='team-box__card' key={member.user_id}>
                                             <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
                                             {this.state.showPopupId ==  member.user_id ?
-                                                <MemberInfoPopup member={member} closePopup={this.togglePopup.bind(this, null)} /> :
+                                                <MemberInfoPopup member={member} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> :
                                                 null
                                             }
                                         </div>

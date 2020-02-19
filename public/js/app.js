@@ -67654,7 +67654,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73178,7 +73178,7 @@ function (_Component) {
     value: function render() {
       var member = this.props.member;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "team-box__popup blockFlex"
+        className: 'team-box__popup blockFlex ' + this.props.stateClass
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "close-icon"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -73434,19 +73434,19 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
 
   return self;
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
 }
 
 function _inherits(subClass, superClass) {
@@ -73473,6 +73473,21 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 
 
 var MemberSearch =
@@ -73480,13 +73495,42 @@ var MemberSearch =
 function (_Component) {
   _inherits(MemberSearch, _Component);
 
-  function MemberSearch() {
+  function MemberSearch(props) {
+    var _this;
+
     _classCallCheck(this, MemberSearch);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MemberSearch).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MemberSearch).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      initialItems: '',
+      items: ''
+    });
+
+    _this.filterList = _this.filterList.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(MemberSearch, [{
+    key: "filterList",
+    value: function filterList(event) {
+      var items = this.state.initialItems;
+      items = items.filter(function (item) {
+        return item.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+      });
+      this.setState({
+        items: items
+      });
+    }
+  }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      this.setState({
+        initialItems: this.props.content,
+        items: this.props.content
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -73501,6 +73545,7 @@ function (_Component) {
         className: "js-widthInput",
         type: "text",
         value: "",
+        onChange: this.filterList,
         placeholder: "\u041F\u043E\u0438\u0441\u043A \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
         name: "s"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -73663,8 +73708,10 @@ function (_Component) {
     key: "togglePopup",
     value: function togglePopup(id, e) {
       this.setState({
-        showPopupId: id ? id : null
+        showPopupId: id ? id : null,
+        stateClass: 'overlay--show'
       });
+      $(".overlay").toggleClass("overlay--show");
     }
   }, {
     key: "render",
@@ -73677,7 +73724,7 @@ function (_Component) {
 
       if (!isLoaded) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          "class": "preloader"
+          className: "preloader"
         }, "Loading...");
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -73691,14 +73738,14 @@ function (_Component) {
         }, members.map(function (member) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "team-box__card",
-            "data-id": "asd",
             key: member.user_id
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_2__["default"], {
             member: member,
             showPopup: _this3.togglePopup.bind(_this3, member.user_id)
           }), _this3.state.showPopupId == member.user_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__["default"], {
             member: member,
-            closePopup: _this3.togglePopup.bind(_this3, null)
+            stateClass: _this3.state.stateClass,
+            closePopup: _this3.togglePopup.bind(_this3)
           }) : null);
         })))));
       }
@@ -73719,7 +73766,7 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\projects\reactivkaion\jeksonProject\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/ jekson/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

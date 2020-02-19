@@ -4,7 +4,7 @@ class MemberInfoPopup extends Component {
     render () {
         const member = this.props.member
         return (
-            <div className="team-box__popup blockFlex">
+            <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
                     <a href='#' onClick={this.props.closePopup}>close</a>
                 {/*<svg><use xlink:href="#close-icon"></use></svg>*/}
