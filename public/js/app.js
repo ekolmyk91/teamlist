@@ -72815,6 +72815,27 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/api/Api.js":
+/*!*********************************!*\
+  !*** ./resources/js/api/Api.js ***!
+  \*********************************/
+/*! exports provided: getUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var getUsers = function getUsers() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/members').then(function (responce) {
+    return responce.data;
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -73388,6 +73409,7 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_Api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/Api */ "./resources/js/api/Api.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 function _typeof(obj) {
@@ -73490,6 +73512,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var MemberSearch =
 /*#__PURE__*/
 function (_Component) {
@@ -73503,31 +73526,42 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MemberSearch).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      initialItems: '',
-      items: ''
+      members: []
     });
 
     _this.filterList = _this.filterList.bind(_assertThisInitialized(_this));
+    _this.state = {
+      members: []
+    };
     return _this;
   }
 
   _createClass(MemberSearch, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_1__["getUsers"])().then(function (response) {
+        _this2.setState({
+          members: response.data
+        });
+      });
+    }
+  }, {
     key: "filterList",
     value: function filterList(event) {
-      var items = this.state.initialItems;
-      items = items.filter(function (item) {
-        return item.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+      var members = this.state.initialItems;
+      members = members.filter(function (member) {
+        return member.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
       });
       this.setState({
-        items: items
+        members: members
       });
     }
   }, {
     key: "componentWillMount",
     value: function componentWillMount() {
-      this.setState({
-        initialItems: this.props.content,
-        items: this.props.content
+      this.setState({// members: this.props.content
       });
     }
   }, {
@@ -73577,10 +73611,9 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _MemberPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemberPreview */ "./resources/js/components/MemberPreview.js");
-/* harmony import */ var _MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MemberInfoPopup */ "./resources/js/components/MemberInfoPopup.js");
+/* harmony import */ var _MemberPreview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemberPreview */ "./resources/js/components/MemberPreview.js");
+/* harmony import */ var _MemberInfoPopup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemberInfoPopup */ "./resources/js/components/MemberInfoPopup.js");
+/* harmony import */ var _api_Api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/Api */ "./resources/js/api/Api.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 function _typeof(obj) {
@@ -73696,10 +73729,11 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/members').then(function (response) {
-        // const members= response.data;
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_3__["getUsers"])().then(function (data) {
+        console.log(data);
+
         _this2.setState({
-          members: response.data,
+          members: data,
           isLoaded: true
         });
       });
@@ -73739,10 +73773,10 @@ function (_Component) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "team-box__card",
             key: member.user_id
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_1__["default"], {
             member: member,
             showPopup: _this3.togglePopup.bind(_this3, member.user_id)
-          }), _this3.state.showPopupId == member.user_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          }), _this3.state.showPopupId == member.user_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_2__["default"], {
             member: member,
             stateClass: _this3.state.stateClass,
             closePopup: _this3.togglePopup.bind(_this3)

@@ -1,36 +1,44 @@
 import React, {Component} from 'react'
+import {getUsers} from '../api/Api'
 
 class MemberSearch extends Component {
 
-    state = {
-        initialItems: '',
-        items: ''
-    };
-    
     constructor(props) {
         super(props);
-        this.filterList = this.filterList.bind(this);
+        this.filterList = this.filterList.bind(this);  
+        this.state = {
+            members: []
+        }
     } 
+
+    state = {
+        members: []
+    };    
     
+    componentDidMount () {
+        getUsers().then(response => {
+                this.setState({
+                    members: response.data
+                });
+            })
+    }
 
     filterList(event) {
-      let items = this.state.initialItems;
-      items = items.filter(
-        (item) => {
-            return item.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
-        }
-      );
-      this.setState({items: items});
+        let members = this.state.initialItems;
+        members = members.filter(
+            (member) => {
+                return member.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+            }
+        );
+        this.setState({members: members});
     }
 
     componentWillMount(){
       this.setState({
-          initialItems: this.props.content,
-          items: this.props.content
+          // members: this.props.content
       })
     }
 
-  
     render () {
         return (
             <section className="pageHeaderForm">

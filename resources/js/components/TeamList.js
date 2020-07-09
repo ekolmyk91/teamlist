@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import MemberPreview from './MemberPreview'
 import MemberInfoPopup from './MemberInfoPopup'
+import {getUsers} from '../api/Api'
 
 class TeamList extends Component {
     constructor (props) {
@@ -15,14 +15,13 @@ class TeamList extends Component {
     }
 
     componentDidMount () {
-        axios.get('/api/members')
-            .then(response => {
-                // const members= response.data;
-                this.setState({
-                    members: response.data,
-                    isLoaded: true
-                });
-            })
+        getUsers().then(data => {
+            console.log(data)
+            this.setState({
+                members: data,
+                isLoaded: true
+            });
+        })
     }
 
     togglePopup(id, e) {
