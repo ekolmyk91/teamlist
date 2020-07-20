@@ -1075,6 +1075,10 @@ header .divHeader .navMenu li a:hover {
   font-size: 12px;
 }
 
+.searchWrap {
+  padding: 30px 15px;
+}
+
 .mainContent-headerContent {
   width: 100%;
   border-bottom: 1px solid #C0C0C0;

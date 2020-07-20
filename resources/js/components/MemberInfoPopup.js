@@ -34,13 +34,13 @@ class MemberInfoPopup extends Component {
                     </div>
                     <ul className="sertificate">
                         <li className="sertificate__item">
-                            <img src="/images/front/sertificate.jpg" alt="sertificate image" />
+                            <img src="/img/r.png" alt="sertificate image" />
                         </li>
                         <li className="sertificate__item">
-                            <img src="/images/front/sertificate.jpg" alt="sertificate image" />
+                            <img src="/img/r.png" alt="sertificate image" />
                         </li>
                         <li className="sertificate__item">
-                            <img src=" /images/front/sertificate.jpg" alt="sertificate image" />
+                            <img src="/img/r.png" alt="sertificate image" />
                         </li>
                     </ul>
                 </div>
