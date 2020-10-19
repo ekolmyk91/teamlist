@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- Material Kit CSS -->
     <link href="{{ asset('css/dashboard/material-dashboard.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/dashboard/jquery.datetimepicker.css') }}" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -190,6 +192,9 @@
 <script src="{{ asset('js/dashboard/core/popper.min.js') }}"></script>
 <script src="{{ asset('js/dashboard/core/bootstrap-material-design.min.js') }}"></script>
 <script src="{{ asset('js/dashboard/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+<script src="{{ asset('js/dashboard/moment.min.js') }}"></script>
+<script src="{{ asset('js/dashboard/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('js/dashboard/material-dashboard.js') }}"></script>
 </body>
 
 </html>

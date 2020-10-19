@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './Header'
-import MemberSearch from './MemberSearch'
+import PageHeader from './PageHeader'
 import TeamList from './TeamList'
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
             <BrowserRouter>
                 <Header />
                 <div className="content">
-                    <MemberSearch />
+                    <PageHeader />
                     <Switch>
                         <Route path='/team' component={TeamList} />
                     </Switch>

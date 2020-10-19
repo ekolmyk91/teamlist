@@ -4,7 +4,7 @@ class MemberInfoPopup extends Component {
     render () {
         const member = this.props.member
         return (
-            <div className="team-box__popup blockFlex">
+            <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
                     <a href='#' onClick={this.props.closePopup}>close</a>
                 {/*<svg><use xlink:href="#close-icon"></use></svg>*/}
@@ -34,13 +34,13 @@ class MemberInfoPopup extends Component {
                     </div>
                     <ul className="sertificate">
                         <li className="sertificate__item">
-                            <img src="/images/front/sertificate.jpg" alt="sertificate image" />
+                            <img src="/img/r.png" alt="sertificate image" />
                         </li>
                         <li className="sertificate__item">
-                            <img src="/images/front/sertificate.jpg" alt="sertificate image" />
+                            <img src="/img/r.png" alt="sertificate image" />
                         </li>
                         <li className="sertificate__item">
-                            <img src=" /images/front/sertificate.jpg" alt="sertificate image" />
+                            <img src="/img/r.png" alt="sertificate image" />
                         </li>
                     </ul>
                 </div>

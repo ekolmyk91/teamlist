@@ -67654,7 +67654,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -72815,6 +72815,27 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/api/Api.js":
+/*!*********************************!*\
+  !*** ./resources/js/api/Api.js ***!
+  \*********************************/
+/*! exports provided: getUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var getUsers = function getUsers() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/members').then(function (responce) {
+    return responce.data;
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -72899,7 +72920,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
-/* harmony import */ var _MemberSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MemberSearch */ "./resources/js/components/MemberSearch.js");
+/* harmony import */ var _PageHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PageHeader */ "./resources/js/components/PageHeader.js");
 /* harmony import */ var _TeamList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TeamList */ "./resources/js/components/TeamList.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
@@ -73009,7 +73030,7 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberSearch__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PageHeader__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/team",
         component: _TeamList__WEBPACK_IMPORTED_MODULE_5__["default"]
       }))));
@@ -73178,7 +73199,7 @@ function (_Component) {
     value: function render() {
       var member = this.props.member;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "team-box__popup blockFlex"
+        className: 'team-box__popup blockFlex ' + this.props.stateClass
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "close-icon"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -73216,17 +73237,17 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "sertificate__item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/images/front/sertificate.jpg",
+        src: "/img/r.png",
         alt: "sertificate image"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "sertificate__item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/images/front/sertificate.jpg",
+        src: "/img/r.png",
         alt: "sertificate image"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "sertificate__item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: " /images/front/sertificate.jpg",
+        src: "/img/r.png",
         alt: "sertificate image"
       })))));
     }
@@ -73377,10 +73398,10 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/MemberSearch.js":
-/*!*************************************************!*\
-  !*** ./resources/js/components/MemberSearch.js ***!
-  \*************************************************/
+/***/ "./resources/js/components/PageHeader.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/PageHeader.js ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -73493,24 +73514,7 @@ function (_Component) {
         className: "pageHeaderForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "\u041A\u043E\u043C\u0430\u043D\u0434\u0430"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "",
-        method: "get",
-        action: "search.html"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "js-widthInput",
-        type: "text",
-        value: "",
-        placeholder: "\u041F\u043E\u0438\u0441\u043A \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
-        name: "s"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "",
-        type: "submit"
-      }, "\u041F\u043E\u0438\u0441\u043A"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "hiddenSearch js-widthBlock"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "#"
-      }, "vfv")))))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "\u041A\u043E\u043C\u0430\u043D\u0434\u0430")));
     }
   }]);
 
@@ -73532,10 +73536,9 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _MemberPreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemberPreview */ "./resources/js/components/MemberPreview.js");
-/* harmony import */ var _MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MemberInfoPopup */ "./resources/js/components/MemberInfoPopup.js");
+/* harmony import */ var _MemberPreview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemberPreview */ "./resources/js/components/MemberPreview.js");
+/* harmony import */ var _MemberInfoPopup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemberInfoPopup */ "./resources/js/components/MemberInfoPopup.js");
+/* harmony import */ var _api_Api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/Api */ "./resources/js/api/Api.js");
 function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
 function _typeof(obj) {
@@ -73582,19 +73585,19 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
 
   return self;
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
 }
 
 function _inherits(subClass, superClass) {
@@ -73621,6 +73624,21 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 
 
 
@@ -73637,12 +73655,38 @@ function (_Component) {
     _classCallCheck(this, TeamList);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TeamList).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      search: ""
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderMember", function (member) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "team-box__card",
+        key: member.user_id
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        member: member,
+        showPopup: _this.togglePopup.bind(_assertThisInitialized(_this), member.user_id)
+      }), _this.state.showPopupId == member.user_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        member: member,
+        stateClass: _this.state.stateClass,
+        closePopup: _this.togglePopup.bind(_assertThisInitialized(_this))
+      }) : null);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onchange", function (e) {
+      _this.setState({
+        search: e.target.value
+      });
+    });
+
     _this.state = {
       members: [],
       error: null,
       isLoaded: false,
       showPopupId: false
     };
+    _this.onchange = _this.onchange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -73651,10 +73695,9 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/members').then(function (response) {
-        // const members= response.data;
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_3__["getUsers"])().then(function (data) {
         _this2.setState({
-          members: response.data,
+          members: data,
           isLoaded: true
         });
       });
@@ -73663,42 +73706,45 @@ function (_Component) {
     key: "togglePopup",
     value: function togglePopup(id, e) {
       this.setState({
-        showPopupId: id ? id : null
+        showPopupId: id ? id : null,
+        stateClass: 'overlay--show'
       });
+      $(".overlay").toggleClass("overlay--show");
     }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      var _this$state = this.state,
-          isLoaded = _this$state.isLoaded,
-          members = _this$state.members;
-
-      if (!isLoaded) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading...");
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-          className: "team-page"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "wrapper blockFlex"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "mainContent"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "team-box"
-        }, members.map(function (member) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "team-box__card",
-            key: member.id
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            member: member,
-            showPopup: _this3.togglePopup.bind(_this3, member.id)
-          }), _this3.state.showPopupId == member.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberInfoPopup__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            member: member,
-            closePopup: _this3.togglePopup.bind(_this3, null)
-          }) : null);
-        })))));
-      }
+      var search = this.state.search;
+      var members = this.state.members;
+      var filteredCountries = members.filter(function (member) {
+        return member.name.toLowerCase().indexOf(search) !== -1;
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wrapper searchWrap"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "js-widthInput",
+        type: "text",
+        ref: function ref(input) {
+          return _this3.search = input;
+        },
+        onChange: this.onchange,
+        placeholder: "\u041F\u043E\u0438\u0441\u043A \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u043E\u0432",
+        name: "s"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "team-page"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wrapper blockFlex"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mainContent"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "team-box"
+      }, filteredCountries.map(function (member) {
+        return _this3.renderMember(member);
+      }))))));
     }
   }]);
 
@@ -73716,7 +73762,7 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/dev01/Projects/teamlist/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/ jekson/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

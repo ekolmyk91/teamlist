@@ -155,13 +155,6 @@
             });
         </script>
         <script>
-            <!-- javascript for init -->
-            $( function() {
-                $( "#datepicker" ).datepicker();
-            } );
-
-
-        </script>
     {{--@endpush--}}
 @endsection
 

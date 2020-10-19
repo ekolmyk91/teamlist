@@ -63,9 +63,9 @@ $(document).ready(function() {
   md.checkSidebarImage();
 
   //    Activate bootstrap-select
-  if ($(".selectpicker").length != 0) {
-    $(".selectpicker").selectpicker();
-  }
+  // if ($(".selectpicker").length != 0) {
+  //   $(".selectpicker").selectpicker();
+  // }
 
   //  Activate the tooltips
   $('[rel="tooltip"]').tooltip();
@@ -82,6 +82,9 @@ $(document).ready(function() {
       $(this).closest('div').removeClass('has-error');
     }
   });
+
+
+  md.initFormExtendedDatetimepickers();
 
 });
 
@@ -217,6 +220,7 @@ md = {
 
   initFormExtendedDatetimepickers: function() {
     $('.datetimepicker').datetimepicker({
+      format: 'MM/DD/YYYY',
       icons: {
         time: "fa fa-clock-o",
         date: "fa fa-calendar",

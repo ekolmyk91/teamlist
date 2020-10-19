@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import MemberPreview from './MemberPreview'
 import MemberInfoPopup from './MemberInfoPopup'
+import {getUsers} from '../api/Api'
 
 class TeamList extends Component {
     constructor (props) {
@@ -10,56 +10,80 @@ class TeamList extends Component {
             members: [],
             error: null,
             isLoaded: false,
-            showPopupId: false
+            showPopupId: false,
         }
+        this.onchange = this.onchange.bind(this);
     }
 
+    state = {
+        search: ""
+    };
+    
     componentDidMount () {
-        axios.get('/api/members')
-            .then(response => {
-                // const members= response.data;
-                this.setState({
-                    members: response.data,
-                    isLoaded: true
-                });
-            })
+        getUsers().then(data => {
+            this.setState({
+                members: data,
+                isLoaded: true
+            });
+        })
     }
 
     togglePopup(id, e) {
         this.setState({
-            showPopupId: id ? id : null
+            showPopupId: id ? id : null,
+            stateClass: 'overlay--show'
         });
+        $(".overlay").toggleClass("overlay--show")
     }
 
-    render () {
-        const { isLoaded, members } = this.state;
-        if(!isLoaded){
-            return <div>Loading...</div>;
-        }else{
+    renderMember = member => {
+        
+        return (
+            <div className='team-box__card' key={member.user_id}>
+                <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
+                {this.state.showPopupId ==  member.user_id ?
+                    <MemberInfoPopup member={member} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> : null
+                }
+            </div>
+        );
+    };
 
-            return (
+  
+    onchange = e => {
+        this.setState({ search: e.target.value });
+    };
+
+    render() {
+
+        const { search } = this.state;
+
+        const { members } = this.state;
+
+        const filteredCountries = members.filter(member => {
+          return member.name.toLowerCase().indexOf(search) !== -1;
+        });
+
+        return (
+            <div className="container">
+                <div className="wrapper searchWrap">
+                    <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder="Поиск сотрудников" name="s" />
+                </div>
                 <section className="team-page">
                     <div className="wrapper blockFlex">
                         <div className="mainContent">
                             <div className="team-box">
-                                { members.map((member) => {
-                                    return (
-                                        <div className='team-box__card' key={member.id}>
-                                            <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.id)}/>
-                                            {this.state.showPopupId ==  member.id ?
-                                                <MemberInfoPopup member={member} closePopup={this.togglePopup.bind(this, null)} /> :
-                                                null
-                                            }
-                                        </div>
-                                    )
+                                {filteredCountries.map(member => {
+                                    return this.renderMember(member);
                                 })}
                             </div>
                         </div>
                     </div>
                 </section>
-            )
-        }
+            </div>
+        );
     }
 }
 
 export default TeamList
+
+  
