@@ -86,6 +86,19 @@ $(document).ready(function() {
 
   md.initFormExtendedDatetimepickers();
 
+  
+  // Change avatar photo
+  $(document).on('change', 'input[name=avatar]', function() {
+    var file = $(this).get(0).files[0];
+    if(file){
+        var reader = new FileReader();
+        reader.onload = function(){
+          $('.card-avatar img').attr("src", reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+  });
+
 });
 
 $(document).on('click', '.navbar-toggler', function() {

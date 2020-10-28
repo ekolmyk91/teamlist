@@ -67654,7 +67654,7 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73684,7 +73684,8 @@ function (_Component) {
       members: [],
       error: null,
       isLoaded: false,
-      showPopupId: false
+      showPopupId: false,
+      search: ""
     };
     _this.onchange = _this.onchange.bind(_assertThisInitialized(_this));
     return _this;
@@ -73719,6 +73720,7 @@ function (_Component) {
       var search = this.state.search;
       var members = this.state.members;
       var filteredCountries = members.filter(function (member) {
+        console.log(_this3.state);
         return member.name.toLowerCase().indexOf(search) !== -1;
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

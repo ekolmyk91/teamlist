@@ -11,6 +11,7 @@ class TeamList extends Component {
             error: null,
             isLoaded: false,
             showPopupId: false,
+            search: "",
         }
         this.onchange = this.onchange.bind(this);
     }
@@ -60,6 +61,7 @@ class TeamList extends Component {
         const { members } = this.state;
 
         const filteredCountries = members.filter(member => {
+          console.log(this.state);
           return member.name.toLowerCase().indexOf(search) !== -1;
         });
 
