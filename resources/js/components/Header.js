@@ -12,10 +12,10 @@ const Header = () => (
                 </a>
                 <ul className="navMenu">
                     <li>
-                        <Link to='/'>Главная</Link>
+                        <Link to='home'>Главная</Link>
                     </li>
                     <li>
-                        <Link to='team'>Команда</Link>
+                        <Link to='/'>Команда</Link>
                     </li>
                 </ul>
             </div>
