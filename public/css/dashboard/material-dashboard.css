@@ -17867,7 +17867,15 @@ Copyright (c) 2015 Daniel Eden
   background-color: #999;
 }
 
+.mce-panel {
+  width: 100% !important;
+}
+
+
 @media all and (max-width: 991px) {
+  .mce-notification.mce-has-close {
+    max-width: 500px !important;
+  }
   [class*="navbar-expand-"]>.container,
   [class*="navbar-expand-"]>.container-fluid {
     padding-left: 15px;

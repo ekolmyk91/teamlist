@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './Header'
 import PageHeader from './PageHeader'
 import TeamList from './TeamList'
+import HomePage from './HomePage'
+import { Redirect } from 'react-router';
 
 class App extends Component {
     render () {
@@ -13,7 +15,8 @@ class App extends Component {
                 <div className="content">
                     <PageHeader />
                     <Switch>
-                        <Route path='/team' component={TeamList} />
+                        <Route path='/home' component={HomePage} />
+                        <Route path='/' component={TeamList} />
                     </Switch>
                 </div>
             </BrowserRouter>
