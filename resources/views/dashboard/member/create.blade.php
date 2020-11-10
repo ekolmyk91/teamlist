@@ -107,6 +107,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Active</label>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="active" checked >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary pull-right">Create Member</button>
                             <div class="clearfix"></div>
                         </form>

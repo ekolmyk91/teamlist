@@ -62,10 +62,12 @@ class MemberController extends Controller
           'birthday'=>'required'
         ]);
 
+        $active = $request->get('active');
         $userFields = [
           'name'     => $request->get('name'),
           'email'    => $request->get('email'),
           'password' => User::generatePassword(),
+          'active' => isset($active) ? 1 : 0,
         ];
 
         if($request->hasFile('avatar')){
