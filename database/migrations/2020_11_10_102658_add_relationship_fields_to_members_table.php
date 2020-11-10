@@ -14,10 +14,10 @@ class AddRelationshipFieldsToMembersTable extends Migration
     public function up()
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->bigInteger('position_id')->after('department_id')->unsigned()->nullable();
+            $table->bigInteger('position_id')->after('department_id')->unsigned();
             $table->foreign('position_id')->references('id')->on('positions')
                   ->onDelete('restrict');
-            DB::statement('ALTER TABLE members MODIFY department_id BIGINT UNSIGNED NULL;');
+            DB::statement('ALTER TABLE members MODIFY department_id BIGINT UNSIGNED NOT NULL;');
             $table->foreign('department_id')->references('id')->on('departments')
                 ->onDelete('restrict');
         });

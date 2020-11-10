@@ -17,7 +17,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Name</label>
-                                        <input name='name' type="text" class="form-control">
+                                        <input name='name' type="text" class="form-control"
+                                               value="{{ old('name') }}" required>
                                     </div>
                                 </div>
                             </div>

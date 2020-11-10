@@ -71,9 +71,21 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Department</label>
                                         <select name='department' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
-                                            <option value="">-- Select --</option>
+                                            <option value="" disabled selected>-- Select --</option>
                                             @foreach($departments as $department)
-                                                <option value="{{$department->id}}">{{$department->name}}</option>
+                                                <option value="{{$department->id}}"
+                                                        {{ old('department') == $department->id ? 'selected' : '' }}>{{$department->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Position</label>
+                                        <select name='position' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
+                                            <option value="" disabled selected>-- Select --</option>
+                                            @foreach($positions as $position)
+                                                <option value="{{$position->id}}" {{ old('position') == $position->id ? 'selected' : '' }}>{{$position->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

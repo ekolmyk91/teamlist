@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Member;
 use App\Department;
+use App\Position;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
@@ -43,8 +44,9 @@ class MemberController extends Controller
     public function create()
     {
         $departments = Department::all();
+        $positions = Position::all();
 
-        return view('dashboard.member.create', ['departments' => $departments]);
+        return view('dashboard.member.create', compact('departments', 'positions'));
     }
 
     /**
@@ -59,7 +61,9 @@ class MemberController extends Controller
           'name'=>'required',
           'surname'=>'required',
           'email'=>'required|email|unique:users',
-          'birthday'=>'required'
+          'birthday'=>'required',
+          'department'=>'required',
+          'position'=>'required',
         ]);
 
         $active = $request->get('active');
@@ -91,10 +95,10 @@ class MemberController extends Controller
           'phone_2' => $request->get('phone_2'),
           'birthday' => Carbon::parse($request->get('birthday')),
           'about' => $request->get('about'),
-          'department_id' => $request->get('department') ?: null,
+          'department_id' => $request->get('department'),
+          'position_id' => $request->get('position'),
           'user'  => $user
         ]);
-
         $member->save();
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
@@ -121,10 +125,12 @@ class MemberController extends Controller
     {
         $member      = Member::find($user_id);
         $departments = Department::all();
+        $positions = Position::all();
 
         return view('dashboard.member.edit', [
           'member'      => $member,
           'departments' => $departments,
+          'positions' => $positions,
         ]);
     }
 
@@ -141,7 +147,9 @@ class MemberController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required',
-            'birthday' => 'required'
+            'birthday' => 'required',
+            'department' => 'required',
+            'position' => 'required',
 //          'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -169,7 +177,8 @@ class MemberController extends Controller
             'phone_2' => $request->get('phone_2'),
             'birthday' => Carbon::parse($request->get('birthday')),
             'about' => $request->get('about'),
-            'department_id' => $request->get('department_id'),
+            'department_id' => $request->get('department'),
+            'position_id' => $request->get('position'),
         ]);
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');

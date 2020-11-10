@@ -18,7 +18,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Name</label>
-                                        <input name='name' type="text" class="form-control" value="{{$position->name}}">
+                                        <input name='name' type="text" class="form-control"
+                                               value="{{$position->name}}" required>
                                     </div>
                                 </div>
                             </div>

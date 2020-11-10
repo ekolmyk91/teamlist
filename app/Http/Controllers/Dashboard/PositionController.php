@@ -91,7 +91,7 @@ class PositionController extends Controller
 
         if (empty($position)) {
             return back()
-                ->withErrors('msg', "id = $position->id not found")
+                ->withErrors('msg', "id = [$position->id] not found")
                 ->withInput();
         }
 
