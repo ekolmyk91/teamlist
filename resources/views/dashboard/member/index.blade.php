@@ -91,6 +91,13 @@
                         </table>
                     </div>
                 </div>
+                @if ($members->total() > $members->count())
+                    <nav aria-label="Page navigation example">
+                        <ul id="ul-pagination" class="pagination">
+                            {{$members->links()}}
+                        </ul>
+                    </nav>
+                @endif
             </div>
         </div>
     </div>

@@ -26,7 +26,7 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-        $members = Member::all();
+        $members = Member::paginate(5);
 
         if ($request->filled('department')) {
             $members->where('department_id', $request->get('department'));
