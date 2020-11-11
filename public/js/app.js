@@ -73386,11 +73386,11 @@ function (_Component) {
         className: "department info__text"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
-      }, "Department: "), member.department), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Department: "), member.department.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "position info__text"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
-      }, "Position: "), member.position)/*, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Position: "), member.position.name)/*, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "skills info__text"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
