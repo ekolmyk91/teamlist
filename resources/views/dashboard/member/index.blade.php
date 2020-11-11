@@ -92,11 +92,13 @@
                     </div>
                 </div>
                 @if ($members->total() > $members->count())
-                    <nav aria-label="Page navigation example">
-                        <ul id="ul-pagination" class="pagination">
-                            {{$members->links()}}
-                        </ul>
-                    </nav>
+                    <div id="block-pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {{$members->links()}}
+                            </ul>
+                        </nav>
+                    </div>
                 @endif
             </div>
         </div>
