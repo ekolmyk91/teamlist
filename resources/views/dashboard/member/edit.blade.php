@@ -54,14 +54,14 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone</label>
                                         <input name='phone_1' type="tel" class="form-control"
-                                               value="{{$member->phone_1}}">
+                                               value="{{ old('phone_1', isset($member) ? $member->phone_1 : '') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Additional Phone</label>
                                         <input name='phone_2' type="tel" class="form-control"
-                                               value="{{$member->phone_2}}">
+                                               value="{{ old('phone_2', isset($member) ? $member->phone_2 : '') }}">
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                         <label>About</label>
                                         <div class="form-group">
                                             <textarea name="about" class="form-control about"
-                                                      rows="5">{{$member->about}}</textarea>
+                                                      rows="5">{{ old('about', isset($member) ? $member->about : '') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

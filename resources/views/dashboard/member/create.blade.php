@@ -17,13 +17,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Fist Name</label>
-                                        <input name='name' type="text" class="form-control">
+                                        <input name='name' type="text" class="form-control" value="{{ old('name') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Last Name</label>
-                                        <input name='surname' type="text" class="form-control">
+                                        <input name='surname' type="text" class="form-control" value="{{ old('surname') }}">
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
-                                        <input name='email' type="email" class="form-control">
+                                        <input name='email' type="email" class="form-control" value="{{ old('email') }}">
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="label-control">Birthday</label>
-                                        <input id='datepicker' name='birthday' type="text" class="form-control datetimepicker" value="" placeholder="dd/mm/yyyy"/>
+                                        <input id='datepicker' name='birthday' type="text" class="form-control datetimepicker"
+                                               value="{{ old('birthday') }}" placeholder="dd/mm/yyyy"/>
                                     </div>
                                 </div>
                             </div>
@@ -47,13 +48,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone</label>
-                                        <input name='phone_1' type="tel" class="form-control">
+                                        <input name='phone_1' type="tel" class="form-control" value="{{ old('phone_1') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Additional Phone</label>
-                                        <input name='phone_2' type="tel" class="form-control">
+                                        <input name='phone_2' type="tel" class="form-control" value="{{ old('phone_2') }}">
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +106,7 @@
                                     <div class="form-group">
                                         <label>About</label>
                                         <div class="form-group">
-                                            <textarea name="about" class="form-control" rows="5"></textarea>
+                                            <textarea name="about" class="form-control" rows="5">{{ old('about') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
