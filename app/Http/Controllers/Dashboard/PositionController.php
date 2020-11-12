@@ -47,21 +47,14 @@ class PositionController extends Controller
         $request->validate([
             'name'=>'required|unique:positions|min:2|max:50',
         ]);
+        $position = new Position([
+            'name' => $request->get('name'),
+        ]);
+        $position->save();
 
-        $data = $request->input();
-        $position = (new Position())->create($data);
-
-        if ($position) {
-
-            return redirect()
+        return redirect()
                 ->route('admin.positions.index')
                 ->with('success', 'Position saved!');
-        } else {
-
-            return back()
-                ->withErrors('msg', 'Save error')
-                ->withInput();
-        }
     }
 
     /**
@@ -80,53 +73,43 @@ class PositionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Position $position
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Position $position)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name'=>'required|unique:positions|min:2|max:50',
         ]);
+        $position = Position::find($id);
 
         if (empty($position)) {
+
             return back()
-                ->withErrors('msg', "id = [$position->id] not found")
+                ->withErrors(['msg' => "id = [{$id}]  not found"])
                 ->withInput();
         }
 
-        $data = $request->all();
-        $result = $position->update($data);
+        $position->name =  $request->get('name');
+        $position->save();
 
-        if ($result) {
             return redirect()
                 ->route('admin.positions.index')
                 ->with('success', 'Position updated!');
-        } else {
-            return back()
-                ->withErrors('msg', 'Save error')
-                ->withInput();
-        }
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param  \App\Position $position
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Position $position)
+    public function destroy($id)
     {
+        $position = Position::find($id);
         $position->delete();
 
-        if ($position) {
-
-            return redirect()
-                ->route('admin.positions.index')
-                ->with('success', 'Position deleted!');
-        } else {
-
-            return back()
-                ->withErrors('msg', 'Save error');
-        }
+        return redirect()
+            ->route('admin.positions.index')
+            ->with('success', 'Position deleted!');
     }
 }
