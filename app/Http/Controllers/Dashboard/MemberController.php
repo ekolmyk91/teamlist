@@ -181,7 +181,7 @@ class MemberController extends Controller
             'position_id' => $request->get('position'),
         ]);
 
-        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
+        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member updated!');
     }
 
     /**
