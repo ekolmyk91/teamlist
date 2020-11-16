@@ -12,7 +12,7 @@
 =========================================================
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.*/
- 
+
 
 /*     brand Colors              */
 
@@ -18841,5 +18841,31 @@ Copyright (c) 2015 Daniel Eden
     display: none !important;
   }
 }
+
+div#block-pagination .page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0;
+    line-height: 1.25;
+    color: #EA4642;
+    background-color: transparent;
+    border: 0 solid #dee2e6;
+}
+
+div#block-pagination .page-link:hover {
+    color: #EA4642;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+div#block-pagination .page-item.active .page-link {
+    z-index: 1;
+    color: #ffffff;
+    background-color: #EA4642;
+    border-color: #EA4642;
+}
+
 
 /*# sourceMappingURL=dashboard-free.css.map */

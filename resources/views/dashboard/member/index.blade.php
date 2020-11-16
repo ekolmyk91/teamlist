@@ -22,6 +22,7 @@
                     <h4 class="card-title ">Members</h4>
                 </div>
                 <div class="card-body">
+                    @include('alert')
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
@@ -91,6 +92,15 @@
                         </table>
                     </div>
                 </div>
+                @if ($members->total() > $members->count())
+                    <div id="block-pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {{$members->links()}}
+                            </ul>
+                        </nav>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

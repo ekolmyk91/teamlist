@@ -14,6 +14,7 @@ class Member extends Model
       'phone_1',
       'phone_2',
       'department_id',
+      'position_id',
       'about'
     ];
 
@@ -33,5 +34,13 @@ class Member extends Model
     public function department()
     {
         return $this->belongsTo('App\Department');
+    }
+
+    /**
+     * Get the department related to the member.
+     */
+    public function position()
+    {
+        return $this->belongsTo('App\Position');
     }
 }

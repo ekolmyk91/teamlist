@@ -4,10 +4,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('admin.categories.create')}}" class="btn btn-primary">Add Category</a>
+            <a href="{{ route('admin.positions.create')}}" class="btn btn-primary">Add Position</a>
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h4 class="card-title ">Categories</h4>
+                    <h4 class="card-title ">Positions</h4>
                 </div>
                 <div class="card-body">
                     @include('alert')
@@ -24,17 +24,17 @@
                             </thead>
                             <tbody>
 
-                            @foreach ($categories as $category)
+                            @foreach ($positions as $position)
                                 <tr>
                                     <td>
-                                        {{$category->id}}
+                                        {{$position->id}}
                                     </td>
                                     <td>
-                                        {{$category->name}}
+                                        {{$position->name}}
                                     </td>
                                     <td class="td-actions">
-                                       <a href="{{ route('admin.categories.edit', $category->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>
-                                       <form action="{{ route('admin.categories.destroy', $category->id)}}" method="post">
+                                       <a href="{{ route('admin.positions.edit', $position->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>
+                                       <form action="{{ route('admin.positions.destroy', $position->id)}}" method="post">
                                            @csrf
                                            @method('DELETE')
                                            <button type="submit" rel="tooltip" class="btn btn-danger" type="submit">

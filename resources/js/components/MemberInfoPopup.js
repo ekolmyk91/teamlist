@@ -22,13 +22,13 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="department info__text">
                         <span className="info__label">Department: </span>
-                        {member.department}
+                        {member.department.name}
                     </div>
                     <div className="position info__text">
                         <span className="info__label">Position: </span>
-                        {member.position}
+                        {member.position.name}
                     </div>
-                    <div className="skills info__text">
+                    {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
                         Html, Css, Js, jQuery, Vue Js
                     </div>
@@ -42,7 +42,7 @@ class MemberInfoPopup extends Component {
                         <li className="sertificate__item">
                             <img src="/img/r.png" alt="sertificate image" />
                         </li>
-                    </ul>
+                    </ul>*/}
                 </div>
             </div>
         )

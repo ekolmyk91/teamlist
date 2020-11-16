@@ -10,6 +10,7 @@
                     <h4 class="card-title ">Departments</h4>
                 </div>
                 <div class="card-body">
+                    @include('alert')
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
