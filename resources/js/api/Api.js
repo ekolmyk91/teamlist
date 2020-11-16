@@ -5,3 +5,9 @@ export const getUsers = () => {
         return responce.data;
     })
 }
+
+export const getDepartments = () => {
+    return axios.get('/api/departments').then(responce => {
+        return responce.data;
+    })
+}

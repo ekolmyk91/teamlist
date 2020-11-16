@@ -71,37 +71,6 @@
     }
 }
 
-.sidebar {
-    margin-left: 0;
-    background-color: $fliceBlue;
-    padding: 20px;
-    @media (min-width: 1024px) {
-        margin-left: 25px;
-        width: 750px;
-    }
-    .inputSearch {
-        width: 100%;
-        border-radius: 5px;
-        border: 1px solid $black;
-        padding: 10px;
-        &:focus {
-            outline: none;
-        }
-    }
-    .inputSearchOffice {
-        width: 100%;
-        border-radius: 5px;
-        border: 1px solid $black;
-        padding: 10px;
-        &:focus {
-            outline: none;
-        }
-    }
-    ul {
-        padding-top: 25px;
-    }
-}
-
 input[type=checkbox] {
     width: 10%;
 }

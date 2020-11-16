@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import MemberPreview from './MemberPreview'
 import MemberInfoPopup from './MemberInfoPopup'
+import Sidebar from './Sidebar'
 import {getUsers} from '../api/Api'
 
 class TeamList extends Component {
@@ -78,6 +79,9 @@ class TeamList extends Component {
                                     return this.renderMember(member);
                                 })}
                             </div>
+                        </div>
+                        <div className="sidebar">
+                            <Sidebar />   
                         </div>
                     </div>
                 </section>
