@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function (){
             Route::resource('tags', 'Dashboard\TagController');
             Route::resource('skills', 'Dashboard\SkillController');
             Route::resource('positions', 'Dashboard\PositionController');
+            Route::resource('certificates', 'Dashboard\CertificateController');
         });
     });
 

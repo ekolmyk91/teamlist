@@ -21,7 +21,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Create Member</button>
+                            <button type="submit" class="btn btn-primary pull-right">Create Department</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

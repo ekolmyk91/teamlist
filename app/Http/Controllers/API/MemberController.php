@@ -21,7 +21,6 @@ class MemberController extends Controller
             'surname',
             'birthday',
             'email',
-            'about',
             'department_id',
             'position_id',
         ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name');

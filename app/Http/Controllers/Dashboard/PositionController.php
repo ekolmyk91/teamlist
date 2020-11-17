@@ -106,7 +106,14 @@ class PositionController extends Controller
     public function destroy($id)
     {
         $position = Position::find($id);
-        $position->delete();
+
+        try {
+            $position->delete();
+        }
+        catch(\Illuminate\Database\QueryException $ex) {
+            return back()
+                ->withErrors(['msg' => 'Delete error.  Possibly used in another table.']);
+        }
 
         return redirect()
             ->route('admin.positions.index')
