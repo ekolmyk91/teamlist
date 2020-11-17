@@ -52,6 +52,12 @@
                         <p>Departments</p>
                     </a>
                 </li>
+                <li class="nav-item {{ (Request::is('admin/positions*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.positions.index')}}">
+                        <i class="material-icons">rowing</i>
+                        <p>Positions</p>
+                    </a>
+                </li>
                 <li class="nav-item {{ (Request::is('admin/solutions*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('admin.solutions.index')}}">
                         <i class="material-icons">note</i>

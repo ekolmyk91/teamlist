@@ -9,25 +9,7 @@
                         <h4 class="card-title">Member: {{$member->surname}} {{$member->name}} </h4>
                     </div>
                     <div class="card-body">
-                        @if ($errors->any())
-
-                            <div class="alert alert-danger">
-
-                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-
-                                <ul>
-
-                                    @foreach ($errors->all() as $error)
-
-                                        <li>{{ $error }}</li>
-
-                                    @endforeach
-
-                                </ul>
-
-                            </div>
-
-                        @endif
+                        @include('alert')
                         <form action="{{ route('admin.members.update', $member->user_id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -72,14 +54,14 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone</label>
                                         <input name='phone_1' type="tel" class="form-control"
-                                               value="{{$member->phone_1}}">
+                                               value="{{ old('phone_1', isset($member) ? $member->phone_1 : '') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Additional Phone</label>
                                         <input name='phone_2' type="tel" class="form-control"
-                                               value="{{$member->phone_2}}">
+                                               value="{{ old('phone_2', isset($member) ? $member->phone_2 : '') }}">
                                     </div>
                                 </div>
                             </div>
@@ -88,14 +70,29 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Department</label>
                                         <select name='department' class="form-control selectpicker"
-                                                data-style="btn btn-link" id="exampleFormControlSelect1">
-                                            <option value="">-- Select --</option>
+                                                data-style="btn btn-link" id="exampleFormControlSelect1" required>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}"
                                                         @if($department->id == $member->department_id)
                                                         selected="selected"
                                                         @endif >
                                                     {{$department->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Position</label>
+                                        <select name='position' class="form-control selectpicker"
+                                                data-style="btn btn-link" id="exampleFormControlSelect1" required>
+                                            @foreach($positions as $position)
+                                                <option value="{{$position->id}}"
+                                                        @if($position->id == $member->position_id)
+                                                        selected="selected"
+                                                    @endif >
+                                                    {{$position->name}}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -115,7 +112,7 @@
                                         <label>About</label>
                                         <div class="form-group">
                                             <textarea name="about" class="form-control about"
-                                                      rows="5">{{$member->about}}</textarea>
+                                                      rows="5">{{ old('about', isset($member) ? $member->about : '') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

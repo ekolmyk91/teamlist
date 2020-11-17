@@ -6,22 +6,23 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">New Category</h4>
+                        <h4 class="card-title">New Position</h4>
                     </div>
                     <div class="card-body">
                         @include('alert')
-                        <form action="{{ route('admin.categories.store') }}" method="post">
+                        <form action="{{ route('admin.positions.store') }}" method="post">
                             @csrf
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Name</label>
-                                        <input name='name' type="text" class="form-control">
+                                        <input name='name' type="text" class="form-control"
+                                               value="{{ old('name') }}" required>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Create Category</button>
+                            <button type="submit" class="btn btn-primary pull-right">Create Position</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

@@ -9,16 +9,7 @@
                         <h4 class="card-title">New Member</h4>
                     </div>
                     <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        @include('alert')
                         <form action="{{ route('admin.members.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
@@ -26,13 +17,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Fist Name</label>
-                                        <input name='name' type="text" class="form-control">
+                                        <input name='name' type="text" class="form-control" value="{{ old('name') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Last Name</label>
-                                        <input name='surname' type="text" class="form-control">
+                                        <input name='surname' type="text" class="form-control" value="{{ old('surname') }}">
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +31,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
-                                        <input name='email' type="email" class="form-control">
+                                        <input name='email' type="email" class="form-control" value="{{ old('email') }}">
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +39,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="label-control">Birthday</label>
-                                        <input id='datepicker' name='birthday' type="text" class="form-control datetimepicker" value="" placeholder="dd/mm/yyyy"/>
+                                        <input id='datepicker' name='birthday' type="text" class="form-control datetimepicker"
+                                               value="{{ old('birthday') }}" placeholder="dd/mm/yyyy"/>
                                     </div>
                                 </div>
                             </div>
@@ -56,13 +48,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone</label>
-                                        <input name='phone_1' type="tel" class="form-control">
+                                        <input name='phone_1' type="tel" class="form-control" value="{{ old('phone_1') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Additional Phone</label>
-                                        <input name='phone_2' type="tel" class="form-control">
+                                        <input name='phone_2' type="tel" class="form-control" value="{{ old('phone_2') }}">
                                     </div>
                                 </div>
                             </div>
@@ -71,9 +63,21 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Department</label>
                                         <select name='department' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
-                                            <option value="">-- Select --</option>
+                                            <option value="" disabled selected>-- Select --</option>
                                             @foreach($departments as $department)
-                                                <option value="{{$department->id}}">{{$department->name}}</option>
+                                                <option value="{{$department->id}}"
+                                                        {{ old('department') == $department->id ? 'selected' : '' }}>{{$department->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Position</label>
+                                        <select name='position' class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
+                                            <option value="" disabled selected>-- Select --</option>
+                                            @foreach($positions as $position)
+                                                <option value="{{$position->id}}" {{ old('position') == $position->id ? 'selected' : '' }}>{{$position->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -102,7 +106,17 @@
                                     <div class="form-group">
                                         <label>About</label>
                                         <div class="form-group">
-                                            <textarea name="about" class="form-control" rows="5"></textarea>
+                                            <textarea name="about" class="form-control" rows="5">{{ old('about') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Active</label>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="active" checked >
                                         </div>
                                     </div>
                                 </div>

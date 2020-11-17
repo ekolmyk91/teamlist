@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Member;
 use App\Department;
+use App\Position;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
@@ -25,7 +26,7 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-        $members = Member::all();
+        $members = Member::paginate(10);
 
         if ($request->filled('department')) {
             $members->where('department_id', $request->get('department'));
@@ -43,8 +44,9 @@ class MemberController extends Controller
     public function create()
     {
         $departments = Department::all();
+        $positions = Position::all();
 
-        return view('dashboard.member.create', ['departments' => $departments]);
+        return view('dashboard.member.create', compact('departments', 'positions'));
     }
 
     /**
@@ -55,17 +57,26 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+        $date = Carbon::now()->subYears(16)->addDay(1)->timestamp;
         $request->validate([
-          'name'=>'required',
-          'surname'=>'required',
-          'email'=>'required|email|unique:users',
-          'birthday'=>'required'
+          'name'      =>'required|string|min:2|max:20',
+          'surname'   =>'required|string|min:2|max:40',
+          'email'     =>'required|email|unique:users',
+          'birthday'  =>'required|date|before:today',
+          'phone_1'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'department'=>'required',
+          'position'  =>'required',
+          'about'     =>'nullable|string',
+          'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $active = $request->get('active');
         $userFields = [
           'name'     => $request->get('name'),
           'email'    => $request->get('email'),
           'password' => User::generatePassword(),
+          'active' => isset($active) ? 1 : 0,
         ];
 
         if($request->hasFile('avatar')){
@@ -89,10 +100,10 @@ class MemberController extends Controller
           'phone_2' => $request->get('phone_2'),
           'birthday' => Carbon::parse($request->get('birthday')),
           'about' => $request->get('about'),
-          'department_id' => $request->get('department') ?: null,
+          'department_id' => $request->get('department'),
+          'position_id' => $request->get('position'),
           'user'  => $user
         ]);
-
         $member->save();
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
@@ -119,10 +130,12 @@ class MemberController extends Controller
     {
         $member      = Member::find($user_id);
         $departments = Department::all();
+        $positions = Position::all();
 
         return view('dashboard.member.edit', [
           'member'      => $member,
           'departments' => $departments,
+          'positions' => $positions,
         ]);
     }
 
@@ -136,11 +149,16 @@ class MemberController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'email' => 'required',
-            'birthday' => 'required'
-//          'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name'      =>'required|string|min:2|max:20',
+            'surname'   =>'required|string|min:2|max:40',
+            'email'     =>'required|email|unique:users,email,' . $id,
+            'birthday'  =>'required|date|before:today',
+            'phone_1'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
+            'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
+            'department'=>'required',
+            'position'  =>'required',
+            'about'     =>'nullable|string',
+            'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $member = Member::find($id);
@@ -167,10 +185,11 @@ class MemberController extends Controller
             'phone_2' => $request->get('phone_2'),
             'birthday' => Carbon::parse($request->get('birthday')),
             'about' => $request->get('about'),
-            'department_id' => $request->get('department_id'),
+            'department_id' => $request->get('department'),
+            'position_id' => $request->get('position'),
         ]);
 
-        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
+        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member updated!');
     }
 
     /**
@@ -181,6 +200,11 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()
+                ->route('admin.members.index')
+                ->with('success', 'Member deleted!');
     }
 }
