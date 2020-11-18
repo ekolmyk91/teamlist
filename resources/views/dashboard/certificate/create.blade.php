@@ -15,7 +15,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Name</label>
                                         <input name='name' type="text" class="form-control"
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="logo"
                                            class="col-form-label">{{ __('Logo') }}</label>
                                     <input id="logo" type="file" class="form-control" name="logo">
@@ -39,4 +39,3 @@
         </div>
     </div>
 @endsection
-

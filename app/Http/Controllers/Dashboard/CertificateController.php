@@ -85,7 +85,36 @@ class CertificateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required|min:4|max:120|unique:certificates,name,' . $id,
+            'logo'    =>'image|mimes:png|max:512',
+        ]);
+        $certificate = Certificate::find($id);
+
+        if (empty($certificate)) {
+
+            return back()
+                ->withErrors(['msg' => "id = [{$id}]  not found"])
+                ->withInput();
+        }
+
+        $certificate['name'] =  $request->get('name');
+
+        if($request->hasFile('logo')){
+            $logo = $request->file('logo');
+            $filename = time() . '-' . $logo->getClientOriginalName();
+            request()->file('logo')->storeAs('logo', $filename);
+            $certificate['logo'] = $filename;
+            $certificate->save();
+        } else {
+            $certificate->update([
+                'name' => $certificate['name'],
+            ]);
+        }
+
+        return redirect()
+            ->route('admin.certificates.index')
+            ->with('success', 'Certificate updated!');
     }
 
     /**
@@ -96,6 +125,18 @@ class CertificateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $certificate = Certificate::find($id);
+
+        try {
+            $certificate->delete();
+        }
+        catch(\Illuminate\Database\QueryException $ex) {
+            return back()
+                ->withErrors(['msg' => 'Delete error.  Possibly used in another table.']);
+        }
+
+        return redirect()
+            ->route('admin.certificates.index')
+            ->with('success', 'Certificate deleted!');
     }
 }
