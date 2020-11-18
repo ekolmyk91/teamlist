@@ -49,6 +49,6 @@ class Member extends Model
      */
     public function certificates()
     {
-        return $this->belongsToMany(Certificate::class);
+        return $this->belongsToMany(Certificate::class, 'certificate_member', 'member', 'certificate');
     }
 }
