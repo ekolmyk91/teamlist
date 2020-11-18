@@ -86,8 +86,8 @@ class CertificateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'=>'required|min:4|max:120|unique:certificates,name,' . $id,
-            'logo'    =>'image|mimes:png|max:512',
+            'name' =>'required|min:4|max:120|unique:certificates,name,' . $id,
+            'logo' =>'image|mimes:png|max:512',
         ]);
         $certificate = Certificate::find($id);
 

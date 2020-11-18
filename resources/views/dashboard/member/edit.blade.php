@@ -114,7 +114,7 @@
                                             <option value="">-- no --</option>
                                             @foreach($certificates as $id => $certificate)
                                                 <option name='certificate'
-                                                        value="{{ $id }}" {{ (in_array($id, old('certificate', []))пше) ? 'selected' : '' }}>{{ $certificate }}</option>
+                                                        value="{{ $id }}" {{ (in_array($id, old('certificate', [])) || $member->certificates->contains($id)) ? 'selected' : '' }}>{{ $certificate }}</option>
                                             @endforeach
                                         </select>
                                     </div>

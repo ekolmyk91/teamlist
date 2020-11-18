@@ -165,6 +165,7 @@ class MemberController extends Controller
             'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
             'department'=>'required',
             'position'  =>'required',
+            'certificates'=> 'nullable|array',
             'about'     =>'nullable|string',
             'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -196,6 +197,12 @@ class MemberController extends Controller
             'department_id' => $request->get('department'),
             'position_id' => $request->get('position'),
         ]);
+
+        if(!empty($request->certificate[0])) {
+            $member->certificates()->sync($request->input('certificate', []));
+        } else {
+            $member->certificates()->sync([]);
+        }
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member updated!');
     }

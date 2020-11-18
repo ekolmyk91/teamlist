@@ -15,10 +15,6 @@ class ChangeOnDeleteCertificateMemberTable extends Migration
     {
         Schema::table('certificate_member', function (Blueprint $table) {
             $table->primary(array('member', 'certificate'));
-            $table->dropForeign('certificate_member_member_foreign');
-            $table->foreign('member')
-                ->references('user_id')->on('members')
-                ->onDelete('restrict');
             $table->dropForeign('certificate_member_certificate_foreign');
             $table->foreign('certificate')
                 ->references('id')->on('certificates')
@@ -37,9 +33,6 @@ class ChangeOnDeleteCertificateMemberTable extends Migration
             $table->dropForeign('certificate_member_member_foreign');
             $table->dropForeign('certificate_member_certificate_foreign');
             $table->dropPrimary(array('member', 'certificate'));
-            $table->foreign('member')
-                ->references('user_id')->on('members')
-                ->onDelete('cascade');
             $table->foreign('certificate')
                 ->references('id')->on('certificates')
                 ->onDelete('cascade');

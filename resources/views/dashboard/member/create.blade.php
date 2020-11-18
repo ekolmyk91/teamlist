@@ -191,6 +191,5 @@
             height: 300
         });
     </script>
-    <script>
     {{--@endpush--}}
 @endsection
