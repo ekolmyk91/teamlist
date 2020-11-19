@@ -24,7 +24,7 @@ class MemberController extends Controller
             'email',
             'department_id',
             'position_id',
-        ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,logo');
+        ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
 
         if ($request->filled('department')) {
             $members->where('department_id', $request->get('department'));
@@ -39,7 +39,7 @@ class MemberController extends Controller
 
     public function show($id)
     {
-        $member = Member::with('user:id,avatar', 'department:id,name', 'position:id,name', 'certificates:id,logo')
+        $member = Member::with('user:id,avatar', 'department:id,name', 'position:id,name', 'certificates:id,name,logo')
                         ->find($id, [
                                   'user_id',
                                   'name',

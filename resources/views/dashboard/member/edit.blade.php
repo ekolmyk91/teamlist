@@ -110,14 +110,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="certificate" class="bmd-label-floating">Certificates</label>
-                                        <select class="form-control" name="certificate[]" multiple="">
-                                            <option value="">-- no --</option>
+                                        <select id="cert-options" class="custom-select" name="certificate[]" multiple size="5">
+                                            <option value="" disabled>-- no --</option>
                                             @foreach($certificates as $id => $certificate)
                                                 <option name='certificate'
                                                         value="{{ $id }}" {{ (in_array($id, old('certificate', [])) || $member->certificates->contains($id)) ? 'selected' : '' }}>{{ $certificate }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    <input id="reset-btn" type="reset" name="Reset">
                                 </div>
                             </div>
                             <div class="row">
@@ -191,5 +192,11 @@
         });
     </script>
     {{--@endpush--}}
+    <script>
+        document.getElementById('reset-btn').onclick = function(event){
+            event.preventDefault();
+            document.getElementById('cert-options').selectedIndex = 0;
+        }
+    </script>
 @endsection
 

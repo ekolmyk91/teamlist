@@ -70463,9 +70463,7 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
           className: "certificate__item"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: certificate.logo,
-          "class": "img-rounded",
-          width: "50px",
-          alt: "certificate image"
+          alt: certificate.name
         }));
       })))));
     }
@@ -71078,7 +71076,7 @@ var TeamList = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/teamlist/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/teamlistloc/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })
