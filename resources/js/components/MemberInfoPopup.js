@@ -36,7 +36,7 @@ class MemberInfoPopup extends Component {
                         <ul className="certificate">
                             {member.certificates.map(certificate => (
                                 <li className="certificate__item">
-                                    <img src={certificate.logo} class="img-rounded" width="50px" alt="certificate image" />
+                                    <img src={certificate.logo} alt={certificate.name} />
                                 </li>
                             ))}
                         </ul>
