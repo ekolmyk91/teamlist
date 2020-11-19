@@ -116,13 +116,13 @@
                     font-weight: $fontWeight-bold;
                 }
             }
-            .certificate {
+            .sertificate {
                 margin-top: 15px;
                 &__item {
                     display: inline-block;
-                    vertical-align: baseline;
-                    width: 45px;
-                    height: 45px;
+                    vertical-align: middle;
+                    width: 25px;
+                    height: 25px;
                     margin-right: 10px;
                     &:last-child {
                         margin-right: 0;
