@@ -31,6 +31,7 @@ class MemberInfoPopup extends Component {
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
                         Html, Css, Js, jQuery, Vue Js
+<<<<<<< HEAD
                     </div>
                     <ul className="sertificate">
                         <li className="sertificate__item">
@@ -43,6 +44,18 @@ class MemberInfoPopup extends Component {
                             <img src="/img/r.png" alt="sertificate image" />
                         </li>
                     </ul>*/}
+=======
+                    </div>*/}
+                    <ul>
+                        <ul className="certificate">
+                            {member.certificates.map(certificate => (
+                                <li className="certificate__item">
+                                    <img src={certificate.logo} class="img-rounded" width="50px" alt="certificate image" />
+                                </li>
+                            ))}
+                        </ul>
+                    </ul>
+>>>>>>> parent of 7c39b49... reset
                 </div>
             </div>
         )
