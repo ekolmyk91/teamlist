@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Certificate;
 use App\Http\Controllers\Controller;
 use App\Member;
 use App\Department;
@@ -45,8 +46,9 @@ class MemberController extends Controller
     {
         $departments = Department::all();
         $positions = Position::all();
+        $certificates = Certificate::all()->pluck('name', 'id');
 
-        return view('dashboard.member.create', compact('departments', 'positions'));
+        return view('dashboard.member.create', compact('departments', 'positions', 'certificates'));
     }
 
     /**
@@ -67,7 +69,8 @@ class MemberController extends Controller
           'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
           'department'=>'required',
           'position'  =>'required',
-          'about'     =>'nullable|string',
+          'certificates'=> 'nullable|array',
+          'about'     =>'nullable|string|max:1000',
           'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -105,6 +108,9 @@ class MemberController extends Controller
           'user'  => $user
         ]);
         $member->save();
+        if(!empty($request->certificate[0])) {
+            $member->certificates()->sync($request->input('certificate', []));
+        }
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
     }
@@ -131,11 +137,13 @@ class MemberController extends Controller
         $member      = Member::find($user_id);
         $departments = Department::all();
         $positions = Position::all();
+        $certificates = Certificate::all()->pluck('name', 'id');
 
         return view('dashboard.member.edit', [
           'member'      => $member,
           'departments' => $departments,
           'positions' => $positions,
+          'certificates' => $certificates
         ]);
     }
 
@@ -157,7 +165,8 @@ class MemberController extends Controller
             'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
             'department'=>'required',
             'position'  =>'required',
-            'about'     =>'nullable|string',
+            'certificates'=> 'nullable|array',
+            'about'     =>'nullable|string|max:1000',
             'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -188,6 +197,12 @@ class MemberController extends Controller
             'department_id' => $request->get('department'),
             'position_id' => $request->get('position'),
         ]);
+
+        if(!empty($request->certificate[0])) {
+            $member->certificates()->sync($request->input('certificate', []));
+        } else {
+            $member->certificates()->sync([]);
+        }
 
         return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member updated!');
     }

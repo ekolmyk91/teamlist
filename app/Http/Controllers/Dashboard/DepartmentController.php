@@ -100,7 +100,14 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         $department = Department::find($id);
-        $department->delete();
+
+        try {
+            $department->delete();
+        }
+        catch(\Illuminate\Database\QueryException $ex) {
+            return back()
+                ->withErrors(['msg' => 'Delete error.  Possibly used in another table.']);
+        }
 
         return redirect()->action('Dashboard\DepartmentController@index')->with('success', 'Department deleted!');
     }

@@ -37,10 +37,18 @@ class Member extends Model
     }
 
     /**
-     * Get the department related to the member.
+     * Get the position related to the member.
      */
     public function position()
     {
         return $this->belongsTo('App\Position');
+    }
+
+    /**
+     * Get the certificates related to the member.
+     */
+    public function certificates()
+    {
+        return $this->belongsToMany(Certificate::class, 'certificate_member', 'member', 'certificate');
     }
 }

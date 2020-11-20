@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
+import Parser from 'html-react-parser'
 
 class MemberInfoPopup extends Component {
     render () {
-        const member = this.props.member
+        const member = this.props.member;
+        if (!member.about) {
+            member.about = 'not yet';
+        }
         return (
             <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
@@ -28,21 +32,23 @@ class MemberInfoPopup extends Component {
                         <span className="info__label">Position: </span>
                         {member.position.name}
                     </div>
+                    <div className="about info__text">
+                        <span className="info__label">About: </span>
+                        {Parser(member.about)}
+                    </div>
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
                         Html, Css, Js, jQuery, Vue Js
-                    </div>
-                    <ul className="sertificate">
-                        <li className="sertificate__item">
-                            <img src="/img/r.png" alt="sertificate image" />
-                        </li>
-                        <li className="sertificate__item">
-                            <img src="/img/r.png" alt="sertificate image" />
-                        </li>
-                        <li className="sertificate__item">
-                            <img src="/img/r.png" alt="sertificate image" />
-                        </li>
-                    </ul>*/}
+                    </div>*/}
+                    <ul>
+                        <ul className="certificate">
+                            {member.certificates.map(certificate => (
+                                <li className="certificate__item" key={certificate.id}>
+                                    <img src={certificate.logo} alt={certificate.name} />
+                                </li>
+                            ))}
+                        </ul>
+                    </ul>
                 </div>
             </div>
         )
