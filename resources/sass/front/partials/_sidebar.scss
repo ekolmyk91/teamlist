@@ -3,3 +3,48 @@
     order: 2;
     margin-left: auto;
 }
+
+.filter-name {
+    display: block;
+    color: #0e698a;
+    padding: 3px 7px;
+    border: 1px solid #0e698a;
+    margin: 5px;
+    cursor: pointer;
+    transition: all .1s ease-out;
+    &:hover, &.m-active {
+        color: white;
+        background: #0e698a;
+        border-color: #0e698a;
+    }
+}
+
+.filter-inner {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-tittle {
+    width: 100%;
+}
+
+.m-reset-button {
+    display: block;
+    color: white;
+    padding: 3px 7px;
+    border: 1px solid #004eff;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+    text-align: center;
+    background: #004eff;
+    &:hover {
+        color: #004eff;
+        background: white;
+    }
+}
+
+.team-page {
+    min-height: 90vh;
+}

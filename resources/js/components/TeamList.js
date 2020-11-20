@@ -39,7 +39,6 @@ class TeamList extends Component {
     }
 
     renderMember = member => {
-        
         return (
             <div className='team-box__card' key={member.user_id}>
                 <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
@@ -50,6 +49,13 @@ class TeamList extends Component {
         );
     };
 
+    updateDepartment = (departament, name) => {
+        this.setState({ departament: name });
+    }
+
+    updatePosition = (position, name) => {
+        this.setState({ position: name });
+    }
   
     onchange = e => {
         this.setState({ search: e.target.value });
@@ -61,9 +67,29 @@ class TeamList extends Component {
 
         const { members } = this.state;
 
-        const filteredCountries = members.filter(member => {
-          console.log(this.state);
-          return member.name.toLowerCase().indexOf(search) !== -1;
+        console.log(this.state.departament, 2)
+
+        console.log(this.state.position, 1)
+
+        const filteredMembers = members.filter(member => {
+          if (search != '') {
+            return member.name.toLowerCase().indexOf(search) !== -1;
+          } else if (this.state.departament != undefined && this.state.position == undefined) {
+              if (member.department.name == this.state.departament) {
+                return member;
+              }
+          } else if (this.state.position != undefined && this.state.departament == undefined) {
+            if (member.position.name == this.state.position) {
+              return member;
+            }
+          } else if (this.state.position != undefined && this.state.departament != undefined)  {
+            if (member.department.name == this.state.departament && member.position.name == this.state.position) {
+                return member;
+              }
+          }
+          else {
+            return member;
+          }
         });
 
         return (
@@ -75,13 +101,13 @@ class TeamList extends Component {
                     <div className="wrapper blockFlex">
                         <div className="mainContent">
                             <div className="team-box">
-                                {filteredCountries.map(member => {
+                                {filteredMembers.map(member => {
                                     return this.renderMember(member);
                                 })}
                             </div>
                         </div>
                         <div className="sidebar">
-                            <Sidebar />   
+                            <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>   
                         </div>
                     </div>
                 </section>

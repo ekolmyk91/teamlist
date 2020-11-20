@@ -52968,7 +52968,7 @@ var currentlyProcessingQueue;
   didWarnUpdateInsideUpdate = false;
   currentlyProcessingQueue = null;
 
-
+  
 }
 
 function createUpdateQueue(baseState) {
@@ -57283,7 +57283,7 @@ function insertNonHydratedInstance(returnFiber, fiber) {
               break;
 
             case SuspenseComponent:
-
+              
               break;
           }
 
@@ -72819,13 +72819,14 @@ module.exports = function(module) {
 /*!*********************************!*\
   !*** ./resources/js/api/Api.js ***!
   \*********************************/
-/*! exports provided: getUsers, getDepartments */
+/*! exports provided: getUsers, getDepartments, getPositions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDepartments", function() { return getDepartments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPositions", function() { return getPositions; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -72836,6 +72837,11 @@ var getUsers = function getUsers() {
 };
 var getDepartments = function getDepartments() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/departments').then(function (responce) {
+    return responce.data;
+  });
+};
+var getPositions = function getPositions() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/positions').then(function (responce) {
     return responce.data;
   });
 };
@@ -73396,28 +73402,7 @@ function (_Component) {
         className: "position info__text"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
-      }, "Position: "), member.position.name)/*, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "skills info__text"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "info__label"
-      }, "Skills: "), "Html, Css, Js, jQuery, Vue Js"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "sertificate"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "sertificate__item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/img/r.png",
-        alt: "sertificate image"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "sertificate__item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/img/r.png",
-        alt: "sertificate image"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "sertificate__item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "/img/r.png",
-        alt: "sertificate image"
-      })))*/));
+      }, "Position: "), member.position.name)));
     }
   }]);
 
@@ -73751,19 +73736,19 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
 
   return self;
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
 }
 
 function _inherits(subClass, superClass) {
@@ -73790,6 +73775,22 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+
 
 
 
@@ -73799,24 +73800,123 @@ function (_Component) {
   _inherits(Sidebar, _Component);
 
   function Sidebar(props) {
+    var _this;
+
     _classCallCheck(this, Sidebar);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Sidebar).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Sidebar).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      selectedDepartment: -1,
+      selectedPosition: -1
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updateCurrentDepartment", function (e, departament, name) {
+      name = e.name;
+
+      _this.props.updateDepartment(departament, name);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updateCurrentPosition", function (e, position, name) {
+      name = e.name;
+
+      _this.props.updatePosition(position, name);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "resetFilter", function (departament, position) {
+      _this.setState({
+        selectedDepartment: -1,
+        selectedPosition: -1
+      });
+
+      _this.props.updateDepartment(departament, undefined);
+
+      _this.props.updatePosition(position, undefined);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderPositions", function (position) {
+      var renderPositions = _this.state.positions.map(function (position, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          key: index,
+          onClick: function onClick() {
+            _this.updateCurrentPosition(position, index), _this.setState({
+              selectedPosition: position.id
+            });
+          },
+          "data-val": position.name,
+          className: position.id === _this.state.selectedPosition ? 'filter-name m-active' : 'filter-name'
+        }, position.name);
+      });
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "filter-inner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "filter-tittle"
+      }, "Positions"), renderPositions);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getPositions", void 0);
+
+    _this.state = {
+      departments: [],
+      positions: [],
+      selectedItemId: null,
+      selectedItemState: false
+    };
+    _this.updateCurrentDepartment = _this.updateCurrentDepartment.bind(_assertThisInitialized(_this));
+    _this.updateCurrentPosition = _this.updateCurrentPosition.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Sidebar, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       Object(_api_Api__WEBPACK_IMPORTED_MODULE_1__["getDepartments"])().then(function (data) {
-        console.log(data);
+        _this2.setState({
+          departments: data
+        });
       });
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_1__["getPositions"])().then(function (data) {
+        _this2.setState({
+          positions: data
+        });
+      });
+    }
+  }, {
+    key: "renderDepartment",
+    value: function renderDepartment() {
+      var _this3 = this;
+
+      var renderDepartments = this.state.departments.map(function (departament, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          key: index,
+          onClick: function onClick() {
+            _this3.updateCurrentDepartment(departament, index), _this3.setState({
+              selectedDepartment: departament.id
+            });
+          },
+          "data-val": departament.name,
+          "data-id": departament.id,
+          className: departament.id === _this3.state.selectedDepartment ? 'filter-name m-active' : 'filter-name'
+        }, departament.name);
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "filter-inner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "filter-tittle"
+      }, "Departments"), renderDepartments);
     }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar-inner"
-      }, "asd");
+      }, this.renderDepartment(), this.renderPositions(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "js-reset-filter m-reset-button",
+        onClick: this.resetFilter
+      }, "Clean"));
     }
   }]);
 
@@ -73978,6 +74078,18 @@ function (_Component) {
       }) : null);
     });
 
+    _defineProperty(_assertThisInitialized(_this), "updateDepartment", function (departament, name) {
+      _this.setState({
+        departament: name
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updatePosition", function (position, name) {
+      _this.setState({
+        position: name
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onchange", function (e) {
       _this.setState({
         search: e.target.value
@@ -74023,9 +74135,26 @@ function (_Component) {
 
       var search = this.state.search;
       var members = this.state.members;
-      var filteredCountries = members.filter(function (member) {
-        console.log(_this3.state);
-        return member.name.toLowerCase().indexOf(search) !== -1;
+      console.log(this.state.departament, 2);
+      console.log(this.state.position, 1);
+      var filteredMembers = members.filter(function (member) {
+        if (search != '') {
+          return member.name.toLowerCase().indexOf(search) !== -1;
+        } else if (_this3.state.departament != undefined && _this3.state.position == undefined) {
+          if (member.department.name == _this3.state.departament) {
+            return member;
+          }
+        } else if (_this3.state.position != undefined && _this3.state.departament == undefined) {
+          if (member.position.name == _this3.state.position) {
+            return member;
+          }
+        } else if (_this3.state.position != undefined && _this3.state.departament != undefined) {
+          if (member.department.name == _this3.state.departament && member.position.name == _this3.state.position) {
+            return member;
+          }
+        } else {
+          return member;
+        }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
@@ -74048,11 +74177,14 @@ function (_Component) {
         className: "mainContent"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "team-box"
-      }, filteredCountries.map(function (member) {
+      }, filteredMembers.map(function (member) {
         return _this3.renderMember(member);
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], null)))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        updateDepartment: this.updateDepartment,
+        updatePosition: this.updatePosition
+      })))));
     }
   }]);
 

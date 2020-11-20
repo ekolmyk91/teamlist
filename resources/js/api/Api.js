@@ -11,3 +11,9 @@ export const getDepartments = () => {
         return responce.data;
     })
 }
+
+export const getPositions = () => {
+    return axios.get('/api/positions').then(responce => {
+        return responce.data;
+    })
+}
