@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Parser from 'html-react-parser'
 
 class MemberInfoPopup extends Component {
     render () {
@@ -34,7 +33,7 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="about info__text">
                         <span className="info__label">About: </span>
-                        {Parser(member.about)}
+                        <div dangerouslySetInnerHTML={{ __html: member.about }} />
                     </div>
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
