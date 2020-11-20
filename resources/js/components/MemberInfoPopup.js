@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
+import Parser from 'html-react-parser'
 
 class MemberInfoPopup extends Component {
     render () {
-        const member = this.props.member
-        console.log(member);
+        const member = this.props.member;
+        if (!member.about) {
+            member.about = 'not yet';
+        }
         return (
             <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
@@ -31,8 +34,7 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="about info__text">
                         <span className="info__label">About: </span>
-                        {member.about}
-                        dangerouslySetInnerHTML={{__html: member.about}}
+                        {Parser(member.about)}
                     </div>
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
