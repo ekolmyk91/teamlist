@@ -70,7 +70,7 @@ class MemberController extends Controller
           'department'=>'required',
           'position'  =>'required',
           'certificates'=> 'nullable|array',
-          'about'     =>'nullable|string',
+          'about'     =>'nullable|string|max:1000',
           'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -166,7 +166,7 @@ class MemberController extends Controller
             'department'=>'required',
             'position'  =>'required',
             'certificates'=> 'nullable|array',
-            'about'     =>'nullable|string',
+            'about'     =>'nullable|string|max:1000',
             'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

@@ -24,6 +24,7 @@ class MemberController extends Controller
             'email',
             'department_id',
             'position_id',
+            'about',
         ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
 
         if ($request->filled('department')) {
@@ -33,7 +34,6 @@ class MemberController extends Controller
         if ($request->filled('name')) {
             $members->where('name', 'like', '%' . $request->get('name') . '%');
         }
-
         return response()->json($members->get()->where('user.active', 1));
     }
 

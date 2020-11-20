@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 class MemberInfoPopup extends Component {
     render () {
         const member = this.props.member
+        console.log(member);
         return (
             <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
@@ -28,6 +29,11 @@ class MemberInfoPopup extends Component {
                         <span className="info__label">Position: </span>
                         {member.position.name}
                     </div>
+                    <div className="about info__text">
+                        <span className="info__label">About: </span>
+                        {member.about}
+                        dangerouslySetInnerHTML={{__html: member.about}}
+                    </div>
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
                         Html, Css, Js, jQuery, Vue Js
@@ -35,7 +41,7 @@ class MemberInfoPopup extends Component {
                     <ul>
                         <ul className="certificate">
                             {member.certificates.map(certificate => (
-                                <li className="certificate__item">
+                                <li className="certificate__item" key={certificate.id}>
                                     <img src={certificate.logo} alt={certificate.name} />
                                 </li>
                             ))}
