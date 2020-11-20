@@ -74144,8 +74144,6 @@ function (_Component) {
 
       var search = this.state.search;
       var members = this.state.members;
-      console.log(this.state.departament, 2);
-      console.log(this.state.position, 1);
       var filteredMembers = members.filter(function (member) {
         if (search != '') {
           return member.name.toLowerCase().indexOf(search) !== -1;

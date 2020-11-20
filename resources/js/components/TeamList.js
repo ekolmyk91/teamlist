@@ -67,10 +67,6 @@ class TeamList extends Component {
 
         const { members } = this.state;
 
-        console.log(this.state.departament, 2)
-
-        console.log(this.state.position, 1)
-
         const filteredMembers = members.filter(member => {
           if (search != '') {
             return member.name.toLowerCase().indexOf(search) !== -1;
