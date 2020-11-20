@@ -58,6 +58,12 @@
                         <p>Positions</p>
                     </a>
                 </li>
+                <li class="nav-item {{ (Request::is('admin/certificates*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.certificates.index')}}">
+                        <i class="material-icons">verified</i>
+                        <p>Certifications</p>
+                    </a>
+                </li>
                 <li class="nav-item {{ (Request::is('admin/solutions*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('admin.solutions.index')}}">
                         <i class="material-icons">note</i>

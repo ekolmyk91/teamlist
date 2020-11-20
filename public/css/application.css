@@ -1642,19 +1642,19 @@ input[type=checkbox] {
   font-weight: 600;
 }
 
-.team-page .team-box__popup .sertificate {
+.team-page .team-box__popup .certificate {
   margin-top: 15px;
 }
 
-.team-page .team-box__popup .sertificate__item {
+.team-page .team-box__popup .certificate__item {
   display: inline-block;
-  vertical-align: middle;
-  width: 25px;
-  height: 25px;
+  vertical-align: baseline;
+  width: 45px;
+  height: 45px;
   margin-right: 10px;
 }
 
-.team-page .team-box__popup .sertificate__item:last-child {
+.team-page .team-box__popup .certificate__item:last-child {
   margin-right: 0;
 }
 

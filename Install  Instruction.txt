@@ -27,6 +27,12 @@ Current member http://127.0.0.1:8000/api/members/{id}
 Solutions list - http://127.0.0.1:8000/api/solutions/
 Solution item http://127.0.0.1:8000/api/solutions/{id}
 
+Departments list - http://127.0.0.1:8000/api/departments/
+Department item http://127.0.0.1:8000/api/departments/{id}
+
+Positions list - http://127.0.0.1:8000/api/positions/
+Position item http://127.0.0.1:8000/api/positions/{id}
+
 
 
 

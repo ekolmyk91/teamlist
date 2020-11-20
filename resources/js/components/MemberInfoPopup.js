@@ -31,18 +31,16 @@ class MemberInfoPopup extends Component {
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
                         Html, Css, Js, jQuery, Vue Js
-                    </div>
-                    <ul className="sertificate">
-                        <li className="sertificate__item">
-                            <img src="/img/r.png" alt="sertificate image" />
-                        </li>
-                        <li className="sertificate__item">
-                            <img src="/img/r.png" alt="sertificate image" />
-                        </li>
-                        <li className="sertificate__item">
-                            <img src="/img/r.png" alt="sertificate image" />
-                        </li>
-                    </ul>*/}
+                    </div>*/}
+                    <ul>
+                        <ul className="certificate">
+                            {member.certificates.map(certificate => (
+                                <li className="certificate__item">
+                                    <img src={certificate.logo} alt={certificate.name} />
+                                </li>
+                            ))}
+                        </ul>
+                    </ul>
                 </div>
             </div>
         )
