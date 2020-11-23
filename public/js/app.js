@@ -70463,8 +70463,9 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
         className: "date-birth info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
-      }, "Date-birth: "), new Date(member.birthday).toDateString(null, {
-        dateStyle: 'short'
+      }, "Date-birth: "), new Date(member.birthday).toLocaleDateString('en-GB', {
+        month: '2-digit',
+        day: '2-digit'
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "department info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {

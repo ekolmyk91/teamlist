@@ -21,7 +21,8 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="date-birth info__text">
                         <span className="info__label">Date-birth: </span>
-                        {(new Date(member.birthday).toDateString(null, {dateStyle: 'short'}))}
+                        {(new Date(member.birthday).toLocaleDateString('en-GB', {
+                                month: '2-digit',day: '2-digit'}))}
                     </div>
                     <div className="department info__text">
                         <span className="info__label">Department: </span>
