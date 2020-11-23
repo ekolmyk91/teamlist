@@ -1,6 +1,6 @@
 <?php
 require_once 'config.php';
-$file_csv = 'department.csv';
+$file_csv = 'import/department.csv';
 import($file_csv);
 
 function import($file) {
@@ -123,9 +123,9 @@ function save_users($users_data) {
 function save_images($arr) {
     foreach ($arr as $key=>$property) {
         $url = substr($property[6], 43);
-        $path = '../storage/app/public/avatar/'.substr($property[6], 43).'.jpg';
+        $path = 'storage/app/public/avatar/'.substr($property[6], 43).'.jpg';
         if ($url) {
-            shell_exec("sh export.sh $url $path");
+            shell_exec("sh import/export.sh $url $path");
             }
         }
 }
