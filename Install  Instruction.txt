@@ -8,6 +8,11 @@ Deploy
 7. Start project via command - php artisan serve
 8. Now project available by the URL - http://127.0.0.1:8000/
 
+Import department-data
+(Execute commands from the root of the project, after migrating tables)
+1. Add data for ref tables (positions, departments) - php import/add_data_to_ref_tables.php
+2. Import member's data - php import/import_members.php
+
 
 Admin panel
 

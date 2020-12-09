@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Parser from 'html-react-parser'
 
 class MemberInfoPopup extends Component {
     render () {
@@ -22,7 +21,8 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="date-birth info__text">
                         <span className="info__label">Date-birth: </span>
-                        {(new Date(member.birthday).toDateString(null, {dateStyle: 'short'}))}
+                        {(new Date(member.birthday).toLocaleDateString('en-GB', {
+                                month: '2-digit',day: '2-digit'}))}
                     </div>
                     <div className="department info__text">
                         <span className="info__label">Department: </span>
@@ -34,7 +34,7 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="about info__text">
                         <span className="info__label">About: </span>
-                        {Parser(member.about)}
+                        <div dangerouslySetInnerHTML={{ __html: member.about }} />
                     </div>
                     {/*<div className="skills info__text">
                         <span className="info__label">Skills: </span>
