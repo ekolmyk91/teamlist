@@ -10,6 +10,7 @@ class Member extends Model
       'name',
       'surname',
       'birthday',
+      'start_work_day',
       'email',
       'phone_1',
       'phone_2',

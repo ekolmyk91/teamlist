@@ -103,14 +103,15 @@ function save_users($users_data) {
             $avatar        = $users_data[$key][6];
             $birthday      = date('Y-m-d H:i:s', strtotime($users_data[$key][7]));
             $phone_2       = (isset($users_data[$key][8])) ? $users_data[$key][8] : null;
+            $st_work_day   = date('Y-m-d H:i:s', strtotime($users_data[$key][9]));
             $password      = password_hash("password", PASSWORD_BCRYPT);
             $date          = date("Y-m-d H:i:s");
 
             $dbh->exec("insert into users (name, email, password, avatar, active, remember_token, created_at)
                                     values (\"$name\", \"$email\", \"$password\", \"$avatar\", 1, null, \"$date\" )");
             $user_id = $dbh->query("select id from users where email = \"$email\"")->fetchColumn();
-            $dbh->exec("insert into members (user_id, name, surname, birthday, email, phone_1, phone_2, department_id, position_id)
-                                        values (\"$user_id\", \"$name\", \"$surname\", \"$birthday\", \"$email\",
+            $dbh->exec("insert into members (user_id, name, surname, birthday, start_work_day, email, phone_1, phone_2, department_id, position_id)
+                                        values (\"$user_id\", \"$name\", \"$surname\", \"$birthday\", \"$st_work_day\", \"$email\",
                                                 \"$phone_1\", \"$phone_2\", \"$department_id\", \"$position_id\")");
 
         }

@@ -44,7 +44,16 @@
                                         <label class="label-control">Birthday</label>
                                         <input id='datepicker' name='birthday' type="text"
                                                class="form-control datetimepicker"
-                                               value="{{ Carbon\Carbon::parse($member->birthday)->format('d/m/Y') }}"
+                                               value="{{ Carbon\Carbon::parse($member->birthday)->format('m/d/Y') }}"
+                                               placeholder="dd/mm/yyyy"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="label-control">Start work day</label>
+                                        <input id='datepicker' name='start_work_day' type="text"
+                                               class="form-control datetimepicker"
+                                               value="{{ Carbon\Carbon::parse($member->start_work_day)->format('m/d/Y') }}"
                                                placeholder="dd/mm/yyyy"/>
                                     </div>
                                 </div>
