@@ -104,9 +104,10 @@ function save_users($users_data) {
             $birthday      = date('Y-m-d H:i:s', strtotime($users_data[$key][7]));
             $phone_2       = (isset($users_data[$key][8])) ? $users_data[$key][8] : null;
             $password      = password_hash("password", PASSWORD_BCRYPT);
+            $date          = date("Y-m-d H:i:s");
 
-            $dbh->exec("insert into users (name, email, password, avatar, active)
-                                    values (\"$name\", \"$email\", \"$password\", \"$avatar\", 1)");
+            $dbh->exec("insert into users (name, email, password, avatar, active, remember_token, created_at)
+                                    values (\"$name\", \"$email\", \"$password\", \"$avatar\", 1, null, \"$date\" )");
             $user_id = $dbh->query("select id from users where email = \"$email\"")->fetchColumn();
             $dbh->exec("insert into members (user_id, name, surname, birthday, email, phone_1, phone_2, department_id, position_id)
                                         values (\"$user_id\", \"$name\", \"$surname\", \"$birthday\", \"$email\",
