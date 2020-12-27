@@ -4,12 +4,6 @@ import {getDepartments} from "../api/Api";
 
 class Header extends Component {
 
-    logout () {
-        setTimeout(() => {
-            window.location.reload();
-        }, 200);
-    }
-
     render() {
         return (
             <header>
@@ -28,7 +22,7 @@ class Header extends Component {
                                 <Link to='/'>Команда</Link>
                             </li>
                             <li>
-                                <Link onClick={this.logout} to='/logout'>Выйти</Link>
+                                <Link to='/logout'>Выйти</Link>
                             </li>
                         </ul>
                     </div>
