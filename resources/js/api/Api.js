@@ -1,19 +1,35 @@
 import axios from 'axios'
+import { API_KEY } from './config'
 
 export const getUsers = () => {
-    return axios.get('/api/members').then(responce => {
-        return responce.data;
+    return axios({
+        method: 'get',
+        url: '/api/members',
+        headers: {'API_KEY': API_KEY},
     })
+        .then(responce => {
+            return responce.data;
+        })
 }
 
 export const getDepartments = () => {
-    return axios.get('/api/departments').then(responce => {
-        return responce.data;
+    return axios({
+        method: 'get',
+        url: '/api/departments',
+        headers: {'API_KEY': API_KEY},
     })
+        .then(responce => {
+            return responce.data;
+        })
 }
 
 export const getPositions = () => {
-    return axios.get('/api/positions').then(responce => {
-        return responce.data;
+    return axios({
+        method: 'get',
+        url: '/api/positions',
+        headers: {'API_KEY': API_KEY},
     })
+        .then(responce => {
+            return responce.data;
+        })
 }

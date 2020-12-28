@@ -46,6 +46,14 @@
                                                value="{{ old('birthday') }}" placeholder="dd/mm/yyyy"/>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="label-control">Start work day</label>
+                                        <input id='datepicker' name='start_work_day' type="text"
+                                               class="form-control datetimepicker"
+                                               value="{{ old('start_work_day') }}" placeholder="dd/mm/yyyy"/>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">

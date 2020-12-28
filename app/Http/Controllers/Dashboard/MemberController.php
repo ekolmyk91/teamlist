@@ -61,17 +61,18 @@ class MemberController extends Controller
     {
         $date = Carbon::now()->subYears(16)->addDay(1)->timestamp;
         $request->validate([
-          'name'      =>'required|string|min:2|max:20',
-          'surname'   =>'required|string|min:2|max:40',
-          'email'     =>'required|email|unique:users',
-          'birthday'  =>'required|date|before:today',
-          'phone_1'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
-          'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
-          'department'=>'required',
-          'position'  =>'required',
-          'certificates'=> 'nullable|array',
-          'about'     =>'nullable|string|max:1000',
-          'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          'name'           =>'required|string|min:2|max:20',
+          'surname'        =>'required|string|min:2|max:40',
+          'email'          =>'required|email|unique:users',
+          'birthday'       =>'required|date|before:today',
+          'start_work_day' =>'required|date|before:today',
+          'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'department'     =>'required',
+          'position'       =>'required',
+          'certificates'   => 'nullable|array',
+          'about'          =>'nullable|string|max:1000',
+          'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $active = $request->get('active');
@@ -102,6 +103,7 @@ class MemberController extends Controller
           'phone_1' => $request->get('phone_1'),
           'phone_2' => $request->get('phone_2'),
           'birthday' => Carbon::parse($request->get('birthday')),
+          'start_work_day' => Carbon::parse($request->get('start_work_day')),
           'about' => $request->get('about'),
           'department_id' => $request->get('department'),
           'position_id' => $request->get('position'),
@@ -157,17 +159,18 @@ class MemberController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'      =>'required|string|min:2|max:20',
-            'surname'   =>'required|string|min:2|max:40',
-            'email'     =>'required|email|unique:users,email,' . $id,
-            'birthday'  =>'required|date|before:today',
-            'phone_1'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
-            'phone_2'   =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
-            'department'=>'required',
-            'position'  =>'required',
-            'certificates'=> 'nullable|array',
-            'about'     =>'nullable|string|max:1000',
-            'avatar'    =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name'           =>'required|string|min:2|max:20',
+            'surname'        =>'required|string|min:2|max:40',
+            'email'          =>'required|email|unique:users,email,' . $id,
+            'birthday'       =>'required|date|before:today',
+            'start_work_day' =>'required|date|before:today',
+            'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
+            'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
+            'department'     =>'required',
+            'position'       =>'required',
+            'certificates'   => 'nullable|array',
+            'about'          =>'nullable|string|max:1000',
+            'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $member = Member::find($id);
@@ -193,6 +196,7 @@ class MemberController extends Controller
             'phone_1' => $request->get('phone_1'),
             'phone_2' => $request->get('phone_2'),
             'birthday' => Carbon::parse($request->get('birthday')),
+            'start_work_day' => Carbon::parse($request->get('birthday')),
             'about' => $request->get('about'),
             'department_id' => $request->get('department'),
             'position_id' => $request->get('position'),
