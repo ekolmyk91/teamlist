@@ -69799,22 +69799,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPositions", function() { return getPositions; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config */ "./resources/js/api/config.js");
+
 
 var getUsers = function getUsers() {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/members').then(function (responce) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'get',
+    url: '/api/members',
+    headers: {
+      'API_KEY': _config__WEBPACK_IMPORTED_MODULE_1__["API_KEY"]
+    }
+  }).then(function (responce) {
     return responce.data;
   });
 };
 var getDepartments = function getDepartments() {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/departments').then(function (responce) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'get',
+    url: '/api/departments',
+    headers: {
+      'API_KEY': _config__WEBPACK_IMPORTED_MODULE_1__["API_KEY"]
+    }
+  }).then(function (responce) {
     return responce.data;
   });
 };
 var getPositions = function getPositions() {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/positions').then(function (responce) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'get',
+    url: '/api/positions',
+    headers: {
+      'API_KEY': _config__WEBPACK_IMPORTED_MODULE_1__["API_KEY"]
+    }
+  }).then(function (responce) {
     return responce.data;
   });
 };
+
+/***/ }),
+
+/***/ "./resources/js/api/config.js":
+/*!************************************!*\
+  !*** ./resources/js/api/config.js ***!
+  \************************************/
+/*! exports provided: API_KEY */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "API_KEY", function() { return API_KEY; });
+var API_KEY = '533e0c233b3cc50a4077dc8b1d4aa1d9';
 
 /***/ }),
 
@@ -70211,13 +70245,6 @@ var Header = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(Header, [{
-    key: "logout",
-    value: function logout() {
-      setTimeout(function () {
-        window.location.reload();
-      }, 200);
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70237,7 +70264,6 @@ var Header = /*#__PURE__*/function (_Component) {
       }, "\u0413\u043B\u0430\u0432\u043D\u0430\u044F")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/"
       }, "\u041A\u043E\u043C\u0430\u043D\u0434\u0430")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        onClick: this.logout,
         to: "/logout"
       }, "\u0412\u044B\u0439\u0442\u0438")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "hamburger js-navOpenMenu"
