@@ -9,7 +9,7 @@ Deploy
 8. Now project available by the URL - http://127.0.0.1:8000/
 Credentials
 u: corporate mail
-p: password
+p: n8Zd1Btn2
 
 Import department-data
 (Execute commands from the root of the project, after migrating tables)

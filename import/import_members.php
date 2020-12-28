@@ -104,7 +104,7 @@ function save_users($users_data) {
             $birthday      = date('Y-m-d H:i:s', strtotime($users_data[$key][7]));
             $phone_2       = (isset($users_data[$key][8])) ? $users_data[$key][8] : null;
             $st_work_day   = date('Y-m-d H:i:s', strtotime($users_data[$key][9]));
-            $password      = password_hash("password", PASSWORD_BCRYPT);
+            $password      = password_hash("n8Zd1Btn2", PASSWORD_BCRYPT);
             $date          = date("Y-m-d H:i:s");
 
             $dbh->exec("insert into users (name, email, password, avatar, active, remember_token, created_at)

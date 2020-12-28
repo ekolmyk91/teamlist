@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-import {getDepartments} from "../api/Api";
+
+const handleLogout = () => {
+    axios.post('/logout')
+        .then(() => location.href = '/')
+};
 
 class Header extends Component {
 
@@ -22,7 +26,7 @@ class Header extends Component {
                                 <Link to='/'>Команда</Link>
                             </li>
                             <li>
-                                <Link to='/logout'>Выйти</Link>
+                                <Link to='/logout' onClick={handleLogout}>Выйти</Link>
                             </li>
                         </ul>
                     </div>
