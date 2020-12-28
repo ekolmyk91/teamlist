@@ -69807,7 +69807,7 @@ var getUsers = function getUsers() {
     method: 'get',
     url: '/api/members',
     headers: {
-      'API_KEY': _config__WEBPACK_IMPORTED_MODULE_1__["API_KEY"]
+      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
     }
   }).then(function (responce) {
     return responce.data;
@@ -69818,7 +69818,7 @@ var getDepartments = function getDepartments() {
     method: 'get',
     url: '/api/departments',
     headers: {
-      'API_KEY': _config__WEBPACK_IMPORTED_MODULE_1__["API_KEY"]
+      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
     }
   }).then(function (responce) {
     return responce.data;
@@ -69829,7 +69829,7 @@ var getPositions = function getPositions() {
     method: 'get',
     url: '/api/positions',
     headers: {
-      'API_KEY': _config__WEBPACK_IMPORTED_MODULE_1__["API_KEY"]
+      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
     }
   }).then(function (responce) {
     return responce.data;
@@ -69842,13 +69842,13 @@ var getPositions = function getPositions() {
 /*!************************************!*\
   !*** ./resources/js/api/config.js ***!
   \************************************/
-/*! exports provided: API_KEY */
+/*! exports provided: ApiKey */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "API_KEY", function() { return API_KEY; });
-var API_KEY = '533e0c233b3cc50a4077dc8b1d4aa1d9';
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiKey", function() { return ApiKey; });
+var ApiKey = '533e0c233b3cc50a4077dc8b1d4aa1d9';
 
 /***/ }),
 
