@@ -41,7 +41,7 @@ function data_prepare($array) {
         $number = preg_replace('/[^0-9]/', '', $array[$key][3]);
         if (strlen($number) > 10) {
             $array[$key][3] = substr($number, 0, 10);
-            $array[$key][8] = substr($number, 10);
+            $array[$key][9] = substr($number, 10);
         } else {
             $array[$key][3] = $number;
         }
@@ -49,7 +49,7 @@ function data_prepare($array) {
         $array[$key][4] = change_department_to_id($array[$key][4]);
         $array[$key][5] = change_position_to_id($array[$key][5]);
         //add default photo
-        $array[$key][6] = (!empty($array[$key][6])) ? substr($array[$key][6], 43).'.jpg' : 'default_user.jpg';
+        $array[$key][6] = (!empty($array[$key][6])) ? substr($array[$key][6], 43).'-new.jpg' : 'default_user.jpg';
     }
     return $array;
 }
@@ -102,8 +102,8 @@ function save_users($users_data) {
             $position_id   = $users_data[$key][5];
             $avatar        = $users_data[$key][6];
             $birthday      = date('Y-m-d H:i:s', strtotime($users_data[$key][7]));
-            $phone_2       = (isset($users_data[$key][8])) ? $users_data[$key][8] : null;
-            $st_work_day   = date('Y-m-d H:i:s', strtotime($users_data[$key][9]));
+            $phone_2       = (isset($users_data[$key][9])) ? $users_data[$key][9] : null;
+            $st_work_day   = date("Y-m-d H:i:s", strtotime($users_data[$key][8]));
             $password      = password_hash("n8Zd1Btn2", PASSWORD_BCRYPT);
             $date          = date("Y-m-d H:i:s");
 
@@ -122,12 +122,45 @@ function save_users($users_data) {
     }
 }
 
-function save_images($arr) {
-    foreach ($arr as $key=>$property) {
+function save_images($arr)
+{
+    foreach ($arr as $key => $property) {
         $url = substr($property[6], 43);
-        $path = 'storage/app/public/avatar/'.substr($property[6], 43).'.jpg';
+        $path = 'storage/app/public/avatar/' . substr($property[6], 43) . '.jpg';
+        $pathnew = 'storage/app/public/avatar/' . substr($property[6], 43) . '-new.jpg';
         if ($url) {
             shell_exec("sh import/export.sh $url $path");
+
+            $source = imagecreatefromjpeg($path);
+            list($height, $width) = getimagesize($path);
+            $newwidth = $width / 5;
+            $newheight = $height / 5;
+
+            $destination = imagecreatetruecolor($newheight, $newwidth);
+            imagecopyresampled($destination, $source, 0, 0, 0, 0, $newheight, $newwidth, $height, $width);
+
+            imagejpeg($destination, $pathnew, 100);
+
+            if(!empty(exif_read_data($path)['Orientation'])) {
+                switch(exif_read_data($path)['Orientation']) {
+                    case 8:
+                        $source = imagecreatefromjpeg($pathnew);
+                        $rotate = imagerotate($source, 90, 0);
+                        imagejpeg($rotate, $pathnew);
+                        break;
+                    case 3:
+                        $source = imagecreatefromjpeg($pathnew);
+                        $rotate = imagerotate($source, 180, 0);
+                        imagejpeg($rotate, $pathnew);
+                        break;
+                    case 6:
+                        $source = imagecreatefromjpeg($pathnew);
+                        $rotate = imagerotate($source, -90, 0);
+                        imagejpeg($rotate, $pathnew);
+                        break;
+                }
             }
+            unlink($path);
         }
+    }
 }
