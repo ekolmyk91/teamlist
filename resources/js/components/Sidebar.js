@@ -23,12 +23,12 @@ class Sidebar extends Component {
 
     componentDidMount () {
         getDepartments().then(data => {
-            this.setState({ 
+            this.setState({
                 departments: data,
             });
         })
         getPositions().then(data => {
-            this.setState({ 
+            this.setState({
                 positions: data,
             });
         })
@@ -77,8 +77,16 @@ class Sidebar extends Component {
             </div>
         );
     };
-    
+
     getPositions
+
+    renderBirthday() {
+        return (
+            <div className="filter-inner">
+                <span className="filter-tittle">Birthday</span>
+            </div>
+        );
+    }
 
     render() {
         return (
@@ -86,6 +94,7 @@ class Sidebar extends Component {
                 {this.renderDepartment()}
                 {this.renderPositions()}
                 <span className="js-reset-filter m-reset-button" onClick={this.resetFilter}>Clean</span>
+                {this.renderBirthday()}
             </div>
         );
     }

@@ -70644,6 +70644,10 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
         month: '2-digit',
         day: '2-digit'
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "date-start info__text"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "info__label"
+      }, "Start work day: "), new Date(member.start_work_day).toLocaleDateString('en-GB')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "department info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
@@ -71272,6 +71276,15 @@ var Sidebar = /*#__PURE__*/function (_Component) {
       }, "Departments"), renderDepartments);
     }
   }, {
+    key: "renderBirthday",
+    value: function renderBirthday() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "filter-inner"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "filter-tittle"
+      }, "Birthday"));
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -71279,7 +71292,7 @@ var Sidebar = /*#__PURE__*/function (_Component) {
       }, this.renderDepartment(), this.renderPositions(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "js-reset-filter m-reset-button",
         onClick: this.resetFilter
-      }, "Clean"));
+      }, "Clean"), this.renderBirthday());
     }
   }]);
 

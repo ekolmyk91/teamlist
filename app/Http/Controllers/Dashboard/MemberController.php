@@ -196,7 +196,7 @@ class MemberController extends Controller
             'phone_1' => $request->get('phone_1'),
             'phone_2' => $request->get('phone_2'),
             'birthday' => Carbon::parse($request->get('birthday')),
-            'start_work_day' => Carbon::parse($request->get('birthday')),
+            'start_work_day' => Carbon::parse($request->get('start_work_day')),
             'about' => $request->get('about'),
             'department_id' => $request->get('department'),
             'position_id' => $request->get('position'),

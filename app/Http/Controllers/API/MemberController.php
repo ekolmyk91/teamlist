@@ -35,6 +35,11 @@ class MemberController extends Controller
         if ($request->filled('name')) {
             $members->where('name', 'like', '%' . $request->get('name') . '%');
         }
+
+        if ($request->filled('birthday_month')) {
+            $members->whereMonth('birthday', '=', $request->get('birthday_month'));
+        }
+
         return response()->json($members->get()->where('user.active', 1));
     }
 

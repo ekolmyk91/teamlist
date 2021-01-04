@@ -24,6 +24,11 @@ class MemberInfoPopup extends Component {
                         {(new Date(member.birthday).toLocaleDateString('en-GB', {
                                 month: '2-digit',day: '2-digit'}))}
                     </div>
+                    <div className="date-start info__text">
+                        <span className="info__label">Start work day: </span>
+                        {/*{ Math.round((new Date(Date.now()) - new Date(member.start_work_day)) / (1000 * 60 * 60 * 24 * 365.24)) }*/}
+                        {new Date(member.start_work_day).toLocaleDateString('en-GB')}
+                    </div>
                     <div className="department info__text">
                         <span className="info__label">Department: </span>
                         {member.department.name}
