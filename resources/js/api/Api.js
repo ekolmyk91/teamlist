@@ -7,8 +7,8 @@ export const getUsers = () => {
         url: '/api/members',
         headers: {'Api-Key': ApiKey},
     })
-        .then(responce => {
-            return responce.data;
+        .then(response => {
+            return response.data;
         })
 }
 
@@ -18,8 +18,8 @@ export const getDepartments = () => {
         url: '/api/departments',
         headers: {'Api-Key': ApiKey},
     })
-        .then(responce => {
-            return responce.data;
+        .then(response => {
+            return response.data;
         })
 }
 
@@ -29,7 +29,18 @@ export const getPositions = () => {
         url: '/api/positions',
         headers: {'Api-Key': ApiKey},
     })
-        .then(responce => {
-            return responce.data;
+        .then(response => {
+            return response.data;
+        })
+}
+
+export const getBirthPeople = monthID => {
+    return axios({
+        method: 'get',
+        url: '/api/members?birthday_month='+monthID,
+        headers: {'Api-Key': ApiKey},
+    })
+        .then(response => {
+            return response.data;
         })
 }
