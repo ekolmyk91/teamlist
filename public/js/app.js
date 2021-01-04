@@ -95941,7 +95941,11 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "renderMonthsList", function () {
       var monthList = moment__WEBPACK_IMPORTED_MODULE_1___default.a.months();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Birthday People"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "filter-inner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "filter-tittle"
+      }, "Birthday People"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: _this.state.monthValue,
         onChange: _this.handleMonthChange
       }, monthList.map(function (month, index) {
@@ -96040,7 +96044,7 @@ function (_Component) {
       }, this.renderDepartment(), this.renderPositions(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "js-reset-filter m-reset-button",
         onClick: this.resetFilter
-      }, "Clean"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderMonthsList(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderBirthPeople());
+      }, "Clean"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderMonthsList(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.renderBirthPeople());
     }
   }]);
 

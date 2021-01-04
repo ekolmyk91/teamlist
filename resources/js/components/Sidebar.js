@@ -96,8 +96,9 @@ class Sidebar extends Component {
     renderMonthsList = () => {
         const monthList = moment.months();
         return (
-            <div>
-                <span>Birthday People</span>
+            <div className="filter-inner">
+                <span className="filter-tittle">Birthday People</span>
+                <br />
                 <select value={this.state.monthValue} onChange={this.handleMonthChange}>
                     {monthList.map((month, index) => (
                         <option key={index} value={index}>{month}</option>
@@ -136,7 +137,7 @@ class Sidebar extends Component {
                 <span className="js-reset-filter m-reset-button" onClick={this.resetFilter}>Clean</span>
                 <br />
                 {this.renderMonthsList()}
-                <br />
+                <hr />
                 {this.renderBirthPeople()}
             </div>
         );
