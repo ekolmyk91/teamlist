@@ -11,7 +11,6 @@ class MemberBirthBlock extends PureComponent {
             monthValue: moment().month(),
             birthPeople: []
         }
-
         this.handleMonthChange = this.handleMonthChange.bind(this);
     }
 
@@ -25,18 +24,21 @@ class MemberBirthBlock extends PureComponent {
 
     handleMonthChange(event) {
         this.setState({monthValue: event.target.value});
-        // console.log(this.state.monthValue);
-        getBirthPeople(this.state.monthValue).then(data => {
-            this.setState({
-                birthPeople: data,
-            });
-        })
         event.preventDefault();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.monthValue !== prevState.monthValue) {
+            getBirthPeople(this.state.monthValue).then(data => {
+                this.setState({
+                    birthPeople: data,
+                });
+            })
+        }
     }
 
     renderMonthsList = () => {
         const monthList = moment.months();
-        console.log(this.state.monthValue);
         return (
             <div className="filter-inner">
                 <select value={this.state.monthValue} onChange={this.handleMonthChange}>
@@ -44,7 +46,6 @@ class MemberBirthBlock extends PureComponent {
                         <option key={index} value={index}>{month}</option>
                     ))}
                 </select>
-                {/*{this.state.monthValue}*/}
             </div>
         );
     }

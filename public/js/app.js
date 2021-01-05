@@ -92865,7 +92865,6 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
 
     _defineProperty(_assertThisInitialized(_this), "renderMonthsList", function () {
       var monthList = moment__WEBPACK_IMPORTED_MODULE_1___default.a.months();
-      console.log(_this.state.monthValue);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter-inner"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
@@ -92914,18 +92913,23 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
   }, {
     key: "handleMonthChange",
     value: function handleMonthChange(event) {
-      var _this3 = this;
-
       this.setState({
         monthValue: event.target.value
-      }); // console.log(this.state.monthValue);
-
-      Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue).then(function (data) {
-        _this3.setState({
-          birthPeople: data
-        });
       });
       event.preventDefault();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      var _this3 = this;
+
+      if (this.state.monthValue !== prevState.monthValue) {
+        Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue).then(function (data) {
+          _this3.setState({
+            birthPeople: data
+          });
+        });
+      }
     }
   }, {
     key: "render",
