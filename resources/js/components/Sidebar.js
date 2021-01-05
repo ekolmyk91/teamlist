@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import moment from 'moment'
-import {getBirthPeople, getDepartments} from '../api/Api'
+import MemberBirthBlock from "./MemberBirthBlock";
+import {getDepartments} from '../api/Api'
 import {getPositions} from '../api/Api'
 
 class Sidebar extends Component {
@@ -11,18 +11,15 @@ class Sidebar extends Component {
             departments: [],
             positions: [],
             selectedItemId: null,
-            selectedItemState: false,
-            monthValue: moment().month(),
-            birthPeople: []
+            selectedItemState: false
         }
         this.updateCurrentDepartment = this.updateCurrentDepartment.bind(this);
         this.updateCurrentPosition = this.updateCurrentPosition.bind(this);
-        this.handleMonthChange = this.handleMonthChange.bind(this);
     }
 
     state = {
         selectedDepartment: -1,
-        selectedPosition: -1,
+        selectedPosition: -1
     }
 
     componentDidMount () {
@@ -34,11 +31,6 @@ class Sidebar extends Component {
         getPositions().then(data => {
             this.setState({
                 positions: data,
-            });
-        })
-        getBirthPeople(this.state.monthValue+1).then(data => {
-            this.setState({
-               birthPeople: data,
             });
         })
     }
@@ -62,10 +54,6 @@ class Sidebar extends Component {
         this.props.updatePosition(position, undefined)
     };
 
-    handleMonthChange(event) {
-        this.setState({monthValue: event.target.value});
-        event.preventDefault();
-    }
 
     renderDepartment () {
         const renderDepartments = this.state.departments.map( (departament, index) => (
@@ -93,42 +81,6 @@ class Sidebar extends Component {
 
     getPositions
 
-    renderMonthsList = () => {
-        const monthList = moment.months();
-        return (
-            <div className="filter-inner">
-                <span className="filter-tittle">Birthday People</span>
-                <br />
-                <select value={this.state.monthValue} onChange={this.handleMonthChange}>
-                    {monthList.map((month, index) => (
-                        <option key={index} value={index}>{month}</option>
-                    ))}
-                </select>
-                {/*{this.state.monthValue}*/}
-            </div>
-            );
-    }
-
-    renderBirthPeople = () => {
-        const renderBirthPeople = this.state.birthPeople.map( (member, id) => (
-            <tr key={id}>
-                <td>{member.name}</td>
-                <td>{member.surname}</td>
-                <td>{(new Date(member.birthday).toLocaleDateString('en-GB', {
-                    month: '2-digit',day: '2-digit'}))}</td>
-            </tr>
-        ));
-        return (
-            <div>
-                <table>
-                    <tbody>
-                        {renderBirthPeople}
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
-
     render() {
         return (
             <div className="sidebar-inner">
@@ -136,9 +88,7 @@ class Sidebar extends Component {
                 {this.renderPositions()}
                 <span className="js-reset-filter m-reset-button" onClick={this.resetFilter}>Clean</span>
                 <br />
-                {this.renderMonthsList()}
-                <hr />
-                {this.renderBirthPeople()}
+                <MemberBirthBlock />
             </div>
         );
     }
