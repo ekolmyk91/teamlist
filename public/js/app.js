@@ -92055,7 +92055,7 @@ var getPositions = function getPositions() {
 var getBirthPeople = function getBirthPeople(monthID) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'get',
-    url: '/api/members?birthday_month=' + monthID,
+    url: '/api/members?birthday_month=' + (+monthID + 1),
     headers: {
       'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
     }
@@ -92865,6 +92865,7 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
 
     _defineProperty(_assertThisInitialized(_this), "renderMonthsList", function () {
       var monthList = moment__WEBPACK_IMPORTED_MODULE_1___default.a.months();
+      console.log(_this.state.monthValue);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter-inner"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
@@ -92904,7 +92905,7 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue + 1).then(function (data) {
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue).then(function (data) {
         _this2.setState({
           birthPeople: data
         });
@@ -92913,10 +92914,17 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
   }, {
     key: "handleMonthChange",
     value: function handleMonthChange(event) {
+      var _this3 = this;
+
       this.setState({
         monthValue: event.target.value
+      }); // console.log(this.state.monthValue);
+
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue).then(function (data) {
+        _this3.setState({
+          birthPeople: data
+        });
       });
-      console.log(this.state.monthValue);
       event.preventDefault();
     }
   }, {
