@@ -36,8 +36,13 @@ class MemberController extends Controller
             $members->where('name', 'like', '%' . $request->get('name') . '%');
         }
 
-        if ($request->filled('birthday_month')) {
-            $members->whereMonth('birthday', '=', $request->get('birthday_month'))->orderByRaw('day(birthday) asc');
+        if ($request->filled('month')) {
+            $employees = new Member();
+
+            return response()->json([
+                                    'birthPeople' => $employees->getMembersListAccordingDate('birthday', $request->get('month')),
+                                    'expPeople' => $employees->getMembersListAccordingDate('start_work_day', $request->get('month') ),
+                                    ]);
         }
 
         return response()->json($members->get()->where('user.active', 1));

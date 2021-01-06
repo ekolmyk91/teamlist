@@ -34,10 +34,10 @@ export const getPositions = () => {
         })
 }
 
-export const getBirthPeople = monthID => {
+export const getBirthExpPeople = monthID => {
     return axios({
         method: 'get',
-        url: '/api/members?birthday_month='+ (+(monthID) + 1),
+        url: '/api/members?month='+ (+(monthID) + 1),
         headers: {'Api-Key': ApiKey},
     })
         .then(response => {

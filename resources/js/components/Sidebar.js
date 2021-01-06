@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import MemberBirthBlock from "./MemberBirthBlock";
+import MemberBirthExpBlock from "./MemberBirthExpBlock";
 import {getDepartments} from '../api/Api'
 import {getPositions} from '../api/Api'
 
@@ -88,7 +88,7 @@ class Sidebar extends Component {
                 {this.renderPositions()}
                 <span className="js-reset-filter m-reset-button" onClick={this.resetFilter}>Clean</span>
                 <br />
-                <MemberBirthBlock />
+                <MemberBirthExpBlock />
             </div>
         );
     }

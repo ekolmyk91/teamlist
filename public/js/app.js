@@ -92005,7 +92005,7 @@ module.exports = function(module) {
 /*!*********************************!*\
   !*** ./resources/js/api/Api.js ***!
   \*********************************/
-/*! exports provided: getUsers, getDepartments, getPositions, getBirthPeople */
+/*! exports provided: getUsers, getDepartments, getPositions, getBirthExpPeople */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92013,7 +92013,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDepartments", function() { return getDepartments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPositions", function() { return getPositions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBirthPeople", function() { return getBirthPeople; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBirthExpPeople", function() { return getBirthExpPeople; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config */ "./resources/js/api/config.js");
@@ -92052,10 +92052,10 @@ var getPositions = function getPositions() {
     return response.data;
   });
 };
-var getBirthPeople = function getBirthPeople(monthID) {
+var getBirthExpPeople = function getBirthExpPeople(monthID) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'get',
-    url: '/api/members?birthday_month=' + (+monthID + 1),
+    url: '/api/members?month=' + (+monthID + 1),
     headers: {
       'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
     }
@@ -92698,10 +92698,10 @@ var HomePage = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/MemberBirthBlock.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/MemberBirthBlock.js ***!
-  \*****************************************************/
+/***/ "./resources/js/components/MemberBirthExpBlock.js":
+/*!********************************************************!*\
+  !*** ./resources/js/components/MemberBirthExpBlock.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -92851,15 +92851,15 @@ function _defineProperty(obj, key, value) {
 
 
 
-var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
-  _inherits(MemberBirthBlock, _PureComponent);
+var MemberBirthExpBlock = /*#__PURE__*/function (_PureComponent) {
+  _inherits(MemberBirthExpBlock, _PureComponent);
 
-  var _super = _createSuper(MemberBirthBlock);
+  var _super = _createSuper(MemberBirthExpBlock);
 
-  function MemberBirthBlock(props) {
+  function MemberBirthExpBlock(props) {
     var _this;
 
-    _classCallCheck(this, MemberBirthBlock);
+    _classCallCheck(this, MemberBirthExpBlock);
 
     _this = _super.call(this, props);
 
@@ -92891,22 +92891,34 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, renderBirthPeople)));
     });
 
+    _defineProperty(_assertThisInitialized(_this), "renderExpPeople", function () {
+      var renderExpPeople = _this.state.expPeople.map(function (member, id) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: member.user_id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, member.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, member.surname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, new Date().getFullYear() - new Date(member.start_work_day).getFullYear(), " yr"));
+      });
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, renderExpPeople)));
+    });
+
     _this.state = {
       monthValue: moment__WEBPACK_IMPORTED_MODULE_1___default()().month(),
-      birthPeople: []
+      birthPeople: [],
+      expPeople: []
     };
     _this.handleMonthChange = _this.handleMonthChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
-  _createClass(MemberBirthBlock, [{
+  _createClass(MemberBirthExpBlock, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue).then(function (data) {
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthExpPeople"])(this.state.monthValue).then(function (data) {
         _this2.setState({
-          birthPeople: data
+          birthPeople: data.birthPeople,
+          expPeople: data.expPeople
         });
       });
     }
@@ -92924,9 +92936,10 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
       var _this3 = this;
 
       if (this.state.monthValue !== prevState.monthValue) {
-        Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthPeople"])(this.state.monthValue).then(function (data) {
+        Object(_api_Api__WEBPACK_IMPORTED_MODULE_2__["getBirthExpPeople"])(this.state.monthValue).then(function (data) {
           _this3.setState({
-            birthPeople: data
+            birthPeople: data.birthPeople,
+            expPeople: data.expPeople
           });
         });
       }
@@ -92940,16 +92953,24 @@ var MemberBirthBlock = /*#__PURE__*/function (_PureComponent) {
         className: "card-header"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "filter-tittle"
-      }, "Birthday People")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Birthdays")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, this.renderBirthPeople())));
+      }, this.renderBirthPeople())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "filter-tittle"
+      }, "How long have you been with WEB4PRO?")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, this.renderExpPeople())));
     }
   }]);
 
-  return MemberBirthBlock;
+  return MemberBirthExpBlock;
 }(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (MemberBirthBlock);
+/* harmony default export */ __webpack_exports__["default"] = (MemberBirthExpBlock);
 
 /***/ }),
 
@@ -93130,7 +93151,7 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
         className: "date-start info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
-      }, "Start work day: "), new Date(member.start_work_day).toLocaleDateString('en-GB')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "First work day: "), new Date(member.start_work_day).toLocaleDateString('en-GB')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "department info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
@@ -93507,7 +93528,7 @@ var MemberSearch = /*#__PURE__*/function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _MemberBirthBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemberBirthBlock */ "./resources/js/components/MemberBirthBlock.js");
+/* harmony import */ var _MemberBirthExpBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemberBirthExpBlock */ "./resources/js/components/MemberBirthExpBlock.js");
 /* harmony import */ var _api_Api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api/Api */ "./resources/js/api/Api.js");
 function _typeof(obj) {
   "@babel/helpers - typeof";
@@ -93768,7 +93789,7 @@ var Sidebar = /*#__PURE__*/function (_Component) {
       }, this.renderDepartment(), this.renderPositions(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "js-reset-filter m-reset-button",
         onClick: this.resetFilter
-      }, "Clean"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberBirthBlock__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      }, "Clean"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberBirthExpBlock__WEBPACK_IMPORTED_MODULE_1__["default"], null));
     }
   }]);
 
