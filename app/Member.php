@@ -59,10 +59,11 @@ class Member extends Model
     public function getMembersListAccordingDate($typeDay, $monthNumber)
     {
 
-        return $this->select(['user_id', 'name', 'surname', "$typeDay"])
+        return $this->select(['user_id', 'members.name', 'surname', "$typeDay"])
+                    ->join('users', 'members.user_id', '=', 'users.id')
+                    ->where('active', 1)
                     ->whereMonth("$typeDay", '=', $monthNumber)
                     ->orderByRaw($typeDay .' asc')
-                    ->get()
-                    ->where('user.active', 1);
+                    ->get();
     }
 }

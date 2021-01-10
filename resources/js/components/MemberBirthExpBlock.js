@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import moment from 'moment'
 import {getBirthExpPeople} from '../api/Api'
 import 'bootstrap/dist/css/bootstrap.css'
 
-class MemberBirthExpBlock extends PureComponent {
+class MemberBirthExpBlock extends Component {
 
     constructor (props) {
         super(props)
@@ -55,71 +55,46 @@ class MemberBirthExpBlock extends PureComponent {
 
     renderBirthPeople = () => {
         const renderBirthPeople = this.state.birthPeople.map( (member, id) => (
-            <tr key={member.user_id}>
-                <td>{member.name}</td>
-                <td>{member.surname}</td>
-                <td>
-                    {(new Date(member.birthday).toLocaleDateString('en-GB', {
+            <li className="filter-name" key={member.user_id}>
+               {member.name} {member.surname} {(new Date(member.birthday).toLocaleDateString('en-GB', {
                     month: '2-digit',day: '2-digit'}))}
-                </td>
-            </tr>
+            </li>
         ));
         return (
             <div>
-                <table>
-                    <tbody>
+                <ul>
                     {renderBirthPeople}
-                    </tbody>
-                </table>
+                </ul>
             </div>
         );
     }
 
     renderExpPeople = () => {
         const renderExpPeople = this.state.expPeople.map( (member, id) => (
-            <tr key={member.user_id}>
-                <td>{member.name}</td>
-                <td>{member.surname}</td>
-                <td>
-                    {(new Date().getFullYear() - new Date(member.start_work_day).getFullYear())} yr
-                </td>
-            </tr>
+            <li className="filter-name" key={member.user_id}>
+                {member.name} {member.surname} {(new Date().getFullYear() - new Date(member.start_work_day).getFullYear())} yr
+            </li>
         ));
         return (
             <div>
-                <table>
-                    <tbody>
+                <ul>
                     {renderExpPeople}
-                    </tbody>
-                </table>
+                </ul>
             </div>
         );
     }
 
     render() {
         return (
-            <div>
-                <div>
-                    {this.renderMonthsList()}
-                </div>
                 <div className="card">
-                    <div className="card-header">
-                        <span className="filter-tittle">Birthdays</span>
-                    </div>
                     <div className="card-body">
+                        {this.renderMonthsList()}
+                        <p><b>Birthdays</b></p>
                         {this.renderBirthPeople()}
-                    </div>
-                </div>
-                <br/>
-                <div className="card">
-                    <div className="card-header">
-                        <span className="filter-tittle">How long have you been with WEB4PRO?</span>
-                    </div>
-                    <div className="card-body">
+                        <p><b>How long have you been with WEB4PRO?</b></p>
                         {this.renderExpPeople()}
                     </div>
                 </div>
-            </div>
         );
     }
 }

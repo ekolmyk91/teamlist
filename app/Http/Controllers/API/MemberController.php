@@ -16,36 +16,37 @@ class MemberController extends Controller
 {
     public function index(Request $request)
     {
-        $members = Member::select([
-            'user_id',
-            'name',
-            'surname',
-            'birthday',
-            'start_work_day',
-            'email',
-            'department_id',
-            'position_id',
-            'about',
-        ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
-
-        if ($request->filled('department')) {
-            $members->where('department_id', $request->get('department'));
-        }
-
-        if ($request->filled('name')) {
-            $members->where('name', 'like', '%' . $request->get('name') . '%');
-        }
-
         if ($request->filled('month')) {
-            $employees = new Member();
+            $members = new Member();
 
             return response()->json([
-                                    'birthPeople' => $employees->getMembersListAccordingDate('birthday', $request->get('month')),
-                                    'expPeople' => $employees->getMembersListAccordingDate('start_work_day', $request->get('month') ),
+                                    'birthPeople' => $members->getMembersListAccordingDate('birthday', $request->get('month')),
+                                    'expPeople' => $members->getMembersListAccordingDate('start_work_day', $request->get('month') ),
                                     ]);
-        }
+        } else {
+            $members = Member::select([
+                'user_id',
+                'name',
+                'surname',
+                'birthday',
+                'start_work_day',
+                'email',
+                'department_id',
+                'position_id',
+                'about',
+            ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
 
-        return response()->json($members->get()->where('user.active', 1));
+            if ($request->filled('department')) {
+                $members->where('department_id', $request->get('department'));
+            }
+
+            if ($request->filled('name')) {
+                $members->where('name', 'like', '%' . $request->get('name') . '%');
+
+            }
+
+            return response()->json($members->get()->where('user.active', 1));
+        }
     }
 
     public function show($id)
