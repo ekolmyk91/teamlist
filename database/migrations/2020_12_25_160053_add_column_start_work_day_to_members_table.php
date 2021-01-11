@@ -14,7 +14,7 @@ class AddColumnStartWorkDayToMembersTable extends Migration
     public function up()
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->timestamp('start_work_day')->after('birthday')->nullable();
+            $table->dateTime('start_work_day')->after('birthday')->nullable()->change();
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnStartWorkDayToMembersTable extends Migration
     public function down()
     {
         Schema::table('members', function (Blueprint $table) {
-            $table->dropColumn('start_work_day');
+            $table->timestamp('start_work_day')->after('birthday')->nullable()->change();
         });
     }
 }

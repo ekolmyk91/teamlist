@@ -103,7 +103,7 @@ function save_users($users_data) {
             $avatar        = $users_data[$key][6];
             $birthday      = date('Y-m-d H:i:s', strtotime($users_data[$key][7]));
             $phone_2       = (isset($users_data[$key][9])) ? $users_data[$key][9] : null;
-            $st_work_day   = date("Y-m-d H:i:s", strtotime($users_data[$key][8]));
+            $st_work_day   = (isset($users_data[$key][8])) ? date("Y-m-d H:i:s", strtotime($users_data[$key][8])) : null;
             $password      = password_hash("n8Zd1Btn2", PASSWORD_BCRYPT);
             $date          = date("Y-m-d H:i:s");
 

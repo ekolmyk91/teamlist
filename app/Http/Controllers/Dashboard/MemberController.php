@@ -65,7 +65,7 @@ class MemberController extends Controller
           'surname'        =>'required|string|min:2|max:40',
           'email'          =>'required|email|unique:users',
           'birthday'       =>'required|date|before:today',
-          'start_work_day' =>'required|date|before:today',
+          'start_work_day' =>'nullable|date|before:today',
           'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
           'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
           'department'     =>'required',
@@ -95,6 +95,8 @@ class MemberController extends Controller
         $user = new User($userFields);
         $user->save();
 
+        $start_work_day = $request->get('start_work_day');
+
         //Create Member entity and attach User.
         $member = new Member([
           'name' => $request->get('name'),
@@ -103,7 +105,7 @@ class MemberController extends Controller
           'phone_1' => $request->get('phone_1'),
           'phone_2' => $request->get('phone_2'),
           'birthday' => Carbon::parse($request->get('birthday')),
-          'start_work_day' => Carbon::parse($request->get('start_work_day')),
+          'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
           'about' => $request->get('about'),
           'department_id' => $request->get('department'),
           'position_id' => $request->get('position'),
@@ -163,7 +165,7 @@ class MemberController extends Controller
             'surname'        =>'required|string|min:2|max:40',
             'email'          =>'required|email|unique:users,email,' . $id,
             'birthday'       =>'required|date|before:today',
-            'start_work_day' =>'required|date|before:today',
+            'start_work_day' =>'nullable|date|before:today',
             'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
             'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
             'department'     =>'required',
@@ -188,6 +190,8 @@ class MemberController extends Controller
             $userFields['avatar'] = $filename;
         }
 
+        $start_work_day = $request->get('start_work_day');
+
         $member->user()->update($userFields);
         $member->update([
             'name' => $request->get('name'),
@@ -196,7 +200,7 @@ class MemberController extends Controller
             'phone_1' => $request->get('phone_1'),
             'phone_2' => $request->get('phone_2'),
             'birthday' => Carbon::parse($request->get('birthday')),
-            'start_work_day' => Carbon::parse($request->get('start_work_day')),
+            'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
             'about' => $request->get('about'),
             'department_id' => $request->get('department'),
             'position_id' => $request->get('position'),

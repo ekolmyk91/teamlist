@@ -92866,7 +92866,7 @@ var MemberBirthExpBlock = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "renderMonthsList", function () {
       var monthList = moment__WEBPACK_IMPORTED_MODULE_1___default.a.months();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "filter-inner"
+        className: "filter-month-select"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: _this.state.monthValue,
         onChange: _this.handleMonthChange
@@ -92881,7 +92881,7 @@ var MemberBirthExpBlock = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "renderBirthPeople", function () {
       var renderBirthPeople = _this.state.birthPeople.map(function (member, id) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "filter-name",
+          className: "filer-month",
           key: member.user_id
         }, member.name, " ", member.surname, " ", new Date(member.birthday).toLocaleDateString('en-GB', {
           month: '2-digit',
@@ -92895,7 +92895,7 @@ var MemberBirthExpBlock = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "renderExpPeople", function () {
       var renderExpPeople = _this.state.expPeople.map(function (member, id) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "filter-name",
+          className: "filer-month",
           key: member.user_id
         }, member.name, " ", member.surname, " ", new Date().getFullYear() - new Date(member.start_work_day).getFullYear(), " yr");
       });
@@ -92952,8 +92952,10 @@ var MemberBirthExpBlock = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header"
+      }, this.renderMonthsList()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, this.renderMonthsList(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Birthdays")), this.renderBirthPeople(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "How long have you been with WEB4PRO?")), this.renderExpPeople()));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Birthdays"), this.renderBirthPeople(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "How long have you been with WEB4PRO?"), this.renderExpPeople()));
     }
   }]);
 
@@ -93109,11 +93111,8 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var member = this.props.member;
-
-      if (!member.about) {
-        member.about = 'not yet';
-      }
-
+      member.about = member.about ? member.about : '-';
+      member.start_work_day = member.start_work_day ? new Date(member.start_work_day).toLocaleDateString('en-GB') : '-';
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: 'team-box__popup blockFlex ' + this.props.stateClass
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -93141,7 +93140,7 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
         className: "date-start info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"
-      }, "First work day: "), new Date(member.start_work_day).toLocaleDateString('en-GB')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "First work day: "), member.start_work_day), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "department info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"

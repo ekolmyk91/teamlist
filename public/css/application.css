@@ -1784,3 +1784,15 @@ input[type=checkbox] {
   min-height: 90vh;
 }
 
+.filer-month {
+  display: block;
+  color: #0e698a;
+  padding: 3px 7px;
+  border: 1px solid #0e698a;
+  margin: 5px;
+}
+
+.filter-month-select {
+  margin: 0;
+}
+
