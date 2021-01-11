@@ -102,18 +102,34 @@ function save_users($users_data) {
             $position_id   = $users_data[$key][5];
             $avatar        = $users_data[$key][6];
             $birthday      = date('Y-m-d H:i:s', strtotime($users_data[$key][7]));
-            $phone_2       = (isset($users_data[$key][9])) ? $users_data[$key][9] : null;
-            $st_work_day   = (isset($users_data[$key][8])) ? date("Y-m-d H:i:s", strtotime($users_data[$key][8])) : null;
+            $phone_2       = (isset($users_data[$key][9])) ? $users_data[$key][9] : NULL;
+            $st_work_day   = (!empty($users_data[$key][8])) ? date("Y-m-d H:i:s", strtotime($users_data[$key][8])) : NULL;
             $password      = password_hash("n8Zd1Btn2", PASSWORD_BCRYPT);
             $date          = date("Y-m-d H:i:s");
 
             $dbh->exec("insert into users (name, email, password, avatar, active, remember_token, created_at)
                                     values (\"$name\", \"$email\", \"$password\", \"$avatar\", 1, null, \"$date\" )");
             $user_id = $dbh->query("select id from users where email = \"$email\"")->fetchColumn();
-            $dbh->exec("insert into members (user_id, name, surname, birthday, start_work_day, email, phone_1, phone_2, department_id, position_id)
-                                        values (\"$user_id\", \"$name\", \"$surname\", \"$birthday\", \"$st_work_day\", \"$email\",
-                                                \"$phone_1\", \"$phone_2\", \"$department_id\", \"$position_id\")");
 
+            $sql = 'INSERT INTO members(user_id, name, surname, birthday, start_work_day, email, phone_1, phone_2, department_id, position_id)
+                        VALUES (:user_id, :name, :surname, :birthday, :start_work_day, :email, :phone_1, :phone_2, :department_id, :position_id)';
+            $result = $dbh->prepare($sql);
+            $result->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $result->bindParam(':name', $name);
+            $result->bindParam(':surname', $surname);
+            $result->bindParam(':birthday', $birthday);
+            if (isset($st_work_day)) {
+                $result->bindParam(':start_work_day', $st_work_day);
+            } else {
+                $myNull = NULL;
+                $result->bindParam(':start_work_day', $myNull, PDO::PARAM_NULL);
+            }
+            $result->bindParam(':email', $email);
+            $result->bindParam(':phone_1', $phone_1);
+            $result->bindParam(':phone_2', $phone_2);
+            $result->bindParam(':department_id', $department_id, PDO::PARAM_INT);
+            $result->bindParam(':position_id', $position_id, PDO::PARAM_INT);
+            $result->execute();
         }
         $dbh->commit();
     } catch (Exception $e) {
