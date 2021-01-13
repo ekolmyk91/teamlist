@@ -121,8 +121,7 @@ function save_users($users_data) {
             if (isset($st_work_day)) {
                 $result->bindParam(':start_work_day', $st_work_day);
             } else {
-                $myNull = NULL;
-                $result->bindParam(':start_work_day', $myNull, PDO::PARAM_NULL);
+                $result->bindValue(':start_work_day', null, PDO::PARAM_INT);
             }
             $result->bindParam(':email', $email);
             $result->bindParam(':phone_1', $phone_1);
