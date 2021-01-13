@@ -16,26 +16,37 @@ class MemberController extends Controller
 {
     public function index(Request $request)
     {
-        $members = Member::select([
-            'user_id',
-            'name',
-            'surname',
-            'birthday',
-            'start_work_day',
-            'email',
-            'department_id',
-            'position_id',
-            'about',
-        ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
+        if ($request->filled('month')) {
+            $members = new Member();
 
-        if ($request->filled('department')) {
-            $members->where('department_id', $request->get('department'));
-        }
+            return response()->json([
+                                    'birthPeople' => $members->getMembersListAccordingDate('birthday', $request->get('month')),
+                                    'expPeople' => $members->getMembersListAccordingDate('start_work_day', $request->get('month') ),
+                                    ]);
+        } else {
+            $members = Member::select([
+                'user_id',
+                'name',
+                'surname',
+                'birthday',
+                'start_work_day',
+                'email',
+                'department_id',
+                'position_id',
+                'about',
+            ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
 
-        if ($request->filled('name')) {
-            $members->where('name', 'like', '%' . $request->get('name') . '%');
+            if ($request->filled('department')) {
+                $members->where('department_id', $request->get('department'));
+            }
+
+            if ($request->filled('name')) {
+                $members->where('name', 'like', '%' . $request->get('name') . '%');
+
+            }
+
+            return response()->json($members->get()->where('user.active', 1));
         }
-        return response()->json($members->get()->where('user.active', 1));
     }
 
     public function show($id)

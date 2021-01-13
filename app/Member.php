@@ -52,4 +52,18 @@ class Member extends Model
     {
         return $this->belongsToMany(Certificate::class, 'certificate_member', 'member', 'certificate');
     }
+
+    /**
+     * Get a list of members depending on the date of birth or employment.
+     */
+    public function getMembersListAccordingDate($typeDay, $monthNumber)
+    {
+
+        return $this->select(['user_id', 'members.name', 'surname', "$typeDay"])
+                    ->join('users', 'members.user_id', '=', 'users.id')
+                    ->where('active', 1)
+                    ->whereMonth("$typeDay", '=', $monthNumber)
+                    ->orderByRaw($typeDay .' asc')
+                    ->get();
+    }
 }

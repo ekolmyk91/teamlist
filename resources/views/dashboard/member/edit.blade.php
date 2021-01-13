@@ -53,7 +53,7 @@
                                         <label class="label-control">Start work day</label>
                                         <input id='datepicker' name='start_work_day' type="text"
                                                class="form-control datetimepicker"
-                                               value="{{ Carbon\Carbon::parse($member->start_work_day)->format('m/d/Y') }}"
+                                               value="{{ ($member->start_work_day) ? Carbon\Carbon::parse($member->start_work_day)->format('m/d/Y') : '' }}"
                                                placeholder="dd/mm/yyyy"/>
                                     </div>
                                 </div>

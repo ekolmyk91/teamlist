@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import MemberBirthExpBlock from "./MemberBirthExpBlock";
 import {getDepartments} from '../api/Api'
 import {getPositions} from '../api/Api'
 
@@ -23,12 +24,12 @@ class Sidebar extends Component {
 
     componentDidMount () {
         getDepartments().then(data => {
-            this.setState({ 
+            this.setState({
                 departments: data,
             });
         })
         getPositions().then(data => {
-            this.setState({ 
+            this.setState({
                 positions: data,
             });
         })
@@ -77,7 +78,7 @@ class Sidebar extends Component {
             </div>
         );
     };
-    
+
     getPositions
 
     render() {
@@ -86,6 +87,8 @@ class Sidebar extends Component {
                 {this.renderDepartment()}
                 {this.renderPositions()}
                 <span className="js-reset-filter m-reset-button" onClick={this.resetFilter}>Clean</span>
+                <br />
+                <MemberBirthExpBlock />
             </div>
         );
     }
