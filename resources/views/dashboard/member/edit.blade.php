@@ -142,6 +142,21 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="role">Site role:</label>
+                                            <input id="role" type="checkbox" name="manager"
+                                                @if($role[0] == 'manager')
+                                                   checked
+                                                @endif
+                                            >
+                                            <label for="role">Manager</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Active</label>

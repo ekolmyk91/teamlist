@@ -59,7 +59,6 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $date = Carbon::now()->subYears(16)->addDay(1)->timestamp;
         $request->validate([
           'name'           =>'required|string|min:2|max:20',
           'surname'        =>'required|string|min:2|max:40',
@@ -94,6 +93,9 @@ class MemberController extends Controller
         //Create User entity.
         $user = new User($userFields);
         $user->save();
+        $role_id = ($request->get('manager')) ?
+            (Role::where('name', 'manager')->first()->id) : (Role::where('name', 'member')->first()->id);
+        $user->roles()->sync([$role_id]);
 
         $start_work_day = $request->get('start_work_day');
 
@@ -142,12 +144,14 @@ class MemberController extends Controller
         $departments = Department::all();
         $positions = Position::all();
         $certificates = Certificate::all()->pluck('name', 'id');
+        $role = $member->user->roles()->pluck('name');
 
         return view('dashboard.member.edit', [
           'member'      => $member,
           'departments' => $departments,
           'positions' => $positions,
-          'certificates' => $certificates
+          'certificates' => $certificates,
+          'role'        => $role,
         ]);
     }
 
@@ -193,6 +197,11 @@ class MemberController extends Controller
         $start_work_day = $request->get('start_work_day');
 
         $member->user()->update($userFields);
+
+        $role_id = ($request->get('manager')) ?
+            (Role::where('name', 'manager')->first()->id) : (Role::where('name', 'member')->first()->id);
+        $member->user->roles()->sync([$role_id]);
+
         $member->update([
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
