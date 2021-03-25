@@ -64,6 +64,7 @@ class MemberController extends Controller
           'name'           =>'required|string|min:2|max:20',
           'surname'        =>'required|string|min:2|max:40',
           'email'          =>'required|email|unique:users',
+          'password'       =>'required|string|min:8',
           'birthday'       =>'required|date|before:today',
           'start_work_day' =>'nullable|date|before:today',
           'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
@@ -79,7 +80,7 @@ class MemberController extends Controller
         $userFields = [
           'name'     => $request->get('name'),
           'email'    => $request->get('email'),
-          'password' => User::generatePassword(),
+          'password' => password_hash($request->get('password'), PASSWORD_BCRYPT),
           'active' => isset($active) ? 1 : 0,
         ];
 

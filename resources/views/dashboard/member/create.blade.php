@@ -36,6 +36,13 @@
                                                value="{{ old('email') }}">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Password</label>
+                                        <input name='password' type="password" class="form-control"
+                                               value="{{ old('password') }}" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
