@@ -81,7 +81,7 @@ class MemberController extends Controller
           'name'     => $request->get('name'),
           'email'    => $request->get('email'),
           'password' => password_hash($request->get('password'), PASSWORD_BCRYPT),
-          'active' => isset($active) ? 1 : 0,
+          'active'   => isset($active) ? 1 : 0,
         ];
 
         if($request->hasFile('avatar')){
@@ -97,20 +97,20 @@ class MemberController extends Controller
         $user->save();
 
         $start_work_day = $request->get('start_work_day');
-
         //Create Member entity and attach User.
         $member = new Member([
-          'name' => $request->get('name'),
-          'surname' => $request->get('surname'),
-          'email' => $request->get('email'),
-          'phone_1' => $request->get('phone_1'),
-          'phone_2' => $request->get('phone_2'),
-          'birthday' => Carbon::parse($request->get('birthday')),
+          'user_id'        => $user->id,
+          'name'           => $request->get('name'),
+          'surname'        => $request->get('surname'),
+          'email'          => $request->get('email'),
+          'phone_1'        => $request->get('phone_1'),
+          'phone_2'        => $request->get('phone_2'),
+          'birthday'       => Carbon::parse($request->get('birthday')),
           'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
-          'about' => $request->get('about'),
-          'department_id' => $request->get('department'),
-          'position_id' => $request->get('position'),
-          'user'  => $user
+          'about'          => $request->get('about'),
+          'department_id'  => $request->get('department'),
+          'position_id'    => $request->get('position'),
+          'user'           => $user
         ]);
         $member->save();
         if(!empty($request->certificate[0])) {
@@ -139,15 +139,15 @@ class MemberController extends Controller
      */
     public function edit($user_id)
     {
-        $member      = Member::find($user_id);
-        $departments = Department::all();
-        $positions = Position::all();
+        $member       = Member::find($user_id);
+        $departments  = Department::all();
+        $positions    = Position::all();
         $certificates = Certificate::all()->pluck('name', 'id');
 
         return view('dashboard.member.edit', [
-          'member'      => $member,
-          'departments' => $departments,
-          'positions' => $positions,
+          'member'       => $member,
+          'departments'  => $departments,
+          'positions'    => $positions,
           'certificates' => $certificates
         ]);
     }
@@ -180,7 +180,8 @@ class MemberController extends Controller
 
         $active = $request->get('active');
         $userFields = [
-            'name' => $request->get('name'),
+            'name'   => $request->get('name'),
+            'email'  => $request->get('email'),
             'active' => isset($active) ? 1 : 0,
         ];
         if($request->hasFile('avatar')){
@@ -195,16 +196,16 @@ class MemberController extends Controller
 
         $member->user()->update($userFields);
         $member->update([
-            'name' => $request->get('name'),
-            'surname' => $request->get('surname'),
-            'email' => $request->get('email'),
-            'phone_1' => $request->get('phone_1'),
-            'phone_2' => $request->get('phone_2'),
-            'birthday' => Carbon::parse($request->get('birthday')),
+            'name'           => $request->get('name'),
+            'surname'        => $request->get('surname'),
+            'email'          => $request->get('email'),
+            'phone_1'        => $request->get('phone_1'),
+            'phone_2'        => $request->get('phone_2'),
+            'birthday'       => Carbon::parse($request->get('birthday')),
             'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
-            'about' => $request->get('about'),
-            'department_id' => $request->get('department'),
-            'position_id' => $request->get('position'),
+            'about'          => $request->get('about'),
+            'department_id'  => $request->get('department'),
+            'position_id'    => $request->get('position'),
         ]);
 
         if(!empty($request->certificate[0])) {
