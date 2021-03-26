@@ -165,6 +165,7 @@ class MemberController extends Controller
             'name'           =>'required|string|min:2|max:20',
             'surname'        =>'required|string|min:2|max:40',
             'email'          =>'required|email|unique:users,email,' . $id,
+            'password'       =>'nullable|string|min:8',
             'birthday'       =>'required|date|before:today',
             'start_work_day' =>'nullable|date|before:today',
             'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
@@ -184,6 +185,11 @@ class MemberController extends Controller
             'email'  => $request->get('email'),
             'active' => isset($active) ? 1 : 0,
         ];
+
+        if (!empty(request()->get('password'))) {
+            $userFields['password'] = password_hash($request->get('password'), PASSWORD_BCRYPT);
+        }
+        
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '-' . $avatar->getClientOriginalName();

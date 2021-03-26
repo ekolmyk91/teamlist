@@ -14,6 +14,7 @@
     <link rel="stylesheet"
           href="https://mk0herothemesdek9380.kinstacdn.com/wp-content/plugins/heroic-social-widget/css/font-awesome.min.css"
           type="text/css" media="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 <div id="app"></div>

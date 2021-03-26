@@ -37,10 +37,15 @@
                                                value="{{$member->email}}">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Password</label>
-                                        <input name='password' type="password" class="form-control">
+                                        <input id="pwd" name='password' type="password" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button type="button" id="eye"><i class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -206,12 +211,32 @@
             height: 300
         });
     </script>
-    {{--@endpush--}}
     <script>
         document.getElementById('reset-btn').onclick = function(event){
             event.preventDefault();
             document.getElementById('cert-options').selectedIndex = 0;
         }
     </script>
+    <script>
+        function show() {
+            var pass = document.getElementById('pwd');
+            pass.setAttribute('type', 'text');
+        }
+        function hide() {
+            var pass = document.getElementById('pwd');
+            pass.setAttribute('type', 'password');
+        }
+        var pwShown = 0;
+        document.getElementById("eye").addEventListener("click", function () {
+            if (pwShown == 0) {
+                pwShown = 1;
+                show();
+            } else {
+                pwShown = 0;
+                hide();
+            }
+        }, false);
+    </script>
+    {{--@endpush--}}
 @endsection
 
