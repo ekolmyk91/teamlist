@@ -63,7 +63,7 @@ class MemberController extends Controller
         $request->validate([
           'name'           =>'required|string|min:2|max:20',
           'surname'        =>'required|string|min:2|max:40',
-          'email'          =>'required|email|unique:users',
+          'email'          =>'required|email|ends_with:corp.web4pro.com.ua|unique:users',
           'password'       =>'required|string|min:8',
           'birthday'       =>'required|date|before:today',
           'start_work_day' =>'nullable|date|before:today',
@@ -164,7 +164,7 @@ class MemberController extends Controller
         $request->validate([
             'name'           =>'required|string|min:2|max:20',
             'surname'        =>'required|string|min:2|max:40',
-            'email'          =>'required|email|unique:users,email,' . $id,
+            'email'          =>'required|email|ends_with:corp.web4pro.com.ua|unique:users,email,' . $id,
             'password'       =>'nullable|string|min:8',
             'birthday'       =>'required|date|before:today',
             'start_work_day' =>'nullable|date|before:today',
@@ -189,7 +189,7 @@ class MemberController extends Controller
         if (!empty(request()->get('password'))) {
             $userFields['password'] = password_hash($request->get('password'), PASSWORD_BCRYPT);
         }
-        
+
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '-' . $avatar->getClientOriginalName();
