@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <input type="checkbox" name="active" checked>
@@ -162,7 +162,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <input id="role" type="checkbox" name="manager">
