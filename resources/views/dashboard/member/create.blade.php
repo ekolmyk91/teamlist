@@ -154,11 +154,19 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <label>Active</label>
                                         <div class="form-group">
                                             <input type="checkbox" name="active" checked>
+                                            <label>Active</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <input id="role" type="checkbox" name="manager">
+                                            <label for="role">Manager</label>
                                         </div>
                                     </div>
                                 </div>
