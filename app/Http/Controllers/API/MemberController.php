@@ -31,6 +31,7 @@ class MemberController extends Controller
                 'birthday',
                 'start_work_day',
                 'email',
+                'phone_1',
                 'department_id',
                 'position_id',
                 'about',
