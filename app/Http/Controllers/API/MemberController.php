@@ -11,6 +11,7 @@ use App\User;
 use Carbon\Carbon;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -36,6 +37,10 @@ class MemberController extends Controller
                 'position_id',
                 'about',
             ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
+
+            if (!Auth::user()->hasRole('manager')) {
+
+            }
 
             if ($request->filled('department')) {
                 $members->where('department_id', $request->get('department'));
