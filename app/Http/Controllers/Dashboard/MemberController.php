@@ -12,6 +12,7 @@ use App\User;
 use Carbon\Carbon;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
@@ -82,6 +83,7 @@ class MemberController extends Controller
           'email'    => $request->get('email'),
           'password' => password_hash($request->get('password'), PASSWORD_BCRYPT),
           'active'   => isset($active) ? 1 : 0,
+          'api_token' => Str::random(60),
         ];
 
         if($request->hasFile('avatar')){
