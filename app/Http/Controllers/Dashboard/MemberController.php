@@ -197,6 +197,7 @@ class MemberController extends Controller
             'name'   => $request->get('name'),
             'email'  => $request->get('email'),
             'active' => isset($active) ? 1 : 0,
+            'api_token' => Str::random(60),
         ];
 
         if (!empty(request()->get('password'))) {

@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 class MemberInfoPopup extends Component {
     render () {
         const member = this.props.member;
-
         member.about = (member.about) ? member.about : '-';
         member.start_work_day = (member.start_work_day) ? new Date(member.start_work_day).toLocaleDateString('en-GB') : '-';
         return (
@@ -19,10 +18,14 @@ class MemberInfoPopup extends Component {
                     <div className="dev-name">
                         {member.name} {member.surname}
                     </div>
-                    <div className="dev-phone">
-                        <span className="info__label">Phone: </span>
-                        {member.phone_1}
-                    </div>
+                    { member.phone_1  ?
+                        <div className="dev-phone">
+                            <span className="info__label">Phone: </span>
+                            {member.phone_1}
+                        </div>
+                        :
+                        ''
+                    }
                     <div className="date-birth info__text">
                         <span className="info__label">Date-birth: </span>
                         {(new Date(member.birthday).toLocaleDateString('en-GB', {
