@@ -1,5 +1,12 @@
 import axios from 'axios'
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+console.log((getCookie('tml-cookie')));
+
 export const getUsers = () => {
     return axios({
         method: 'get',
