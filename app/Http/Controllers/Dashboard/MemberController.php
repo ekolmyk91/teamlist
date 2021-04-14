@@ -219,7 +219,7 @@ class MemberController extends Controller
         //Update user role (manager) in pivot table.
         $role_ids[] = Role::where('name', 'manager')->first()->id;
         if ($request->get('manager')) {
-            $member->user->roles()->attach($role_ids);
+            $member->user->roles()->sync($role_ids, false);
         } else {
             $member->user->roles()->detach($role_ids);
         }
