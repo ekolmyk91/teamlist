@@ -11,6 +11,8 @@ use App\User;
 use Carbon\Carbon;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 
 class MemberController extends Controller
 {
@@ -24,7 +26,7 @@ class MemberController extends Controller
                                     'expPeople' => $members->getMembersListAccordingDate('start_work_day', $request->get('month') ),
                                     ]);
         } else {
-            $members = Member::select([
+            $params = [
                 'user_id',
                 'name',
                 'surname',
@@ -34,7 +36,12 @@ class MemberController extends Controller
                 'department_id',
                 'position_id',
                 'about',
-            ])->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
+            ];
+            if (Auth::user()->hasRole('manager')) {
+               $params[] = 'phone_1';
+            }
+
+            $members = Member::select($params)->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
 
             if ($request->filled('department')) {
                 $members->where('department_id', $request->get('department'));

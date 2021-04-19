@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -47,6 +48,10 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request)
     {
+        Cookie::queue(
+            Cookie::forget('tml-cookie')
+        ) ;
+
         if ($request->wantsJson()) {
             return response()->json([], 204);
         }

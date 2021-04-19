@@ -92016,15 +92016,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBirthExpPeople", function() { return getBirthExpPeople; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config */ "./resources/js/api/config.js");
 
 
+function getCookie(name) {
+  var value = "; ".concat(document.cookie);
+  var parts = value.split("; ".concat(name, "="));
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+var api_token = getCookie('tml-cookie');
 var getUsers = function getUsers() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'get',
     url: '/api/members',
     headers: {
-      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
+      'Authorization': 'Bearer ' + api_token
     }
   }).then(function (response) {
     return response.data;
@@ -92035,7 +92041,7 @@ var getDepartments = function getDepartments() {
     method: 'get',
     url: '/api/departments',
     headers: {
-      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
+      'Authorization': 'Bearer ' + api_token
     }
   }).then(function (response) {
     return response.data;
@@ -92046,7 +92052,7 @@ var getPositions = function getPositions() {
     method: 'get',
     url: '/api/positions',
     headers: {
-      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
+      'Authorization': 'Bearer ' + api_token
     }
   }).then(function (response) {
     return response.data;
@@ -92057,26 +92063,12 @@ var getBirthExpPeople = function getBirthExpPeople(monthID) {
     method: 'get',
     url: '/api/members?month=' + (+monthID + 1),
     headers: {
-      'Api-Key': _config__WEBPACK_IMPORTED_MODULE_1__["ApiKey"]
+      'Authorization': 'Bearer ' + api_token
     }
   }).then(function (response) {
     return response.data;
   });
 };
-
-/***/ }),
-
-/***/ "./resources/js/api/config.js":
-/*!************************************!*\
-  !*** ./resources/js/api/config.js ***!
-  \************************************/
-/*! exports provided: ApiKey */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiKey", function() { return ApiKey; });
-var ApiKey = '533e0c233b3cc50a4077dc8b1d4aa1d9';
 
 /***/ }),
 
@@ -93129,7 +93121,11 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
         className: "info blockFlex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dev-name"
-      }, member.name, " ", member.surname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, member.name, " ", member.surname), member.phone_1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dev-phone"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "info__label"
+      }, "Phone: "), member.phone_1) : '', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "date-birth info__text"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "info__label"

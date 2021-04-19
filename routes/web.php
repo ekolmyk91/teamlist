@@ -41,4 +41,4 @@ Route::group(['middleware' => ['auth']], function (){
 
 });
 
-Route::view('/{path?}', 'app')->middleware('auth');
+Route::view('/{path?}', 'app')->middleware('auth', 'apiToken');

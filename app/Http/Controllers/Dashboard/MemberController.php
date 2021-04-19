@@ -12,6 +12,7 @@ use App\User;
 use Carbon\Carbon;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
@@ -59,7 +60,6 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $date = Carbon::now()->subYears(16)->addDay(1)->timestamp;
         $request->validate([
           'name'           =>'required|string|min:2|max:20',
           'surname'        =>'required|string|min:2|max:40',
@@ -74,6 +74,7 @@ class MemberController extends Controller
           'certificates'   => 'nullable|array',
           'about'          =>'nullable|string|max:1000',
           'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          'manager'        =>'nullable|string',
         ]);
 
         $active = $request->get('active');
@@ -82,6 +83,7 @@ class MemberController extends Controller
           'email'    => $request->get('email'),
           'password' => password_hash($request->get('password'), PASSWORD_BCRYPT),
           'active'   => isset($active) ? 1 : 0,
+          'api_token' => Str::random(60),
         ];
 
         if($request->hasFile('avatar')){
@@ -95,6 +97,14 @@ class MemberController extends Controller
         //Create User entity.
         $user = new User($userFields);
         $user->save();
+
+        //Save user role in pivot table.
+        $role_ids[] = Role::where('name', 'member')->first()->id;
+        if ($request->get('manager')) {
+            $role_ids[] = Role::where('name', 'manager')->first()->id;
+        }
+        $user->roles()->attach($role_ids);
+
 
         $start_work_day = $request->get('start_work_day');
         //Create Member entity and attach User.
@@ -143,12 +153,14 @@ class MemberController extends Controller
         $departments  = Department::all();
         $positions    = Position::all();
         $certificates = Certificate::all()->pluck('name', 'id');
+        $roles        = $member->user->roles()->pluck('name')->toArray();
 
         return view('dashboard.member.edit', [
           'member'       => $member,
           'departments'  => $departments,
           'positions'    => $positions,
-          'certificates' => $certificates
+          'certificates' => $certificates,
+          'roles'        => $roles,
         ]);
     }
 
@@ -175,6 +187,7 @@ class MemberController extends Controller
             'certificates'   => 'nullable|array',
             'about'          =>'nullable|string|max:1000',
             'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'manager'        =>'nullable|string',
         ]);
 
         $member = Member::find($id);
@@ -184,6 +197,7 @@ class MemberController extends Controller
             'name'   => $request->get('name'),
             'email'  => $request->get('email'),
             'active' => isset($active) ? 1 : 0,
+            'api_token' => Str::random(60),
         ];
 
         if (!empty(request()->get('password'))) {
@@ -201,6 +215,15 @@ class MemberController extends Controller
         $start_work_day = $request->get('start_work_day');
 
         $member->user()->update($userFields);
+
+        //Update user role (manager) in pivot table.
+        $role_ids[] = Role::where('name', 'manager')->first()->id;
+        if ($request->get('manager')) {
+            $member->user->roles()->sync($role_ids, false);
+        } else {
+            $member->user->roles()->detach($role_ids);
+        }
+
         $member->update([
             'name'           => $request->get('name'),
             'surname'        => $request->get('surname'),

@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
-class AuthKey
+class ApiToken
 {
     /**
      * Handle an incoming request.
@@ -15,10 +17,13 @@ class AuthKey
      */
     public function handle($request, Closure $next)
     {
-        $token = $request->header('Api-Key');
-        if ($token != env('API_KEY')){
-            return response()->json(['message' => 'Key not found'], 401);
+        if (!$request->cookie('tml-cookie')) {
+            $api_token = User::find(Auth::user()->id)->api_token;
+            $response = $next($request);
+
+            return $response->cookie('tml-cookie', $api_token, 0, '/', null, false, false);
         }
+
         return $next($request);
     }
 }
