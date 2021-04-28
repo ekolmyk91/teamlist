@@ -175,7 +175,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary pull-right">Update Member</button>
-                            <input name='url' type="hidden" value="{{ old(URL::previous()) }}">
+                            <input name='url' type="hidden" value="{{ old( 'url', URL::previous()) }}">
                             <div class="clearfix"></div>
                         </form>
                     </div>

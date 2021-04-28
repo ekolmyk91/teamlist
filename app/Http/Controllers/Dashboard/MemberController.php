@@ -10,6 +10,7 @@ use App\Position;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -128,7 +129,7 @@ class MemberController extends Controller
         }
 
 	    $url = $request->input('url');
-        return redirect($url)->with('success', 'Member saved!');
+        return Redirect::to($url)->with('success', 'Member saved!');
     }
 
     /**
@@ -246,7 +247,7 @@ class MemberController extends Controller
 
         $url = $request->input('url');
 
-        return redirect($url)->with('success', 'Member updated!');
+        return Redirect::to($url)->with('success', 'Member updated!');
     }
 
     /**
