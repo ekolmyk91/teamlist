@@ -258,7 +258,7 @@ class MemberController extends Controller
         $user->delete();
 
         return redirect()
-                ->route('admin.members.index')
+                ->back()
                 ->with('success', 'Member deleted!');
     }
 }
