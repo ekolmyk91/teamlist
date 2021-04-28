@@ -127,7 +127,8 @@ class MemberController extends Controller
             $member->certificates()->sync($request->input('certificate', []));
         }
 
-        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
+	    $url = $request->input('url');
+        return redirect($url)->with('success', 'Member saved!');
     }
 
     /**
@@ -243,7 +244,9 @@ class MemberController extends Controller
             $member->certificates()->sync([]);
         }
 
-        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member updated!');
+        $url = $request->input('url');
+
+        return redirect($url)->with('success', 'Member updated!');
     }
 
     /**
