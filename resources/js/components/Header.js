@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {withTranslation} from 'react-i18next'
+import data from '../data/data.json';
 
 const handleLogout = () => {
     axios.post('/logout')
@@ -9,6 +11,7 @@ const handleLogout = () => {
 class Header extends Component {
 
     render() {
+        const { t } = this.props;
         return (
             <header>
                 <div className="wrapper">
@@ -20,13 +23,13 @@ class Header extends Component {
                         </a>
                         <ul className="navMenu">
                             <li>
-                                <Link to='home'>Главная</Link>
+                                <Link to='home'>{t(data.menu.home)}</Link>
                             </li>
                             <li>
-                                <Link to='/'>Команда</Link>
+                                <Link to='/'>{t(data.menu.team)}</Link>
                             </li>
                             <li>
-                                <Link to='/logout' onClick={handleLogout}>Выйти</Link>
+                                <Link to='/logout' onClick={handleLogout}>{t(data.menu.logout)}</Link>
                             </li>
                         </ul>
                     </div>
@@ -38,4 +41,4 @@ class Header extends Component {
         );
     }
 }
-export default Header
+export default withTranslation()(Header)
