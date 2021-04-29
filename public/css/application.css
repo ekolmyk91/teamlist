@@ -1635,7 +1635,6 @@ input[type=checkbox] {
 
 .team-page .sidebar-team {
   width: 100%;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   height: -webkit-max-content;

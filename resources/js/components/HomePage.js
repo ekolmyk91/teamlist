@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {withTranslation} from 'react-i18next'
+import data from '../data/data.json';
 
 class HomePage extends Component {
     constructor (props) {
@@ -14,12 +16,12 @@ class HomePage extends Component {
 
 
     render() {
-
+        const { t } = this.props;
         return (
             <div className="container">
                 <section className="home-page">
                     <div className="wrapper">
-                        <span>Главная страница мира</span>
+                        <span>{t(data.homepage)}</span>
                     </div>
                 </section>
             </div>
@@ -27,6 +29,6 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage
+export default withTranslation()(HomePage)
 
   

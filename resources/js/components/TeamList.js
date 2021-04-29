@@ -3,6 +3,7 @@ import MemberPreview from './MemberPreview'
 import MemberInfoPopup from './MemberInfoPopup'
 import Sidebar from './Sidebar'
 import {getUsers} from '../api/Api'
+import data from '../data/data.json';
 
 class TeamList extends Component {
     constructor (props) {
@@ -91,7 +92,7 @@ class TeamList extends Component {
         return (
             <div className="container">
                 <div className="wrapper searchWrap">
-                    <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder="Поиск сотрудников" name="s" />
+                    <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder={data.search} name="s" />
                 </div>
                 <section className="team-page">
                     <div className="wrapper blockFlex">
