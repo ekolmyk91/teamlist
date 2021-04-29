@@ -11,7 +11,8 @@
   "menu": {
     "home": "Home",
     "team": "Team",
-    "logout": "Logout"
+    "logout": "Logout",
+    "admin":"Admin"
   },
   "member": {
     "phone": "Phone:",

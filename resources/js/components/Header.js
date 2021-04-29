@@ -32,7 +32,7 @@ class Header extends Component {
                                 <Link to='/logout' onClick={handleLogout}>{t(data.menu.logout)}</Link>
                             </li>
 	                        <li>
-		                        <a onClick={() => window.location.href="/admin"} >Админ</a>
+		                        <a onClick={() => window.location.href="/admin"} >{t(data.menu.admin)}</a>
 	                        </li>
                         </ul>
                     </div>
