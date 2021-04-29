@@ -5,7 +5,6 @@ import Header from './Header'
 import PageHeader from './PageHeader'
 import TeamList from './TeamList'
 import HomePage from './HomePage'
-import { Redirect } from 'react-router';
 
 class App extends Component {
     render () {

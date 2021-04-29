@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import moment from 'moment'
 import {getBirthExpPeople} from '../api/Api'
 import 'bootstrap/dist/css/bootstrap.css'
+import {withTranslation} from 'react-i18next';
+import data from '../data/data.json';
 
 class MemberBirthExpBlock extends Component {
 
@@ -85,15 +87,16 @@ class MemberBirthExpBlock extends Component {
     }
 
     render() {
+        const { t } = this.props;
         return (
                 <div className="card">
                     <div className="card-header">
                         {this.renderMonthsList()}
                     </div>
                     <div className="card-body">
-                        <p>Birthdays</p>
+                        <p>{t(data.birthdays)}</p>
                         {this.renderBirthPeople()}
-                        <p>How long have you been with WEB4PRO?</p>
+                        <p>{t(data.how_long)}</p>
                         {this.renderExpPeople()}
                     </div>
                 </div>
@@ -101,4 +104,4 @@ class MemberBirthExpBlock extends Component {
     }
 }
 
-export default MemberBirthExpBlock
+export default withTranslation()(MemberBirthExpBlock)

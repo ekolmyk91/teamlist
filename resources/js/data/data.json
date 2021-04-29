@@ -1,0 +1,24 @@
+{
+  "departments": "Departments",
+  "positions": "Positions",
+  "clean": "Clean",
+  "close": "Close",
+  "homepage": "Main page of the whole world",
+  "team": "Team",
+  "search": "Search members",
+  "birthdays": "Birthdays",
+  "how_long": "How long have you been with WEB4PRO?",
+  "menu": {
+    "home": "Home",
+    "team": "Team",
+    "logout": "Logout"
+  },
+  "member": {
+    "phone": "Phone:",
+    "date": "Date-birth:",
+    "first_day": "First work day:",
+    "department": "Department:",
+    "position": "Position:",
+    "about": "About: :"
+  }
+}
