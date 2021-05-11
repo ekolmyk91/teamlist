@@ -10,6 +10,7 @@ use App\Position;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -127,7 +128,8 @@ class MemberController extends Controller
             $member->certificates()->sync($request->input('certificate', []));
         }
 
-        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member saved!');
+	    $url = $request->input('url');
+        return Redirect::to($url)->with('success', 'Member saved!');
     }
 
     /**
@@ -243,7 +245,9 @@ class MemberController extends Controller
             $member->certificates()->sync([]);
         }
 
-        return redirect()->action('Dashboard\MemberController@index')->with('success', 'Member updated!');
+        $url = $request->input('url');
+
+        return Redirect::to($url)->with('success', 'Member updated!');
     }
 
     /**
@@ -258,7 +262,7 @@ class MemberController extends Controller
         $user->delete();
 
         return redirect()
-                ->route('admin.members.index')
+                ->back()
                 ->with('success', 'Member deleted!');
     }
 }

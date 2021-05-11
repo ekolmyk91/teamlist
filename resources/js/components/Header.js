@@ -31,6 +31,9 @@ class Header extends Component {
                             <li>
                                 <Link to='/logout' onClick={handleLogout}>{t(data.menu.logout)}</Link>
                             </li>
+	                        <li>
+		                        <a onClick={() => window.location.href="/admin"} >{t(data.menu.admin)}</a>
+	                        </li>
                         </ul>
                     </div>
                     <a className="hamburger js-navOpenMenu">
