@@ -121,6 +121,7 @@ class MemberController extends Controller
           'about'          => $request->get('about'),
           'department_id'  => $request->get('department'),
           'position_id'    => $request->get('position'),
+          'trainee'        => $request->get('trainee') ? 1 : 0,
           'user'           => $user
         ]);
         $member->save();
@@ -237,6 +238,7 @@ class MemberController extends Controller
             'about'          => $request->get('about'),
             'department_id'  => $request->get('department'),
             'position_id'    => $request->get('position'),
+	        'trainee'        => $request->get('trainee') ? 1 : 0
         ]);
 
         if(!empty($request->certificate[0])) {

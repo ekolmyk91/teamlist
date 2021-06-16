@@ -95400,6 +95400,7 @@ var TeamList = /*#__PURE__*/function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "renderMember", function (member) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "team-box__card",
+        "data-trn": member.trainee,
         key: member.user_id
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MemberPreview__WEBPACK_IMPORTED_MODULE_1__["default"], {
         member: member,

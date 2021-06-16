@@ -35,6 +35,7 @@ class MemberController extends Controller
                 'email',
                 'department_id',
                 'position_id',
+	            'trainee',
                 'about',
             ];
             if (Auth::user()->hasRole('manager')) {
@@ -71,6 +72,7 @@ class MemberController extends Controller
                                   'about',
                                   'department_id',
                                   'position_id',
+	                              'trainee'
                                 ]);
 
         return response()->json($member);
