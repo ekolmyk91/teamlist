@@ -41,7 +41,7 @@ class TeamList extends Component {
 
     renderMember = member => {
         return (
-            <div className='team-box__card' key={member.user_id}>
+            <div className='team-box__card' data-trn={member.trainee} key={member.user_id}>
                 <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
                 {this.state.showPopupId ==  member.user_id ?
                     <MemberInfoPopup member={member} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> : null

@@ -17,6 +17,7 @@ class Member extends Model
       'phone_2',
       'department_id',
       'position_id',
+	  'trainee',
       'about'
     ];
 
