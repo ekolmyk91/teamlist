@@ -1414,6 +1414,7 @@ input[type=checkbox] {
   display: flex;
   padding-bottom: 25px;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 @media (min-width: 768px) {
@@ -1453,6 +1454,7 @@ input[type=checkbox] {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  align-items: baseline;
   width: 100%;
 }
 
@@ -1461,7 +1463,7 @@ input[type=checkbox] {
   font-weight: 700;
 }
 
-.team-page .team-box info__text {
+.team-page .team-box .info__text {
   font-size: 14px;
 }
 
@@ -1617,6 +1619,10 @@ input[type=checkbox] {
   .team-page .team-box__card {
     width: 30.8%;
   }
+}
+
+.team-page .team-box__card[data-trn="1"] .img img {
+  box-shadow: 0 0 5px 5px #32adc1;
 }
 
 .team-page .team-box__card:hover {
