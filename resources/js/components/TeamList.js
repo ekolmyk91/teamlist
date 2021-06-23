@@ -37,6 +37,7 @@ class TeamList extends Component {
             stateClass: 'overlay--show'
         });
         $(".overlay").toggleClass("overlay--show")
+        $('body').toggleClass("m-ovrf")
     }
 
     renderMember = member => {
