@@ -3,6 +3,7 @@
         display: flex;
         padding-bottom: 25px;
         flex-direction: column;
+        align-items: flex-start;
         @media (min-width: 768px) {
             flex-direction: row;
         }
@@ -28,12 +29,13 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        align-items: baseline;
         width: 100%;
         .dev-name {
             font-size: $fontSize-large;
             font-weight: $fontWeight-extraBold;
         }
-        info {
+        .info {
            &__text {
                font-size: $fontSize-small;
            }
@@ -99,6 +101,7 @@
             }
             .img {
                 width: 300px;
+                height: 250px;
                 margin: 0 auto 30px;
                 @media (min-width: 768px) {
                     margin: 0 30px 0 0;
@@ -151,6 +154,11 @@
             }
             @media (min-width: 1200px) {
                 width: 30.8%;
+            }
+            &[data-trn="1"] {
+                .img img {
+                    box-shadow: 0 0 5px 5px #32adc1;
+                }
             }
             &:hover {
                 border: 1px solid $silver;
@@ -242,5 +250,6 @@
     }
 }
 
-
-
+.m-ovrf {
+    overflow: hidden;
+}
