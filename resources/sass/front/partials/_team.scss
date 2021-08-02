@@ -1,4 +1,7 @@
 .team-page {
+    .info {
+        margin: 0 auto;
+    }
     .blockFlex {
         display: flex;
         padding-bottom: 25px;
@@ -29,7 +32,6 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        align-items: baseline;
         width: 100%;
         .dev-name {
             font-size: $fontSize-large;
