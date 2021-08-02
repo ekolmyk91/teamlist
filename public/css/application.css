@@ -1410,6 +1410,10 @@ input[type=checkbox] {
   background-color: lightgrey;
 }
 
+.team-page .info {
+  margin: 0 auto;
+}
+
 .team-page .blockFlex {
   display: flex;
   padding-bottom: 25px;
@@ -1454,7 +1458,6 @@ input[type=checkbox] {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: baseline;
   width: 100%;
 }
 
