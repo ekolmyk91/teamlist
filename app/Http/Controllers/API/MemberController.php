@@ -77,4 +77,11 @@ class MemberController extends Controller
 
         return response()->json($member);
     }
+
+	public function getCurrentUser()
+	{
+		$user = Auth::user();
+
+		return response()->json($user->only(['roles']));
+	}
 }

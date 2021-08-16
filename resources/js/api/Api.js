@@ -19,6 +19,17 @@ export const getUsers = () => {
         })
 }
 
+export const getCurrentUser = () => {
+	return axios({
+		method: 'get',
+		url: '/api/members/current-user',
+		headers: {'Authorization' : 'Bearer ' + api_token},
+	})
+		.then(response => {
+			return response.data;
+		})
+}
+
 export const getDepartments = () => {
     return axios({
         method: 'get',
