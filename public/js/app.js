@@ -93447,7 +93447,7 @@ var getUsers = function getUsers() {
 var getCurrentUser = function getCurrentUser() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'get',
-    url: '/api/members/current-user',
+    url: '/api/user/current',
     headers: {
       'Authorization': 'Bearer ' + api_token
     }
@@ -93906,15 +93906,16 @@ var Header = /*#__PURE__*/function (_Component) {
       Object(_api_Api__WEBPACK_IMPORTED_MODULE_3__["getCurrentUser"])().then(function (response) {
         _this2.setState({
           currentUser: response
-        }); // console.log(this.state.currentUser.roles.find(o => o.name === 'admin'));
-
+        });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var userRoles = this.state;
-      console.log(userRoles);
+      var currentUser = this.state.currentUser;
+
+      if (currentUser && currentUser.roles) {}
+
       var t = this.props.t;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wrapper"
@@ -93935,13 +93936,11 @@ var Header = /*#__PURE__*/function (_Component) {
       }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.team))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/logout",
         onClick: handleLogout
-      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.logout))), userRoles.some(function (o) {
-        return o.name === 'admin';
-      }) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.logout))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         onClick: function onClick() {
           return window.location.href = "/admin";
         }
-      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.admin))) : '')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.admin))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "hamburger js-navOpenMenu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null))));
     }

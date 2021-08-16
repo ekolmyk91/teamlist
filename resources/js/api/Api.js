@@ -22,7 +22,7 @@ export const getUsers = () => {
 export const getCurrentUser = () => {
 	return axios({
 		method: 'get',
-		url: '/api/members/current-user',
+		url: '/api/user/current',
 		headers: {'Authorization' : 'Bearer ' + api_token},
 	})
 		.then(response => {

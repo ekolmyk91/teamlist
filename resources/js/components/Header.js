@@ -23,13 +23,13 @@ class Header extends Component {
 			this.setState({
 				currentUser: response,
 			});
-			// console.log(this.state.currentUser.roles.find(o => o.name === 'admin'));
 		})
-
 	}
+
     render() {
-		let userRoles = this.state;
-		console.log(userRoles);
+		let currentUser = this.state.currentUser;
+        if(currentUser && currentUser.roles) {
+        }
         const { t } = this.props;
         return (
             <header>
@@ -50,13 +50,9 @@ class Header extends Component {
                             <li>
                                 <Link to='/logout' onClick={handleLogout}>{t(data.menu.logout)}</Link>
                             </li>
-	                        {userRoles.some(o => o.name === 'admin') ?
 		                        <li>
 			                        <a onClick={() => window.location.href="/admin"} >{t(data.menu.admin)}</a>
 		                        </li>
-		                        :
-		                        ''
-	                        }
                         </ul>
                     </div>
                     <a className="hamburger js-navOpenMenu">
