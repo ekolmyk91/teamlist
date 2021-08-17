@@ -55,10 +55,10 @@ class Header extends Component {
                         </a>
                         <ul className="navMenu">
                             <li>
-                                <Link to='home'>{t(data.menu.home)}</Link>
+                                <Link to='/'>{t(data.menu.home)}</Link>
                             </li>
                             <li>
-                                <Link to='/'>{t(data.menu.team)}</Link>
+                                <Link to='/team'>{t(data.menu.team)}</Link>
                             </li>
                             <li>
                                 <Link to='/logout' onClick={handleLogout}>{t(data.menu.logout)}</Link>
