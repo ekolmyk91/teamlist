@@ -14,8 +14,8 @@ class App extends Component {
                 <div className="content">
                     <PageHeader />
                     <Switch>
-                        <Route path='/home' component={HomePage} />
-                        <Route path='/' component={TeamList} />
+                        <Route path='/team' component={TeamList} />
+	                    <Route path='/' component={HomePage} />
                     </Switch>
                 </div>
             </BrowserRouter>
