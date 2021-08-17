@@ -8,6 +8,16 @@
   "search": "Search members",
   "birthdays": "Birthdays",
   "how_long": "How long have you been with WEB4PRO?",
+  "homepage_content": {
+    "team": "Команда",
+    "request": "Запрос на оборудование",
+    "ideas": "Идеи для улучшения в компании",
+    "vacation": "Отпуска",
+    "library": "Библиотека компании",
+    "photo": "Фото компании",
+    "corp": "Корпоративный блог",
+    "redmine": "Редмайн компании"
+  },
   "menu": {
     "home": "Home",
     "team": "Team",
