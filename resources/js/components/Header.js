@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {withTranslation} from 'react-i18next'
+import {getCurrentUser} from '../api/Api'
 import data from '../data/data.json';
 
 const handleLogout = () => {
@@ -10,7 +11,38 @@ const handleLogout = () => {
 
 class Header extends Component {
 
+	constructor (props) {
+		super(props)
+		this.state = {
+			currentUser: [],
+		}
+	}
+
+	componentDidMount () {
+		getCurrentUser().then(response => {
+			this.setState({
+				currentUser: response,
+			});
+		})
+	}
+
     render() {
+
+        const renderAuthButton = () => {
+            let currentUser = this.state.currentUser,
+                isLoggedIn = false;
+    
+            if (currentUser.length != 0) {
+                if (currentUser.roles[0].name == 'admin') {
+                    isLoggedIn = true;
+                }
+            }
+            if (isLoggedIn) {
+              return  <li><a onClick={() => window.location.href="/admin"} >{t(data.menu.admin)}</a></li>;
+            }
+        }
+      
+ 
         const { t } = this.props;
         return (
             <header>
@@ -31,9 +63,7 @@ class Header extends Component {
                             <li>
                                 <Link to='/logout' onClick={handleLogout}>{t(data.menu.logout)}</Link>
                             </li>
-	                        <li>
-		                        <a onClick={() => window.location.href="/admin"} >{t(data.menu.admin)}</a>
-	                        </li>
+                            {renderAuthButton()}
                         </ul>
                     </div>
                     <a className="hamburger js-navOpenMenu">

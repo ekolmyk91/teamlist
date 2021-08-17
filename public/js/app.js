@@ -93410,12 +93410,13 @@ module.exports = function(module) {
 /*!*********************************!*\
   !*** ./resources/js/api/Api.js ***!
   \*********************************/
-/*! exports provided: getUsers, getDepartments, getPositions, getBirthExpPeople */
+/*! exports provided: getUsers, getCurrentUser, getDepartments, getPositions, getBirthExpPeople */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCurrentUser", function() { return getCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDepartments", function() { return getDepartments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPositions", function() { return getPositions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBirthExpPeople", function() { return getBirthExpPeople; });
@@ -93434,6 +93435,17 @@ var getUsers = function getUsers() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default()({
     method: 'get',
     url: '/api/members',
+    headers: {
+      'Authorization': 'Bearer ' + api_token
+    }
+  }).then(function (response) {
+    return response.data;
+  });
+};
+var getCurrentUser = function getCurrentUser() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'get',
+    url: '/api/user/current',
     headers: {
       'Authorization': 'Bearer ' + api_token
     }
@@ -93735,8 +93747,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _data_data_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../data/data.json */ "./resources/js/data/data.json");
-var _data_data_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../data/data.json */ "./resources/js/data/data.json", 1);
+/* harmony import */ var _api_Api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/Api */ "./resources/js/api/Api.js");
+/* harmony import */ var _data_data_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data/data.json */ "./resources/js/data/data.json");
+var _data_data_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../data/data.json */ "./resources/js/data/data.json", 1);
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -93859,6 +93872,7 @@ function _getPrototypeOf(o) {
 
 
 
+
 var handleLogout = function handleLogout() {
   axios.post('/logout').then(function () {
     return location.href = '/';
@@ -93870,15 +93884,53 @@ var Header = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(Header);
 
-  function Header() {
+  function Header(props) {
+    var _this;
+
     _classCallCheck(this, Header);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      currentUser: []
+    };
+    return _this;
   }
 
   _createClass(Header, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      Object(_api_Api__WEBPACK_IMPORTED_MODULE_3__["getCurrentUser"])().then(function (response) {
+        _this2.setState({
+          currentUser: response
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
+      var renderAuthButton = function renderAuthButton() {
+        var currentUser = _this3.state.currentUser,
+            isLoggedIn = false;
+
+        if (currentUser.length != 0) {
+          if (currentUser.roles[0].name == 'admin') {
+            isLoggedIn = true;
+          }
+        }
+
+        if (isLoggedIn) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            onClick: function onClick() {
+              return window.location.href = "/admin";
+            }
+          }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.admin)));
+        }
+      };
+
       var t = this.props.t;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wrapper"
@@ -93894,16 +93946,12 @@ var Header = /*#__PURE__*/function (_Component) {
         className: "navMenu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "home"
-      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_3__.menu.home))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.home))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/"
-      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_3__.menu.team))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.team))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/logout",
         onClick: handleLogout
-      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_3__.menu.logout))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        onClick: function onClick() {
-          return window.location.href = "/admin";
-        }
-      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_3__.menu.admin))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.logout))), renderAuthButton())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "hamburger js-navOpenMenu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null))));
     }
@@ -94097,8 +94145,60 @@ var HomePage = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "home-page"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage)))));
+        className: "home-team"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "/team"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.team)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i team"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__inner sc"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://forms.gle/PoY7USJyU2CU5ZLKA"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.request)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i pc"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://forms.gle/iqcPKozbYZvhW5c36"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.ideas)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i improvments"
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__inner thr"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://docs.google.com/spreadsheets/d/1tlcx2XeaHB8YUAkhCnj-HRaKqZfqpf6Zx4UQeix4A0w/edit?usp=sharing"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.vacation)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i chill"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://docs.google.com/spreadsheets/d/1So5tPF_XtdbkwsDDFRievQNmk78QMw0PJH6JdywXH3s/edit?usp=sharing"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.library)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i library"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://drive.google.com/drive/folders/0B2IE7CeXw-wTcWJnQ2c0NVg0aEk?resourcekey=0-7neGEfYTLDkosvctEKYUDg&usp=sharing"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.photo)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i photo"
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__inner sc"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "http://corp.web4pro.net/"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.corp)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i blog"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "home-team__card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://pm.web4pro.com.ua/"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.homepage_content.redmine)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "i redmine"
+      }))))));
     }
   }]);
 
@@ -95530,10 +95630,10 @@ var TeamList = /*#__PURE__*/function (_Component) {
 /*!*************************************!*\
   !*** ./resources/js/data/data.json ***!
   \*************************************/
-/*! exports provided: departments, positions, clean, close, homepage, team, search, birthdays, how_long, menu, member, default */
+/*! exports provided: departments, positions, clean, close, homepage, team, search, birthdays, how_long, homepage_content, menu, member, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"departments\":\"Departments\",\"positions\":\"Positions\",\"clean\":\"Clean\",\"close\":\"Close\",\"homepage\":\"Main page of the whole world\",\"team\":\"Team\",\"search\":\"Search members\",\"birthdays\":\"Birthdays\",\"how_long\":\"How long have you been with WEB4PRO?\",\"menu\":{\"home\":\"Home\",\"team\":\"Team\",\"logout\":\"Logout\",\"admin\":\"Admin\"},\"member\":{\"phone\":\"Phone:\",\"date\":\"Date-birth:\",\"first_day\":\"First work day:\",\"department\":\"Department:\",\"position\":\"Position:\",\"about\":\"About: :\"}}");
+module.exports = JSON.parse("{\"departments\":\"Departments\",\"positions\":\"Positions\",\"clean\":\"Clean\",\"close\":\"Close\",\"homepage\":\"Main page of the whole world\",\"team\":\"Team\",\"search\":\"Search members\",\"birthdays\":\"Birthdays\",\"how_long\":\"How long have you been with WEB4PRO?\",\"homepage_content\":{\"team\":\"Команда\",\"request\":\"Запрос на оборудование\",\"ideas\":\"Идеи для улучшения в компании\",\"vacation\":\"Отпуска\",\"library\":\"Библиотека компании\",\"photo\":\"Фото компании\",\"corp\":\"Корпоративный блог\",\"redmine\":\"Редмайн компании\"},\"menu\":{\"home\":\"Home\",\"team\":\"Team\",\"logout\":\"Logout\",\"admin\":\"Admin\"},\"member\":{\"phone\":\"Phone:\",\"date\":\"Date-birth:\",\"first_day\":\"First work day:\",\"department\":\"Department:\",\"position\":\"Position:\",\"about\":\"About: :\"}}");
 
 /***/ }),
 
