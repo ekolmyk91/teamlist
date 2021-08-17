@@ -1779,6 +1779,12 @@ input[type=checkbox] {
   }
 }
 
+@media (min-width: 1200px) {
+  .team-page .team-box__card:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
 .team-page .team-box__card[data-trn="1"] .img img {
   box-shadow: 0 0 5px 5px #32adc1;
 }

@@ -157,6 +157,11 @@
             @media (min-width: 1200px) {
                 width: 30.8%;
             }
+            &:nth-child(3n) {
+                @media (min-width: 1200px) {
+                    margin-right: 0;
+                }
+            }
             &[data-trn="1"] {
                 .img img {
                     box-shadow: 0 0 5px 5px #32adc1;
