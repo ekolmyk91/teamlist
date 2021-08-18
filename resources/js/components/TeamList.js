@@ -3,6 +3,7 @@ import MemberPreview from './MemberPreview'
 import MemberInfoPopup from './MemberInfoPopup'
 import Sidebar from './Sidebar'
 import {getUsers} from '../api/Api'
+import {withTranslation} from 'react-i18next';
 import data from '../data/data.json';
 
 class TeamList extends Component {
@@ -65,6 +66,8 @@ class TeamList extends Component {
 
     render() {
 
+        const { t } = this.props;
+
         const { search } = this.state;
 
         const { members } = this.state;
@@ -91,29 +94,36 @@ class TeamList extends Component {
         });
 
         return (
-            <div className="container">
-                <div className="wrapper searchWrap">
-                    <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder={data.search} name="s" />
-                </div>
-                <section className="team-page">
-                    <div className="wrapper blockFlex">
-                        <div className="mainContent">
-                            <div className="team-box">
-                                {filteredMembers.map(member => {
-                                    return this.renderMember(member);
-                                })}
-                            </div>
-                        </div>
-                        <div className="sidebar">
-                            <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>   
-                        </div>
+            <div>
+                <section className="pageHeaderForm">
+                    <div className="wrapper">
+                        <h2>{t(data.team)}</h2>
                     </div>
                 </section>
+                <div className="container">
+                    <div className="wrapper searchWrap">
+                        <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder={data.search} name="s" />
+                    </div>
+                    <section className="team-page">
+                        <div className="wrapper blockFlex">
+                            <div className="mainContent">
+                                <div className="team-box">
+                                    {filteredMembers.map(member => {
+                                        return this.renderMember(member);
+                                    })}
+                                </div>
+                            </div>
+                            <div className="sidebar">
+                                <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>   
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         );
     }
 }
 
-export default TeamList
+export default withTranslation()(TeamList)
 
   
