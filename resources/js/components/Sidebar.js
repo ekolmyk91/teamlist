@@ -59,10 +59,10 @@ class Sidebar extends Component {
     renderOptions = position => {
         const { t } = this.props;
         const renderDepartments = this.state.departments.map( (departament, index) => (
-            <span key={index} onClick={() => {this.updateCurrentDepartment(departament, index), this.setState({selectedDepartment: departament.id})}} data-val={departament.name} data-id={departament.id} className={departament.id === this.state.selectedDepartment ? 'filter-name m-active' : 'filter-name'}>{departament.name}</span>
+            <span key={index} onClick={() => {this.updateCurrentDepartment(departament, index); if (departament.id === this.state.selectedDepartment) {this.setState({selectedDepartment: -1}); this.resetFilter()} else {this.setState({selectedDepartment: departament.id})} }} data-val={departament.name} data-id={departament.id} className={departament.id === this.state.selectedDepartment ? 'filter-name m-active' : 'filter-name'}>{departament.name}</span>
         ));
         const renderPositions = this.state.positions.map( (position, index) => (
-            <span key={index} onClick={() => {this.updateCurrentPosition(position, index), this.setState({selectedPosition: position.id})}} data-val={position.name} className={position.id === this.state.selectedPosition ? 'filter-name m-active' : 'filter-name'}>{position.name}</span>
+            <span key={index} onClick={() => {this.updateCurrentPosition(position, index); if (position.id === this.state.selectedPosition) {this.setState({selectedPosition: -1}); this.resetFilter()} else { this.setState({selectedPosition: position.id}) } }} data-val={position.name} className={position.id === this.state.selectedPosition ? 'filter-name m-active' : 'filter-name'}>{position.name}</span>
         ));
         return (
             <div className="filter-common">
