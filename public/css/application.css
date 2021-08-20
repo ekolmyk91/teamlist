@@ -1619,10 +1619,23 @@ input[type=checkbox] {
 .team-page .team-box .dev-name {
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.team-page .team-box .info {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .team-page .team-box .info__text {
   font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .team-page .team-box .img {
@@ -1699,7 +1712,7 @@ input[type=checkbox] {
 }
 
 .team-page .team-box__popup .img {
-  width: 300px;
+  width: auto;
   height: 250px;
   margin: 0 auto 30px;
 }
@@ -1707,6 +1720,7 @@ input[type=checkbox] {
 @media (min-width: 768px) {
   .team-page .team-box__popup .img {
     margin: 0 30px 0 0;
+    width: 300px;
   }
 }
 
@@ -1725,6 +1739,7 @@ input[type=checkbox] {
 
 .team-page .team-box__popup .info__label {
   font-weight: 600;
+  margin-right: 5px;
 }
 
 .team-page .team-box__popup .certificate {
@@ -1776,6 +1791,16 @@ input[type=checkbox] {
 @media (min-width: 1200px) {
   .team-page .team-box__card {
     width: 30.8%;
+  }
+}
+
+.team-page .team-box__card:nth-child(2n) {
+  margin-right: 0;
+}
+
+@media (min-width: 992px) {
+  .team-page .team-box__card:nth-child(2n) {
+    margin-right: 20px;
   }
 }
 
@@ -1905,9 +1930,19 @@ input[type=checkbox] {
 }
 
 .sidebar {
-  width: 25%;
+  width: 100%;
   order: 2;
   margin-left: auto;
+  order: 0;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 25%;
+    order: 1;
+    margin-bottom: 0;
+  }
 }
 
 .filter-name {
