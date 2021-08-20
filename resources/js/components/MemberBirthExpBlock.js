@@ -72,9 +72,10 @@ class MemberBirthExpBlock extends Component {
     }
 
     renderExpPeople = () => {
-        const renderExpPeople = this.state.expPeople.map( (member, id) => (
+	    const { t } = this.props;
+    	const renderExpPeople = this.state.expPeople.map( (member, id) => (
             <li className="filer-month" key={member.user_id}>
-                {member.name} {member.surname} {(new Date().getFullYear() - new Date(member.start_work_day).getFullYear())} yr
+                {member.name} {member.surname} {(new Date().getFullYear() - new Date(member.start_work_day).getFullYear())} {t(data.member.years)}
             </li>
         ));
         return (

@@ -94413,11 +94413,13 @@ var MemberBirthExpBlock = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderExpPeople", function () {
+      var t = _this.props.t;
+
       var renderExpPeople = _this.state.expPeople.map(function (member, id) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "filer-month",
           key: member.user_id
-        }, member.name, " ", member.surname, " ", new Date().getFullYear() - new Date(member.start_work_day).getFullYear(), " yr");
+        }, member.name, " ", member.surname, " ", new Date().getFullYear() - new Date(member.start_work_day).getFullYear(), " ", t(_data_data_json__WEBPACK_IMPORTED_MODULE_5__.member.years));
       });
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, renderExpPeople));
@@ -95499,7 +95501,7 @@ var TeamList = /*#__PURE__*/function (_Component) {
 /*! exports provided: departments, positions, clean, close, homepage, team, home, search, birthdays, how_long, homepage_content, menu, member, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"departments\":\"Departments\",\"positions\":\"Positions\",\"clean\":\"Clean\",\"close\":\"Close\",\"homepage\":\"Main page of the whole world\",\"team\":\"Team\",\"home\":\"WEB4PRO\",\"search\":\"Search members\",\"birthdays\":\"Birthdays\",\"how_long\":\"How long have you been with WEB4PRO?\",\"homepage_content\":{\"team\":\"Команда\",\"request\":\"Запрос на оборудование\",\"ideas\":\"Идеи для улучшения в компании\",\"vacation\":\"Отпуска\",\"library\":\"Библиотека компании\",\"photo\":\"Фото компании\",\"corp\":\"Корпоративный блог\",\"redmine\":\"Редмайн компании\"},\"menu\":{\"home\":\"Home\",\"team\":\"Team\",\"logout\":\"Logout\",\"admin\":\"Admin\"},\"member\":{\"phone\":\"Phone:\",\"date\":\"Date-birth:\",\"first_day\":\"First work day:\",\"department\":\"Department:\",\"position\":\"Position:\",\"about\":\"About: :\"}}");
+module.exports = JSON.parse("{\"departments\":\"Departments\",\"positions\":\"Positions\",\"clean\":\"Clean\",\"close\":\"Close\",\"homepage\":\"Main page of the whole world\",\"team\":\"Team\",\"home\":\"WEB4PRO\",\"search\":\"Search members\",\"birthdays\":\"Birthdays\",\"how_long\":\"How long have you been with WEB4PRO?\",\"homepage_content\":{\"team\":\"Команда\",\"request\":\"Запрос на оборудование\",\"ideas\":\"Идеи для улучшения в компании\",\"vacation\":\"Отпуска\",\"library\":\"Библиотека компании\",\"photo\":\"Фото компании\",\"corp\":\"Корпоративный блог\",\"redmine\":\"Редмайн компании\"},\"menu\":{\"home\":\"Home\",\"team\":\"Team\",\"logout\":\"Logout\",\"admin\":\"Admin\"},\"member\":{\"phone\":\"Phone:\",\"date\":\"Date-birth:\",\"first_day\":\"First work day:\",\"department\":\"Department:\",\"position\":\"Position:\",\"about\":\"About: :\",\"years\":\"years\"}}");
 
 /***/ }),
 
@@ -95510,7 +95512,7 @@ module.exports = JSON.parse("{\"departments\":\"Departments\",\"positions\":\"Po
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/teamlist/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/teamlistloc/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })
