@@ -67,10 +67,10 @@ class Member extends Model
                                     JOIN users ON users.id = members.user_id
                                     WHERE users.active = 1 AND MONTH(birthday) = :monthNumber ORDER BY formatted_birthday', [$monthNumber]);
         } elseif ('start_work_day' == $typeDay) {
-            return DB::select('SELECT user_id, members.name, surname, date_format(members.start_work_day, \'%Y %m %d\') as formatted_work_day
+            return DB::select('SELECT user_id, members.name, surname, (YEAR(CURDATE()) - date_format(members.start_work_day, \'%Y\')) as exp_years
                                     FROM members
                                     JOIN users ON users.id = members.user_id
-                                    WHERE users.active = 1 AND MONTH(start_work_day) = :monthNumber ORDER BY formatted_work_day', [$monthNumber]);
+                                    WHERE users.active = 1 AND MONTH(start_work_day) = :monthNumber ORDER BY exp_years DESC', [$monthNumber]);
         }
     }
 }

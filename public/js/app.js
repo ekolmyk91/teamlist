@@ -94416,7 +94416,7 @@ var MemberBirthExpBlock = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "filer-month",
           key: member.user_id
-        }, member.name, " ", member.surname, " ", new Date().getFullYear() - new Date(member.formatted_work_day).getFullYear(), " ", t(_data_data_json__WEBPACK_IMPORTED_MODULE_5__.member.years));
+        }, member.name, " ", member.surname, " ", member.exp_years, " ", t(_data_data_json__WEBPACK_IMPORTED_MODULE_5__.member.years));
       });
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, renderExpPeople));
