@@ -9,6 +9,8 @@ const handleLogout = () => {
         .then(() => location.href = '/')
 };
 
+var menuFlag = true;
+
 class Header extends Component {
 
 	constructor (props) {
@@ -25,6 +27,18 @@ class Header extends Component {
 			});
 		})
 	}
+
+    mobileMenu () {
+        var body = document.body;
+
+        if  ( menuFlag == false ) {
+            menuFlag = true;
+            body.classList.remove("m-menu");
+        } else {
+            menuFlag = false;
+            body.classList.add("m-menu");
+        }
+    }
 
     render() {
 
@@ -66,7 +80,7 @@ class Header extends Component {
                             {renderAuthButton()}
                         </ul>
                     </div>
-                    <a className="hamburger js-navOpenMenu">
+                    <a className="hamburger js-navOpenMenu" onClick={this.mobileMenu}>
                         <span></span>
                     </a>
                 </div>

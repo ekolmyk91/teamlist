@@ -93879,6 +93879,8 @@ var handleLogout = function handleLogout() {
   });
 };
 
+var menuFlag = true;
+
 var Header = /*#__PURE__*/function (_Component) {
   _inherits(Header, _Component);
 
@@ -93906,6 +93908,19 @@ var Header = /*#__PURE__*/function (_Component) {
           currentUser: response
         });
       });
+    }
+  }, {
+    key: "mobileMenu",
+    value: function mobileMenu() {
+      var body = document.body;
+
+      if (menuFlag == false) {
+        menuFlag = true;
+        body.classList.remove("m-menu");
+      } else {
+        menuFlag = false;
+        body.classList.add("m-menu");
+      }
     }
   }, {
     key: "render",
@@ -93952,7 +93967,8 @@ var Header = /*#__PURE__*/function (_Component) {
         to: "/logout",
         onClick: handleLogout
       }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_4__.menu.logout))), renderAuthButton())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "hamburger js-navOpenMenu"
+        className: "hamburger js-navOpenMenu",
+        onClick: this.mobileMenu
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null))));
     }
   }]);
@@ -95384,8 +95400,10 @@ var TeamList = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onchange", function (e) {
+      var formatedValue = e.target.value.toLowerCase();
+
       _this.setState({
-        search: e.target.value
+        search: formatedValue
       });
     });
 
@@ -95432,7 +95450,13 @@ var TeamList = /*#__PURE__*/function (_Component) {
       var members = this.state.members;
       var filteredMembers = Object.values(members).filter(function (member) {
         if (search != '') {
-          return member.name.toLowerCase().indexOf(search) !== -1;
+          if (member.name.toLowerCase().indexOf(search) !== -1) {
+            return member.name.toLowerCase().indexOf(search) !== -1;
+          }
+
+          if (member.surname.toLowerCase().indexOf(search) !== -1) {
+            return member.surname.toLowerCase().indexOf(search) !== -1;
+          }
         } else if (_this3.state.departament != undefined && _this3.state.position == undefined) {
           if (member.department.name == _this3.state.departament) {
             return member;
