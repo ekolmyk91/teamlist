@@ -61,7 +61,8 @@ class TeamList extends Component {
     }
   
     onchange = e => {
-        this.setState({ search: e.target.value });
+        let formatedValue = e.target.value.toLowerCase()
+        this.setState({ search: formatedValue });
     };
 
     render() {
@@ -73,24 +74,30 @@ class TeamList extends Component {
         const { members } = this.state;
 
         const filteredMembers = Object.values(members).filter(member => {
-          if (search != '') {
-            return member.name.toLowerCase().indexOf(search) !== -1;
-          } else if (this.state.departament != undefined && this.state.position == undefined) {
-              if (member.department.name == this.state.departament) {
-                return member;
-              }
-          } else if (this.state.position != undefined && this.state.departament == undefined) {
-            if (member.position.name == this.state.position) {
-              return member;
+       
+            if (search != '') {
+                if (member.name.toLowerCase().indexOf(search) !== -1) {
+                    return member.name.toLowerCase().indexOf(search) !== -1;
+                } 
+                if (member.surname.toLowerCase().indexOf(search) !== -1) {
+                    return member.surname.toLowerCase().indexOf(search) !== -1;
+                }
+            } else if (this.state.departament != undefined && this.state.position == undefined) {
+                    if (member.department.name == this.state.departament) {
+                        return member;
+                    }
+            } else if (this.state.position != undefined && this.state.departament == undefined) {
+                    if (member.position.name == this.state.position) {
+                    return member;
+                    }
+            } else if (this.state.position != undefined && this.state.departament != undefined)  {
+                    if (member.department.name == this.state.departament && member.position.name == this.state.position) {
+                        return member;
+                    }
+            } else {
+                    return member;
             }
-          } else if (this.state.position != undefined && this.state.departament != undefined)  {
-            if (member.department.name == this.state.departament && member.position.name == this.state.position) {
-                return member;
-              }
-          }
-          else {
-            return member;
-          }
+
         });
 
         return (
