@@ -7,7 +7,6 @@ class MemberInfoPopup extends Component {
         const member = this.props.member;
         const { t } = this.props;
         member.about = (member.about) ? member.about : '-';
-        member.start_work_day = (member.start_work_day) ? new Date(member.start_work_day).toLocaleDateString('en-GB') : '-';
         return (
             <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
@@ -30,8 +29,7 @@ class MemberInfoPopup extends Component {
                     }
                     <div className="date-birth info__text">
                         <span className="info__label">{data.member.date}</span>
-                        {(new Date(member.birthday).toLocaleDateString('en-GB', {
-                                month: '2-digit',day: '2-digit'}))}
+                        {member.birthday}
                     </div>
                     <div className="date-start info__text">
                         <span className="info__label">{t(data.member.first_day)}</span>
