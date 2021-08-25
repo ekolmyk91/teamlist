@@ -41,11 +41,15 @@ class TeamList extends Component {
         $('body').toggleClass("m-ovrf")
     }
 
+    closePopupFunc () {
+        
+    }
+
     renderMember = member => {
         return (
             <div className='team-box__card' data-trn={member.trainee} key={member.user_id}>
                 <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
-                {this.state.showPopupId ==  member.user_id ?
+                {this.state.showPopupId == member.user_id ?
                     <MemberInfoPopup member={member} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> : null
                 }
             </div>
@@ -83,19 +87,19 @@ class TeamList extends Component {
                     return member.surname.toLowerCase().indexOf(search) !== -1;
                 }
             } else if (this.state.departament != undefined && this.state.position == undefined) {
-                    if (member.department.name == this.state.departament) {
-                        return member;
-                    }
+                if (member.department.name == this.state.departament) {
+                    return member;
+                }
             } else if (this.state.position != undefined && this.state.departament == undefined) {
-                    if (member.position.name == this.state.position) {
-                    return member;
-                    }
+                if (member.position.name == this.state.position) {
+                return member;
+                }
             } else if (this.state.position != undefined && this.state.departament != undefined)  {
-                    if (member.department.name == this.state.departament && member.position.name == this.state.position) {
-                        return member;
-                    }
-            } else {
+                if (member.department.name == this.state.departament && member.position.name == this.state.position) {
                     return member;
+                }
+            } else {
+                return member;
             }
 
         });

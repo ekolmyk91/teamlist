@@ -1742,6 +1742,7 @@ input[type=checkbox] {
   cursor: pointer;
   transition: 0.3s;
   opacity: 0.6;
+  color: #0e698a;
 }
 
 .team-page .team-box__popup .close-icon:hover {

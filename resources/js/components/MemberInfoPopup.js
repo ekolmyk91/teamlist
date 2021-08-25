@@ -11,7 +11,7 @@ class MemberInfoPopup extends Component {
         return (
             <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
-                    <a href='#' onClick={this.props.closePopup}>{t(data.close)}</a>
+                    <span href='#' onClick={this.props.closePopup}>{t(data.close)}</span>
                 </div>
                 <div className="img">
                     <img src={member.user.avatar} alt="develop image" />
