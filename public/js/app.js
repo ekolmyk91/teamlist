@@ -94659,7 +94659,7 @@ var MemberInfoPopup = /*#__PURE__*/function (_Component) {
         className: 'team-box__popup blockFlex ' + this.props.stateClass
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "close-icon"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         href: "#",
         onClick: this.props.closePopup
       }, t(_data_data_json__WEBPACK_IMPORTED_MODULE_2__.close))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -95439,6 +95439,9 @@ var TeamList = /*#__PURE__*/function (_Component) {
       $(".overlay").toggleClass("overlay--show");
       $('body').toggleClass("m-ovrf");
     }
+  }, {
+    key: "closePopupFunc",
+    value: function closePopupFunc() {}
   }, {
     key: "render",
     value: function render() {
