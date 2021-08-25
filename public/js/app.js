@@ -95533,7 +95533,7 @@ module.exports = JSON.parse("{\"departments\":\"Departments\",\"positions\":\"Po
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/teamlistloc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/teamlist/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })
