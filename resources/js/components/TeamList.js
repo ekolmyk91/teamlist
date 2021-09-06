@@ -78,13 +78,13 @@ class TeamList extends Component {
         const { members } = this.state;
 
         const filteredMembers = Object.values(members).filter(member => {
-       
-            if (search != '') {
-                if (member.name.toLowerCase().indexOf(search) !== -1) {
-                    return member.name.toLowerCase().indexOf(search) !== -1;
+            let trimmedSearch = search.replace(/\s/g, '');
+            if (trimmedSearch != '') {
+                if (member.name.toLowerCase().indexOf(trimmedSearch) !== -1) {
+                    return member.name.toLowerCase().indexOf(trimmedSearch) !== -1;
                 } 
-                if (member.surname.toLowerCase().indexOf(search) !== -1) {
-                    return member.surname.toLowerCase().indexOf(search) !== -1;
+                if (member.surname.toLowerCase().indexOf(trimmedSearch) !== -1) {
+                    return member.surname.toLowerCase().indexOf(trimmedSearch) !== -1;
                 }
             } else if (this.state.departament != undefined && this.state.position == undefined) {
                 if (member.department.name == this.state.departament) {
