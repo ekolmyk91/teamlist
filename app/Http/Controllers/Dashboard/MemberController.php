@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Spatie\Searchable\Search;
 
 class MemberController extends Controller
 {
@@ -267,4 +268,14 @@ class MemberController extends Controller
                 ->back()
                 ->with('success', 'Member deleted!');
     }
+
+	public function search(Request $request)
+	{
+		$searchResults = (new Search())
+			->registerModel(Member::class, 'name', 'surname')
+			->search($request->input('query'));
+		dd($searchResults);
+		return view('dashboard.member.search', compact('searchResults'));
+
+	}
 }

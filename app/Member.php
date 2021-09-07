@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Spatie\Searchable\SearchResult;
 
-class Member extends Model
-{
+class Member extends Model implements \Spatie\Searchable\Searchable {
     protected $fillable = [
       'user_id',
       'name',
@@ -73,4 +73,15 @@ class Member extends Model
                                     WHERE users.active = 1 AND MONTH(start_work_day) = :monthNumber ORDER BY exp_years DESC', [$monthNumber]);
         }
     }
+
+	public function getSearchResult(): SearchResult
+	{
+		$url = route('admin.members.search', $this->id);
+
+		return new SearchResult(
+			$this,
+			$this->name,
+			$url
+		);
+	}
 }

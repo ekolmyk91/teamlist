@@ -16,7 +16,23 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('admin.members.create')}}" class="btn btn-primary">Add Member</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ route('admin.members.create')}}" class="btn btn-primary">Add Member</a>
+                </div>
+                <div class="col-md-6">
+                    <form class="navbar-form" action="{{ route('admin.members.search') }}" method="POST">
+                        @csrf
+                        <div class="input-group no-border">
+                            <input type="text" name="query" class="form-control" placeholder="Search...">
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header card-header-danger">
                     <h4 class="card-title ">Members</h4>
