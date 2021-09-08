@@ -33,7 +33,7 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
                                         <input name='email' type="email" class="form-control"
-                                               value="{{ old('email') }}">
+                                               value="{{ old('email') }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -127,15 +127,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="row">--}}
-                            {{--<div class="col-md-6">--}}
-                            {{--<label class="bmd-label-floating">Avatar</label>--}}
-                            {{--<input name='avatar' type="file" class="form-control-file" id="avatarFile" aria-describedby="fileHelp">--}}
-
-                            {{--<input type="file" class="form-control-file" name="avatar" id="avatarFile" aria-describedby="fileHelp">--}}
-                            {{--<small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="avatar"
@@ -170,14 +161,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <input type="checkbox" name="active" checked>
-                                            <label>Active</label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-group">
