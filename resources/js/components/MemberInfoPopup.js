@@ -37,11 +37,11 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="department info__text">
                         <span className="info__label">{t(data.member.department)}</span>
-                        {member.department.name}
+                        {member.department ? member.department.name : '-'}
                     </div>
                     <div className="position info__text">
                         <span className="info__label">{t(data.member.position)}</span>
-                        {member.position.name}
+	                    {member.position ? member.position.name : '-'}
                     </div>
                     <div className="about info__text">
                         <span className="info__label">{t(data.member.about)}</span>

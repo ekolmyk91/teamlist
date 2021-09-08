@@ -62,20 +62,20 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'name'           =>'required|string|min:2|max:20',
-          'surname'        =>'required|string|min:2|max:40',
-          'email'          =>'required|email|ends_with:corp.web4pro.com.ua|unique:users',
-          'password'       =>'required|string|min:8',
-          'birthday'       =>'required|date|before:today',
-          'start_work_day' =>'nullable|date|before:today',
-          'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
-          'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
-          'department'     =>'required',
-          'position'       =>'required',
+          'name'           => 'nullable|string|min:2|max:20',
+          'surname'        => 'nullable|string|min:2|max:40',
+          'email'          => 'required|email|ends_with:corp.web4pro.com.ua|unique:users',
+          'password'       => 'required|string|min:8',
+          'birthday'       => 'nullable|date|before:today',
+          'start_work_day' => 'nullable|date|before:today',
+          'phone_1'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'phone_2'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'department'     => 'nullable',
+          'position'       => 'nullable',
           'certificates'   => 'nullable|array',
-          'about'          =>'nullable|string|max:1000',
-          'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-          'manager'        =>'nullable|string',
+          'about'          => 'nullable|string|max:1000',
+          'avatar'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          'manager'        => 'nullable|string',
         ]);
 
         $active = $request->get('active');
@@ -177,20 +177,20 @@ class MemberController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'           =>'required|string|min:2|max:20',
-            'surname'        =>'required|string|min:2|max:40',
-            'email'          =>'required|email|ends_with:corp.web4pro.com.ua|unique:users,email,' . $id,
-            'password'       =>'nullable|string|min:8',
-            'birthday'       =>'required|date|before:today',
-            'start_work_day' =>'nullable|date|before:today',
-            'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
-            'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
-            'department'     =>'required',
-            'position'       =>'required',
+            'surname'        => 'nullable|string|min:2|max:40',
+            'name'           => 'nullable|string|min:2|max:20',
+            'email'          => 'required|email|ends_with:corp.web4pro.com.ua|unique:users,email,' . $id,
+            'password'       => 'nullable|string|min:8',
+            'birthday'       => 'nullable|date|before:today',
+            'start_work_day' => 'nullable|date|before:today',
+            'phone_1'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
+            'phone_2'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
+            'department'     => 'nullable',
+            'position'       => 'nullable',
             'certificates'   => 'nullable|array',
-            'about'          =>'nullable|string|max:1000',
-            'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'manager'        =>'nullable|string',
+            'about'          => 'nullable|string|max:1000',
+            'avatar'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'manager'        => 'nullable|string',
         ]);
 
         $member = Member::find($id);

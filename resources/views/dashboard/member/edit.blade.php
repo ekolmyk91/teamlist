@@ -34,7 +34,7 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
                                         <input name='email' type="email" class="form-control"
-                                               value="{{$member->email}}">
+                                               value="{{$member->email}}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -90,7 +90,8 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Department</label>
                                         <select name='department' class="form-control selectpicker"
-                                                data-style="btn btn-link" id="exampleFormControlSelect1" required>
+                                                data-style="btn btn-link" id="exampleFormControlSelect1">
+                                            <option value="" disabled selected>-- Select --</option>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}"
                                                         @if($department->id == $member->department_id)
@@ -106,7 +107,8 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Position</label>
                                         <select name='position' class="form-control selectpicker"
-                                                data-style="btn btn-link" id="exampleFormControlSelect1" required>
+                                                data-style="btn btn-link" id="exampleFormControlSelect1">
+                                                <option value="" disabled selected>-- Select --</option>
                                             @foreach($positions as $position)
                                                 <option value="{{$position->id}}"
                                                         @if($position->id == $member->position_id)
