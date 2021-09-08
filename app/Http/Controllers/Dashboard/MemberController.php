@@ -267,4 +267,11 @@ class MemberController extends Controller
                 ->back()
                 ->with('success', 'Member deleted!');
     }
+
+	public function search(Request $request)
+	{
+       $members =  Member::search($request->get('query'))->paginate(10);
+
+        return view('dashboard.member.index', ['members' => $members]);
+	}
 }

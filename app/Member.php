@@ -4,9 +4,33 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
-class Member extends Model
-{
+class Member extends Model {
+
+    use SearchableTrait;
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'members.name' => 10,
+            'members.surname' => 10,
+            'members.email' => 10,
+            ]
+    ];
+
+
     protected $fillable = [
       'user_id',
       'name',
