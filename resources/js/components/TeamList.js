@@ -87,15 +87,15 @@ class TeamList extends Component {
                     return member.surname.toLowerCase().indexOf(trimmedSearch) !== -1;
                 }
             } else if (this.state.departament != undefined && this.state.position == undefined) {
-                if (member.department.name == this.state.departament) {
+                if (member.department != null && member.department.name == this.state.departament) {
                     return member;
                 }
             } else if (this.state.position != undefined && this.state.departament == undefined) {
-                if (member.position.name == this.state.position) {
+                if (member.position != null && member.position.name == this.state.position) {
                 return member;
                 }
             } else if (this.state.position != undefined && this.state.departament != undefined)  {
-                if (member.department.name == this.state.departament && member.position.name == this.state.position) {
+                if (member.position != null && member.department != null && member.department.name == this.state.departament && member.position.name == this.state.position) {
                     return member;
                 }
             } else {
