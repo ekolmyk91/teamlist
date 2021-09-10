@@ -290,11 +290,17 @@
                 &.redmine {
                     background-image: url(../../../../public/img/folder/Rectangle.png);
                 }
+                &.days {
+                    background-image: url(../../../../public/img/folder/days.png);
+                }
+                &.faq {
+                    background-image: url(../../../../public/img/folder/faq.png);
+                }
             }
             span {
                 width: calc(100% - 80px);
                 @media (min-width: 982px) {
-                    width: calc(100% - 190px);
+                    width: calc(100% - 180px);
                 }
             }
         }

@@ -676,13 +676,21 @@ input[type=submit]:active,
   background-image: url(/images/Rectangle.png?00c99d63c74a3df4242af374451be80f);
 }
 
+.home-team__inner .home-team__card i.days {
+  background-image: url(/images/days.png?c63362ef2c8dbf3e178a34bd6a6f42e8);
+}
+
+.home-team__inner .home-team__card i.faq {
+  background-image: url(/images/faq.png?2a2db66dd3186e0612dd95c5efa70dc3);
+}
+
 .home-team__inner .home-team__card span {
   width: calc(100% - 80px);
 }
 
 @media (min-width: 982px) {
   .home-team__inner .home-team__card span {
-    width: calc(100% - 190px);
+    width: calc(100% - 180px);
   }
 }
 
