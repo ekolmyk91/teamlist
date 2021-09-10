@@ -43,3 +43,7 @@ Route::group(['middleware' => ['auth']], function (){
 });
 
 Route::view('/{path?}', 'app')->middleware('auth', 'apiToken');
+
+
+Route::get('login/google', 'Auth\LoginController@redirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
