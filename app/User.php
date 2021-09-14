@@ -23,7 +23,6 @@ class User extends Authenticatable {
 		'api_token',
 		'avatar',
 		'active',
-		'google_id',
 	];
 
 	/**
