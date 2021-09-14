@@ -81,16 +81,16 @@ class LoginController extends Controller
 			return redirect()->to('/login');
 		}
 
-		$existingUser = User::where('email', $user->email)->first();
+		$existing_user = User::where('email', $user->email)->first();
 
-		if($existingUser){
+		if($existing_user){
 
-			Auth::login($existingUser);
+			Auth::login($existing_user);
 
 			return redirect('login/google');
         }else {
 
-			$newUser = User::create([
+			$new_user = User::create([
 				'name'              => $user->name,
 				'email'             => $user->email,
 				'email_verified_at' => now(),
@@ -99,10 +99,10 @@ class LoginController extends Controller
 				'api_token'         => Str::random(60),
 			]);
 
-			Auth::login($newUser);
+			Auth::login($new_user);
 
 			$manager_role_id = Role::where('name', 'member')->first()->id;
-			$newUser->roles()->attach($manager_role_id);
+			$new_user->roles()->attach($manager_role_id);
 
 			return redirect()->back();
 		}
