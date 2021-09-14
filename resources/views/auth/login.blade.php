@@ -63,7 +63,6 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Login') }}
                                     </button>
-
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
@@ -74,8 +73,9 @@
 
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
-                                    <a href="{{ url('login/google') }}" class="btn btn-lg btn-danger btn-block">
-                                        <strong>Login With Google</strong>
+                                    <a href="{{ url('login/google') }}" class="btn btn-link">
+                                        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                        Login With Google
                                     </a>
                                 </div>
                             </div>
