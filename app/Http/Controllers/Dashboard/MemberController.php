@@ -11,7 +11,7 @@ use App\Role;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
-use Image;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -74,7 +74,7 @@ class MemberController extends Controller
           'position'       => 'nullable',
           'certificates'   => 'nullable|array',
           'about'          => 'nullable|string|max:1000',
-          'avatar'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          'avatar'         => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
           'manager'        => 'nullable|string',
         ]);
 
@@ -91,8 +91,11 @@ class MemberController extends Controller
             $avatar = $request->file('avatar');
             $filename = time() . '-' . $avatar->getClientOriginalName();
 
-            request()->file('avatar')->storeAs('avatar', $filename);
-            $userFields['avatar'] = $filename;
+			$avatar_resize = Image::make($avatar->getRealPath());
+			$avatar_resize->fit( 245, null, null, 'top');
+
+			$avatar_resize->save(storage_path('app/public/avatar/' . $filename), 100);
+			$userFields['avatar'] = $filename;
         }
 
         //Create User entity.
@@ -189,7 +192,7 @@ class MemberController extends Controller
             'position'       => 'nullable',
             'certificates'   => 'nullable|array',
             'about'          => 'nullable|string|max:1000',
-            'avatar'         => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar'         => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'manager'        => 'nullable|string',
         ]);
 
@@ -211,8 +214,11 @@ class MemberController extends Controller
             $avatar = $request->file('avatar');
             $filename = time() . '-' . $avatar->getClientOriginalName();
 
-            request()->file('avatar')->storeAs('avatar', $filename);
-            $userFields['avatar'] = $filename;
+			$avatar_resize = Image::make($avatar->getRealPath());
+			$avatar_resize->fit( 245, null, null, 'top');
+
+			$avatar_resize->save(storage_path('app/public/avatar/' . $filename), 100);
+			$userFields['avatar'] = $filename;
         }
 
         $start_work_day = $request->get('start_work_day');
