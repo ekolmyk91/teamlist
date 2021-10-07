@@ -52,10 +52,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="label-control">Birthday</label>
-                                        <input id='datepicker' name='birthday' type="text"
-                                               class="form-control datetimepicker"
-                                               value="{{ old('birthday') }}" placeholder="dd/mm/yyyy"/>
+                                        <label class="label-control">Birthday (mm/dd)</label>
+                                        <input id='birthday' name='birthday' type="text"
+                                               class="form-control"
+                                               value="{{ old('birthday') }}" placeholder="mm/dd"
+                                               pattern="(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
