@@ -30,10 +30,11 @@ class MemberController extends Controller
                 'user_id',
                 'name',
                 'surname',
+                'city',
                 'email',
                 'department_id',
                 'position_id',
-	            'trainee',
+                'trainee',
                 'about',
             ];
             if (Auth::user()->hasRole('manager')) {
@@ -68,6 +69,7 @@ class MemberController extends Controller
                                   'email',
                                   'phone_1',
                                   'phone_2',
+                                  'city',
                                   'about',
                                   'department_id',
                                   'position_id',

@@ -40,6 +40,7 @@ class Member extends Model {
       'email',
       'phone_1',
       'phone_2',
+      'city',
       'department_id',
       'position_id',
 	  'trainee',

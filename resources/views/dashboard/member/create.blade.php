@@ -10,21 +10,27 @@
                     </div>
                     <div class="card-body">
                         @include('alert')
-                        <form action="{{ route('admin.members.store') }}" method="post" enctype="multipart/form-data">
+                        <form id="usr-create-form" action="{{ route('admin.members.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Fist Name</label>
-                                        <input name='name' type="text" class="form-control" value="{{ old('name') }}">
+                                        <input name='name' type="text" class="form-control" value="{{ old('name') }}"
+                                         minlength="2"
+                                         maxlength="20"
+                                        >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Last Name</label>
                                         <input name='surname' type="text" class="form-control"
-                                               value="{{ old('surname') }}">
+                                         value="{{ old('surname') }}"
+                                         minlength="2"
+                                         maxlength="40"
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -33,14 +39,15 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
                                         <input name='email' type="email" class="form-control"
-                                               value="{{ old('email') }}" required>
+                                               value="{{ old('email') }}"
+                                               pattern="^\S+@corp\.web4pro\.com\.ua" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Password</label>
                                         <input id="pwd" name='password' type="password" class="form-control"
-                                               value="{{ old('password') }}" required>
+                                               value="{{ old('password') }}" minlength="8" required>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -73,14 +80,25 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone</label>
                                         <input name='phone_1' type="tel" class="form-control"
-                                               value="{{ old('phone_1') }}">
+                                               value="{{ old('phone_1') }}"
+                                               pattern="^[0-9\-\+]{7,15}$">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Additional Phone</label>
                                         <input name='phone_2' type="tel" class="form-control"
-                                               value="{{ old('phone_2') }}">
+                                               value="{{ old('phone_2') }}"
+                                               pattern="^[0-9\-\+]{7,15}$">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">City</label>
+                                        <input name='city' type="text" class="form-control"
+                                               value="{{ old('city') }}"
+                                               minlength="2"
+                                               maxlength="40">
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +150,7 @@
                                 <div class="col-md-6">
                                     <label for="avatar"
                                            class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
-                                    <input id="avatar" type="file" class="form-control" name="avatar">
+                                    <input id="avatar" type="file" class="form-control" name="avatar" accept="image/jpeg, image/jpg">
                                 </div>
                             </div>
                             <div class="row">
@@ -156,7 +174,7 @@
                                         <label>About</label>
                                         <div class="form-group">
                                             <textarea name="about" class="form-control"
-                                                      rows="5">{{ old('about') }}</textarea>
+                                                      rows="5" maxlength="40">{{ old('about') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
