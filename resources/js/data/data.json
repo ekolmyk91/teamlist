@@ -30,6 +30,7 @@
   "member": {
     "phone": "Phone:",
     "date": "Date-birth:",
+    "city": "City:",
     "first_day": "First work day:",
     "department": "Department:",
     "position": "Position:",

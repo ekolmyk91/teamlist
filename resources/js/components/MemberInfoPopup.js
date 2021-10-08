@@ -47,6 +47,14 @@ class MemberInfoPopup extends Component {
                         <span className="info__label">{t(data.member.about)}</span>
                         <div dangerouslySetInnerHTML={{ __html: member.about }} />
                     </div>
+	                { member.city  ?
+		                <div className="dev-city">
+			                <span className="info__label">{t(data.member.city)}</span>
+			                {member.city}
+		                </div>
+		                :
+		                ''
+	                }
                     <ul>
                         <ul className="certificate">
                             {member.certificates.map(certificate => (

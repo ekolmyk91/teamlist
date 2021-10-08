@@ -70,6 +70,7 @@ class MemberController extends Controller
           'start_work_day' => 'nullable|date|before:tomorrow',
           'phone_1'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
           'phone_2'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'city'           => 'nullable|string|min:2|max:40',
           'department'     => 'nullable',
           'position'       => 'nullable',
           'certificates'   => 'nullable|array',
@@ -111,6 +112,7 @@ class MemberController extends Controller
 
 
         $start_work_day = $request->get('start_work_day');
+		$birthday       = $request->get('birthday');
         //Create Member entity and attach User.
         $member = new Member([
           'user_id'        => $user->id,
@@ -119,7 +121,8 @@ class MemberController extends Controller
           'email'          => $request->get('email'),
           'phone_1'        => $request->get('phone_1'),
           'phone_2'        => $request->get('phone_2'),
-          'birthday'       => Carbon::parse($request->get('birthday') . '/2020'),
+          'city'           => $request->get('city'),
+          'birthday'       => isset($birthday) ? Carbon::parse($request->get('birthday') . '/2020') : null,
           'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
           'about'          => $request->get('about'),
           'department_id'  => $request->get('department'),
@@ -188,6 +191,7 @@ class MemberController extends Controller
             'start_work_day' => 'nullable|date|before:tomorrow',
             'phone_1'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
             'phone_2'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
+            'city'           => 'nullable|string|min:2|max:40',
             'department'     => 'nullable',
             'position'       => 'nullable',
             'certificates'   => 'nullable|array',
@@ -222,8 +226,10 @@ class MemberController extends Controller
         }
 
         $start_work_day = $request->get('start_work_day');
+	    $birthday       = $request->get('birthday');
 
-        $member->user()->update($userFields);
+
+	    $member->user()->update($userFields);
 
         //Update user role (manager) in pivot table.
         $role_ids[] = Role::where('name', 'manager')->first()->id;
@@ -239,7 +245,8 @@ class MemberController extends Controller
             'email'          => $request->get('email'),
             'phone_1'        => $request->get('phone_1'),
             'phone_2'        => $request->get('phone_2'),
-            'birthday'       => Carbon::parse($request->get('birthday') . '/2020'),
+            'city'           => $request->get('city'),
+            'birthday'       => isset($birthday) ? Carbon::parse($request->get('birthday') . '/2020') : null,
             'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
             'about'          => $request->get('about'),
             'department_id'  => $request->get('department'),

@@ -83,6 +83,13 @@
                                                value="{{ old('phone_2') }}">
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">City</label>
+                                        <input name='city' type="text" class="form-control"
+                                               value="{{ old('city') }}">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
