@@ -73,7 +73,7 @@
                                     <form action="{{ route('admin.members.destroy', $member->user_id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" rel="tooltip" class="btn btn-danger" type="submit">
+                                        <button type="submit" rel="tooltip" class="btn btn-danger" type="submit" onclick="return confirm('Are you sure?')">
                                             <i class="material-icons">delete</i>
                                         </button>
                                     </form>
