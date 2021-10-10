@@ -69,9 +69,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="label-control">Start work day</label>
-                                        <input id='datepicker' name='start_work_day' type="text"
-                                               class="form-control datetimepicker"
-                                               value="{{ old('start_work_day') }}" placeholder="dd/mm/yyyy"/>
+                                        <input id='datepicker' name='start_work_day' type="date"
+                                               class="form-control"
+                                               max="{{ date( 'Y-m-d', strtotime( 'today' ) ) }}"
+                                               value="{{ old('start_work_day') }}"/>
                                     </div>
                                 </div>
                             </div>
