@@ -70,7 +70,7 @@
                                         <label class="label-control">Start work day</label>
                                         <input id='datepicker' name='start_work_day' type="date"
                                                class="form-control"
-                                               value="{{ ($member->start_work_day) ? Carbon\Carbon::parse($member->start_work_day)->format('m/d/Y') : '' }}"
+                                               value="{{ ($member->start_work_day) ? Carbon\Carbon::parse($member->start_work_day)->format('Y-m-d') : '' }}"
                                                max="{{ date( 'Y-m-d', strtotime( 'today' ) ) }}"/>
                                     </div>
                                 </div>
