@@ -63,7 +63,7 @@ class User extends Authenticatable {
 	 * Check if user has choosen role.
 	 */
 	public function hasRole( $role ) {
-		$roles = $this->roles()->where( 'name', $role )->count();
+		$roles = $this->roles()->whereIn( 'name', $role )->count();
 
 		if ( $roles == 1 ) {
 			return true;

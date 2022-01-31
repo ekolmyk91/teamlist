@@ -37,7 +37,7 @@ class MemberController extends Controller
                 'trainee',
                 'about',
             ];
-            if (Auth::user()->hasRole('manager')) {
+            if (Auth::user()->hasRole(['manager', 'admin'])) {
                $params[] = 'phone_1';
             }
 
