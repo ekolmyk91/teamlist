@@ -49,7 +49,8 @@
                 font-size: $fontSize-small;
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: center;
+                text-align: left;
+                justify-content: flex-start;
                 margin-bottom: 10px;
            }
         }

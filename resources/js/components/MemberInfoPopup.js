@@ -20,7 +20,7 @@ class MemberInfoPopup extends Component {
                         {member.name} {member.surname}
                     </div>
                     { member.phone_1  ?
-                        <div className="dev-phone">
+                        <div className="dev-phone info__text">
                             <span className="info__label">{t(data.member.phone)}</span>
                             {member.phone_1}
                         </div>
