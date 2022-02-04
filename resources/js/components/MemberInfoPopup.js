@@ -7,11 +7,10 @@ class MemberInfoPopup extends Component {
         const member = this.props.member;
         const { t } = this.props;
         member.about = (member.about) ? member.about : '-';
-        member.start_work_day = (member.start_work_day) ? new Date(member.start_work_day).toLocaleDateString('en-GB') : '-';
         return (
             <div className={'team-box__popup blockFlex ' + this.props.stateClass}>
                 <div className="close-icon">
-                    <a href='#' onClick={this.props.closePopup}>{t(data.close)}</a>
+                    <span href='#' onClick={this.props.closePopup}>{t(data.close)}</span>
                 </div>
                 <div className="img">
                     <img src={member.user.avatar} alt="develop image" />
@@ -30,8 +29,7 @@ class MemberInfoPopup extends Component {
                     }
                     <div className="date-birth info__text">
                         <span className="info__label">{data.member.date}</span>
-                        {(new Date(member.birthday).toLocaleDateString('en-GB', {
-                                month: '2-digit',day: '2-digit'}))}
+                        {member.birthday}
                     </div>
                     <div className="date-start info__text">
                         <span className="info__label">{t(data.member.first_day)}</span>
@@ -39,16 +37,24 @@ class MemberInfoPopup extends Component {
                     </div>
                     <div className="department info__text">
                         <span className="info__label">{t(data.member.department)}</span>
-                        {member.department.name}
+                        {member.department ? member.department.name : '-'}
                     </div>
                     <div className="position info__text">
                         <span className="info__label">{t(data.member.position)}</span>
-                        {member.position.name}
+	                    {member.position ? member.position.name : '-'}
                     </div>
                     <div className="about info__text">
                         <span className="info__label">{t(data.member.about)}</span>
                         <div dangerouslySetInnerHTML={{ __html: member.about }} />
                     </div>
+	                { member.city  ?
+		                <div className="dev-city">
+			                <span className="info__label">{t(data.member.city)}</span>
+			                {member.city}
+		                </div>
+		                :
+		                ''
+	                }
                     <ul>
                         <ul className="certificate">
                             {member.certificates.map(certificate => (

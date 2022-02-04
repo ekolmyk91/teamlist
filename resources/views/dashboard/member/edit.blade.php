@@ -18,14 +18,18 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Fist Name</label>
                                         <input name='name' type="text" class="form-control"
-                                               value="{{$member->name}}">
+                                                value="{{$member->name}}"
+                                                minlength="2"
+                                                maxlength="20">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Last Name</label>
                                         <input name='surname' type="text" class="form-control"
-                                               value="{{$member->surname}}">
+                                                value="{{$member->surname}}"
+                                                minlength="2"
+                                                maxlength="40">
                                     </div>
                                 </div>
                             </div>
@@ -34,13 +38,13 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
                                         <input name='email' type="email" class="form-control"
-                                               value="{{$member->email}}">
+                                               value="{{$member->email}}" pattern="^\S+@corp\.web4pro\.com\.ua" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Password</label>
-                                        <input id="pwd" name='password' type="password" class="form-control">
+                                        <input id="pwd" name='password' type="password" minlength="8" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -52,20 +56,22 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="label-control">Birthday</label>
-                                        <input id='datepicker' name='birthday' type="text"
-                                               class="form-control datetimepicker"
-                                               value="{{ Carbon\Carbon::parse($member->birthday)->format('m/d/Y') }}"
-                                               placeholder="dd/mm/yyyy"/>
+                                        <label class="label-control">Birthday (mm/dd)</label>
+                                        <input id='birthday' name='birthday' type="text"
+                                               class="form-control"
+                                               placeholder="mm/dd"
+                                               pattern="(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])"
+                                               value="{{ Carbon\Carbon::parse($member->birthday)->format('m/d') }}"
+                                        />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="label-control">Start work day</label>
-                                        <input id='datepicker' name='start_work_day' type="text"
-                                               class="form-control datetimepicker"
-                                               value="{{ ($member->start_work_day) ? Carbon\Carbon::parse($member->start_work_day)->format('m/d/Y') : '' }}"
-                                               placeholder="dd/mm/yyyy"/>
+                                        <input id='datepicker' name='start_work_day' type="date"
+                                               class="form-control"
+                                               value="{{ ($member->start_work_day) ? Carbon\Carbon::parse($member->start_work_day)->format('Y-m-d') : '' }}"
+                                               max="{{ date( 'Y-m-d', strtotime( 'today' ) ) }}"/>
                                     </div>
                                 </div>
                             </div>
@@ -74,14 +80,21 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone</label>
                                         <input name='phone_1' type="tel" class="form-control"
-                                               value="{{ old('phone_1', isset($member) ? $member->phone_1 : '') }}">
+                                               value="{{ old('phone_1', isset($member) ? $member->phone_1 : '') }}" pattern="^[0-9\-\+]{7,15}$">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Additional Phone</label>
                                         <input name='phone_2' type="tel" class="form-control"
-                                               value="{{ old('phone_2', isset($member) ? $member->phone_2 : '') }}">
+                                               value="{{ old('phone_2', isset($member) ? $member->phone_2 : '') }}" pattern="^[0-9\-\+]{7,15}$">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">City</label>
+                                        <input name='city' type="text" class="form-control"
+                                               value="{{$member->city}}" minlength="2" maxlength="40">
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +103,8 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Department</label>
                                         <select name='department' class="form-control selectpicker"
-                                                data-style="btn btn-link" id="exampleFormControlSelect1" required>
+                                                data-style="btn btn-link" id="exampleFormControlSelect1">
+                                            <option value="" disabled selected>-- Select --</option>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}"
                                                         @if($department->id == $member->department_id)
@@ -106,7 +120,8 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Position</label>
                                         <select name='position' class="form-control selectpicker"
-                                                data-style="btn btn-link" id="exampleFormControlSelect1" required>
+                                                data-style="btn btn-link" id="exampleFormControlSelect1">
+                                                <option value="" disabled selected>-- Select --</option>
                                             @foreach($positions as $position)
                                                 <option value="{{$position->id}}"
                                                         @if($position->id == $member->position_id)
@@ -147,7 +162,7 @@
                                 <div class="col-md-4">
                                     <label class="bmd-label-floating">Avatar</label>
                                     <input name='avatar' type="file" class="form-control"
-                                           value="{{$member->user->avatar}}">
+                                           value="{{$member->user->avatar}}" accept="image/jpeg, image/jpg">
                                 </div>
                             </div>
                             <div class="row">
@@ -171,7 +186,7 @@
                                         <label>About</label>
                                         <div class="form-group">
                                             <textarea name="about" class="form-control about"
-                                                      rows="5">{{ old('about', isset($member) ? $member->about : '') }}</textarea>
+                                                      rows="5" maxlength="40">{{ old('about', isset($member) ? $member->about : '') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

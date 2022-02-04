@@ -30,19 +30,19 @@ class MemberController extends Controller
                 'user_id',
                 'name',
                 'surname',
-                'birthday',
-                'start_work_day',
+                'city',
                 'email',
                 'department_id',
                 'position_id',
-	            'trainee',
+                'trainee',
                 'about',
             ];
-            if (Auth::user()->hasRole('manager')) {
+            if (Auth::user()->hasRole(['manager', 'admin'])) {
                $params[] = 'phone_1';
             }
 
-            $members = Member::select($params)->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
+            $members = Member::select($params)->selectRaw("DATE_FORMAT(birthday, '%d/%m') as birthday, DATE_FORMAT(start_work_day, '%d/%m/%Y') as start_work_day")
+                ->with('user:id,avatar,active', 'department:id,name', 'position:id,name', 'certificates:id,name,logo');
 
             if ($request->filled('department')) {
                 $members->where('department_id', $request->get('department'));
@@ -69,6 +69,7 @@ class MemberController extends Controller
                                   'email',
                                   'phone_1',
                                   'phone_2',
+                                  'city',
                                   'about',
                                   'department_id',
                                   'position_id',

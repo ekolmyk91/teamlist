@@ -584,6 +584,169 @@ input[type=submit]:active,
   padding: 12px 20px;
 }
 
+.home-page {
+  margin-bottom: 50px;
+}
+
+.home-page a {
+  font-size: 17px;
+  line-height: 17px;
+  text-transform: uppercase;
+  color: #62bcdc;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.1s ease-out;
+}
+
+@media (min-width: 982px) {
+  .home-page a {
+    padding: 30px;
+    font-size: 24px;
+    line-height: 24px;
+  }
+}
+
+.home-page a:hover {
+  text-decoration: none;
+}
+
+.home-team__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.home-team__inner .home-team__card {
+  border: 2px solid #61bbdb;
+  border-radius: 10px;
+  margin-bottom: 2%;
+}
+
+.home-team__inner .home-team__card i {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #61bbdb;
+  border-radius: 100%;
+  background-position: center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 982px) {
+  .home-team__inner .home-team__card i {
+    width: 120px;
+    height: 120px;
+    background-size: auto;
+  }
+}
+
+.home-team__inner .home-team__card i.pc {
+  background-image: url(/images/computer.png?69bc52556a42b4f412da9ba53e10d45d);
+}
+
+.home-team__inner .home-team__card i.improvments {
+  background-image: url(/images/advance.png?5b655a439fcb8633eff0da9c0beb34a0);
+}
+
+.home-team__inner .home-team__card i.chill {
+  background-image: url(/images/sunbed.png?3c06eb4f437403a0a26efe85e5dede6a);
+}
+
+.home-team__inner .home-team__card i.library {
+  background-image: url(/images/books.png?3c499101a12c8fbd3ec38d1ddb4f97a4);
+}
+
+.home-team__inner .home-team__card i.photo {
+  background-image: url(/images/image-gallery.png?e7f026479bdfba0a7c9ea5dca569ba15);
+}
+
+.home-team__inner .home-team__card i.blog {
+  background-image: url(/images/blogging.png?2fcae39338f5b60305de013ac816fea8);
+}
+
+.home-team__inner .home-team__card i.redmine {
+  background-image: url(/images/Rectangle.png?00c99d63c74a3df4242af374451be80f);
+}
+
+.home-team__inner .home-team__card i.days {
+  background-image: url(/images/days.png?c63362ef2c8dbf3e178a34bd6a6f42e8);
+}
+
+.home-team__inner .home-team__card i.faq {
+  background-image: url(/images/faq.png?2a2db66dd3186e0612dd95c5efa70dc3);
+}
+
+.home-team__inner .home-team__card span {
+  width: calc(100% - 80px);
+}
+
+@media (min-width: 982px) {
+  .home-team__inner .home-team__card span {
+    width: calc(100% - 180px);
+  }
+}
+
+.home-team__inner.sc .home-team__card {
+  width: 100%;
+}
+
+@media (min-width: 982px) {
+  .home-team__inner.sc .home-team__card {
+    width: 49%;
+  }
+}
+
+.home-team__inner.thr .home-team__card {
+  width: 100%;
+}
+
+@media (min-width: 982px) {
+  .home-team__inner.thr .home-team__card {
+    width: 32%;
+  }
+}
+
+.home-team {
+  background: #7ac8e4;
+  border-radius: 10px;
+  margin: 20px 0 2%;
+}
+
+@media (min-width: 982px) {
+  .home-team {
+    margin: 58px 0 20px;
+  }
+}
+
+.home-team a {
+  color: white;
+}
+
+.home-team i {
+  border: 2px solid #61bbdb;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: url(/images/team.png?9ae55278cda87e8a531ae7b7733d3a9b) center/30px no-repeat white;
+}
+
+@media (min-width: 982px) {
+  .home-team i {
+    width: 70px;
+    height: 70px;
+    margin-right: 25px;
+    background-size: auto;
+  }
+}
+
 footer {
   padding: 30px 0 0 0;
   background-color: #F5F8FA;
@@ -688,8 +851,33 @@ header .divHeader .header-logo svg {
 }
 
 header .divHeader .navMenu {
-  display: none;
-  width: 50%;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  padding-top: 125px;
+  right: -100%;
+  background: #000000;
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  z-index: 12;
+  margin-bottom: 0;
+}
+
+@media (min-width: 769px) {
+  header .divHeader .navMenu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    width: auto;
+    height: auto;
+    opacity: 1;
+    right: 0;
+    background: none;
+    padding: 0;
+  }
 }
 
 header .divHeader .navMenu li {
@@ -701,20 +889,20 @@ header .divHeader .navMenu li a {
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 1px;
-  font-size: 14px;
+  font-size: 18px;
   transition: 0.3s all;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 769px) {
+  header .divHeader .navMenu li a {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
 }
 
 header .divHeader .navMenu li a:hover {
   opacity: 0.7;
-}
-
-@media (min-width: 769px) {
-  header .divHeader .navMenu {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
 }
 
 .hamburger {
@@ -724,6 +912,7 @@ header .divHeader .navMenu li a:hover {
   width: 26px;
   height: 26px;
   cursor: pointer;
+  z-index: 13;
 }
 
 @media (min-width: 769px) {
@@ -739,35 +928,28 @@ header .divHeader .navMenu li a:hover {
   left: 0;
   content: "";
   opacity: 1;
-  transition: none 0.5s ease 0.5s;
-  transition-property: transform, top, bottom, left, opacity;
+  transition: all 0.2s ease-out;
   background: #fff;
   top: 10px;
 }
 
-.hamburger:before {
+.hamburger:before,
+.hamburger:after {
+  content: "";
   position: absolute;
   width: 26px;
   height: 3px;
   left: 0;
-  content: "";
   opacity: 1;
-  transition: none 0.5s ease 0.5s;
-  transition-property: transform, top, bottom, left, opacity;
+  transition: all 0.2s ease-out;
   background: #fff;
+}
+
+.hamburger:before {
   top: 0;
 }
 
 .hamburger:after {
-  position: absolute;
-  width: 26px;
-  height: 3px;
-  left: 0;
-  content: "";
-  opacity: 1;
-  transition: none 0.5s ease 0.5s;
-  transition-property: transform, top, bottom, left, opacity;
-  background: #fff;
   top: 20px;
 }
 
@@ -813,6 +995,30 @@ header .divHeader .navMenu li a:hover {
   opacity: 0.6;
 }
 
+.m-menu {
+  overflow: hidden;
+}
+
+.m-menu header .divHeader .navMenu {
+  transform: none;
+  opacity: 1;
+  right: 0;
+}
+
+.m-menu .hamburger::before {
+  top: 15px;
+  transform: rotate(45deg);
+}
+
+.m-menu .hamburger::after {
+  top: 15px;
+  transform: rotate(-45deg);
+}
+
+.m-menu .hamburger span {
+  opacity: 0;
+}
+
 .wrapper {
   padding-right: 15px;
   padding-left: 15px;
@@ -834,7 +1040,7 @@ header .divHeader .navMenu li a:hover {
 
 @media (min-width: 1200px) {
   .wrapper {
-    width: 1170px;
+    width: 1140px;
   }
 }
 
@@ -1464,10 +1670,23 @@ input[type=checkbox] {
 .team-page .team-box .dev-name {
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.team-page .team-box .info {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .team-page .team-box .info__text {
   font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .team-page .team-box .img {
@@ -1531,6 +1750,7 @@ input[type=checkbox] {
   cursor: pointer;
   transition: 0.3s;
   opacity: 0.6;
+  color: #0e698a;
 }
 
 .team-page .team-box__popup .close-icon:hover {
@@ -1544,7 +1764,7 @@ input[type=checkbox] {
 }
 
 .team-page .team-box__popup .img {
-  width: 300px;
+  width: auto;
   height: 250px;
   margin: 0 auto 30px;
 }
@@ -1552,6 +1772,7 @@ input[type=checkbox] {
 @media (min-width: 768px) {
   .team-page .team-box__popup .img {
     margin: 0 30px 0 0;
+    width: 300px;
   }
 }
 
@@ -1570,6 +1791,7 @@ input[type=checkbox] {
 
 .team-page .team-box__popup .info__label {
   font-weight: 600;
+  margin-right: 5px;
 }
 
 .team-page .team-box__popup .certificate {
@@ -1621,6 +1843,22 @@ input[type=checkbox] {
 @media (min-width: 1200px) {
   .team-page .team-box__card {
     width: 30.8%;
+  }
+}
+
+.team-page .team-box__card:nth-child(2n) {
+  margin-right: 0;
+}
+
+@media (min-width: 992px) {
+  .team-page .team-box__card:nth-child(2n) {
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .team-page .team-box__card:nth-child(3n) {
+    margin-right: 0;
   }
 }
 
@@ -1744,9 +1982,19 @@ input[type=checkbox] {
 }
 
 .sidebar {
-  width: 25%;
+  width: 100%;
   order: 2;
   margin-left: auto;
+  order: 0;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 25%;
+    order: 1;
+    margin-bottom: 0;
+  }
 }
 
 .filter-name {

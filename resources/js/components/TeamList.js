@@ -3,6 +3,7 @@ import MemberPreview from './MemberPreview'
 import MemberInfoPopup from './MemberInfoPopup'
 import Sidebar from './Sidebar'
 import {getUsers} from '../api/Api'
+import {withTranslation} from 'react-i18next';
 import data from '../data/data.json';
 
 class TeamList extends Component {
@@ -40,11 +41,15 @@ class TeamList extends Component {
         $('body').toggleClass("m-ovrf")
     }
 
+    closePopupFunc () {
+        
+    }
+
     renderMember = member => {
         return (
-            <div className='team-box__card' data-trn={member.trainee} key={member.user_id}>
+            <div className='team-box__card' data-trn={ member.trainee ? member.trainee : 0 } key={member.user_id}>
                 <MemberPreview member={member} showPopup={this.togglePopup.bind(this, member.user_id)}/>
-                {this.state.showPopupId ==  member.user_id ?
+                {this.state.showPopupId == member.user_id ?
                     <MemberInfoPopup member={member} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> : null
                 }
             </div>
@@ -60,60 +65,76 @@ class TeamList extends Component {
     }
   
     onchange = e => {
-        this.setState({ search: e.target.value });
+        let formatedValue = e.target.value.toLowerCase()
+        this.setState({ search: formatedValue });
     };
 
     render() {
+
+        const { t } = this.props;
 
         const { search } = this.state;
 
         const { members } = this.state;
 
-        const filteredMembers = members.filter(member => {
-          if (search != '') {
-            return member.name.toLowerCase().indexOf(search) !== -1;
-          } else if (this.state.departament != undefined && this.state.position == undefined) {
-              if (member.department.name == this.state.departament) {
+        const filteredMembers = Object.values(members).filter(member => {
+            let trimmedSearch = search.replace(/\s/g, '');
+            if (trimmedSearch != '') {
+                if (member.name.toLowerCase().indexOf(trimmedSearch) !== -1) {
+                    return member.name.toLowerCase().indexOf(trimmedSearch) !== -1;
+                } 
+                if (member.surname.toLowerCase().indexOf(trimmedSearch) !== -1) {
+                    return member.surname.toLowerCase().indexOf(trimmedSearch) !== -1;
+                }
+            } else if (this.state.departament != undefined && this.state.position == undefined) {
+                if (member.department != null && member.department.name == this.state.departament) {
+                    return member;
+                }
+            } else if (this.state.position != undefined && this.state.departament == undefined) {
+                if (member.position != null && member.position.name == this.state.position) {
                 return member;
-              }
-          } else if (this.state.position != undefined && this.state.departament == undefined) {
-            if (member.position.name == this.state.position) {
-              return member;
+                }
+            } else if (this.state.position != undefined && this.state.departament != undefined)  {
+                if (member.position != null && member.department != null && member.department.name == this.state.departament && member.position.name == this.state.position) {
+                    return member;
+                }
+            } else {
+                return member;
             }
-          } else if (this.state.position != undefined && this.state.departament != undefined)  {
-            if (member.department.name == this.state.departament && member.position.name == this.state.position) {
-                return member;
-              }
-          }
-          else {
-            return member;
-          }
+
         });
 
         return (
-            <div className="container">
-                <div className="wrapper searchWrap">
-                    <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder={data.search} name="s" />
-                </div>
-                <section className="team-page">
-                    <div className="wrapper blockFlex">
-                        <div className="mainContent">
-                            <div className="team-box">
-                                {filteredMembers.map(member => {
-                                    return this.renderMember(member);
-                                })}
-                            </div>
-                        </div>
-                        <div className="sidebar">
-                            <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>   
-                        </div>
+            <div>
+                <section className="pageHeaderForm">
+                    <div className="wrapper">
+                        <h2>{t(data.team)}</h2>
                     </div>
                 </section>
+                <div className="container">
+                    <div className="wrapper searchWrap">
+                        <input className="js-widthInput" type="text" ref={input => this.search = input} onChange={this.onchange} placeholder={data.search} name="s" />
+                    </div>
+                    <section className="team-page">
+                        <div className="wrapper blockFlex">
+                            <div className="mainContent">
+                                <div className="team-box">
+                                    {filteredMembers.map(member => {
+                                        return this.renderMember(member);
+                                    })}
+                                </div>
+                            </div>
+                            <div className="sidebar">
+                                <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>   
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         );
     }
 }
 
-export default TeamList
+export default withTranslation()(TeamList)
 
   

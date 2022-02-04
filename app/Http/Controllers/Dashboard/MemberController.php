@@ -11,7 +11,7 @@ use App\Role;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
-use Image;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -62,20 +62,21 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'name'           =>'required|string|min:2|max:20',
-          'surname'        =>'required|string|min:2|max:40',
-          'email'          =>'required|email|ends_with:corp.web4pro.com.ua|unique:users',
-          'password'       =>'required|string|min:8',
-          'birthday'       =>'required|date|before:today',
-          'start_work_day' =>'nullable|date|before:today',
-          'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
-          'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
-          'department'     =>'required',
-          'position'       =>'required',
+          'name'           => 'nullable|string|min:2|max:20',
+          'surname'        => 'nullable|string|min:2|max:40',
+          'email'          => 'required|email|ends_with:corp.web4pro.com.ua|unique:users',
+          'password'       => 'required|string|min:8',
+          'birthday'       => 'nullable|string',
+          'start_work_day' => 'nullable|date|before:tomorrow',
+          'phone_1'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'phone_2'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members',
+          'city'           => 'nullable|string|min:2|max:40',
+          'department'     => 'nullable',
+          'position'       => 'nullable',
           'certificates'   => 'nullable|array',
-          'about'          =>'nullable|string|max:1000',
-          'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-          'manager'        =>'nullable|string',
+          'about'          => 'nullable|string|max:1000',
+          'avatar'         => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          'manager'        => 'nullable|string',
         ]);
 
         $active = $request->get('active');
@@ -91,8 +92,11 @@ class MemberController extends Controller
             $avatar = $request->file('avatar');
             $filename = time() . '-' . $avatar->getClientOriginalName();
 
-            request()->file('avatar')->storeAs('avatar', $filename);
-            $userFields['avatar'] = $filename;
+			$avatar_resize = Image::make($avatar->getRealPath());
+			$avatar_resize->fit( 245, null, null, 'top');
+
+			$avatar_resize->save(storage_path('app/public/avatar/' . $filename), 100);
+			$userFields['avatar'] = $filename;
         }
 
         //Create User entity.
@@ -108,6 +112,7 @@ class MemberController extends Controller
 
 
         $start_work_day = $request->get('start_work_day');
+		$birthday       = $request->get('birthday');
         //Create Member entity and attach User.
         $member = new Member([
           'user_id'        => $user->id,
@@ -116,7 +121,8 @@ class MemberController extends Controller
           'email'          => $request->get('email'),
           'phone_1'        => $request->get('phone_1'),
           'phone_2'        => $request->get('phone_2'),
-          'birthday'       => Carbon::parse($request->get('birthday')),
+          'city'           => $request->get('city'),
+          'birthday'       => isset($birthday) ? Carbon::parse($request->get('birthday') . '/2020') : null,
           'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
           'about'          => $request->get('about'),
           'department_id'  => $request->get('department'),
@@ -177,20 +183,21 @@ class MemberController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'           =>'required|string|min:2|max:20',
-            'surname'        =>'required|string|min:2|max:40',
-            'email'          =>'required|email|ends_with:corp.web4pro.com.ua|unique:users,email,' . $id,
-            'password'       =>'nullable|string|min:8',
-            'birthday'       =>'required|date|before:today',
-            'start_work_day' =>'nullable|date|before:today',
-            'phone_1'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
-            'phone_2'        =>'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
-            'department'     =>'required',
-            'position'       =>'required',
+            'surname'        => 'nullable|string|min:2|max:40',
+            'name'           => 'nullable|string|min:2|max:20',
+            'email'          => 'required|email|ends_with:corp.web4pro.com.ua|unique:users,email,' . $id,
+            'password'       => 'nullable|string|min:8',
+            'birthday'       => 'nullable|string',
+            'start_work_day' => 'nullable|date|before:tomorrow',
+            'phone_1'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_1,' . $id .',user_id',
+            'phone_2'        => 'nullable|regex:/^[0-9\-\+]{7,15}$/|unique:members,phone_2,' . $id .',user_id',
+            'city'           => 'nullable|string|min:2|max:40',
+            'department'     => 'nullable',
+            'position'       => 'nullable',
             'certificates'   => 'nullable|array',
-            'about'          =>'nullable|string|max:1000',
-            'avatar'         =>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'manager'        =>'nullable|string',
+            'about'          => 'nullable|string|max:1000',
+            'avatar'         => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'manager'        => 'nullable|string',
         ]);
 
         $member = Member::find($id);
@@ -211,13 +218,18 @@ class MemberController extends Controller
             $avatar = $request->file('avatar');
             $filename = time() . '-' . $avatar->getClientOriginalName();
 
-            request()->file('avatar')->storeAs('avatar', $filename);
-            $userFields['avatar'] = $filename;
+			$avatar_resize = Image::make($avatar->getRealPath());
+			$avatar_resize->fit( 245, null, null, 'top');
+
+			$avatar_resize->save(storage_path('app/public/avatar/' . $filename), 100);
+			$userFields['avatar'] = $filename;
         }
 
         $start_work_day = $request->get('start_work_day');
+	    $birthday       = $request->get('birthday');
 
-        $member->user()->update($userFields);
+
+	    $member->user()->update($userFields);
 
         //Update user role (manager) in pivot table.
         $role_ids[] = Role::where('name', 'manager')->first()->id;
@@ -233,7 +245,8 @@ class MemberController extends Controller
             'email'          => $request->get('email'),
             'phone_1'        => $request->get('phone_1'),
             'phone_2'        => $request->get('phone_2'),
-            'birthday'       => Carbon::parse($request->get('birthday')),
+            'city'           => $request->get('city'),
+            'birthday'       => isset($birthday) ? Carbon::parse($request->get('birthday') . '/2020') : null,
             'start_work_day' => isset($start_work_day) ? Carbon::parse($start_work_day) : null,
             'about'          => $request->get('about'),
             'department_id'  => $request->get('department'),
@@ -267,4 +280,11 @@ class MemberController extends Controller
                 ->back()
                 ->with('success', 'Member deleted!');
     }
+
+	public function search(Request $request)
+	{
+       $members =  Member::search($request->get('query'))->paginate(10);
+
+        return view('dashboard.member.index', ['members' => $members]);
+	}
 }

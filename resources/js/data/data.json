@@ -5,9 +5,22 @@
   "close": "Close",
   "homepage": "Main page of the whole world",
   "team": "Team",
+  "home": "WEB4PRO",
   "search": "Search members",
   "birthdays": "Birthdays",
   "how_long": "How long have you been with WEB4PRO?",
+  "homepage_content": {
+    "team": "Команда",
+    "request": "Запрос на оборудование",
+    "ideas": "Идеи для улучшения в компании",
+    "vacation": "Отпуска",
+    "library": "Библиотека компании",
+    "photo": "Фото компании",
+    "corp": "Корпоративный блог",
+    "redmine": "Редмайн компании",
+    "days": "Праздничные и выходные компании",
+    "faq": "F.A.Q Часто задаваемые вопросы"
+  },
   "menu": {
     "home": "Home",
     "team": "Team",
@@ -17,9 +30,11 @@
   "member": {
     "phone": "Phone:",
     "date": "Date-birth:",
+    "city": "City:",
     "first_day": "First work day:",
     "department": "Department:",
     "position": "Position:",
-    "about": "About: :"
+    "about": "About: :",
+    "years": "years"
   }
 }
