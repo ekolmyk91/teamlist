@@ -84,6 +84,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ (Request::is('admin/links*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.links.index')}}">
+                        <i class="fa fa-external-link"></i>
+                        <p>Links</p>
+                    </a>
+                </li>
+
                 {{--<li class="nav-item ">--}}
                     {{--<a class="nav-link" href="{{url('/  admin/members')}}">--}}
                         {{--<i class="material-icons">person</i>--}}
