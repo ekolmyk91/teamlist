@@ -39,7 +39,7 @@ class HomePage extends Component {
                     <div className="container">
                         <section className="home-page">
                             <div className="home-team">
-                                <a href="/team"><span>{t(data.homepage_content.team)}</span>
+                                <a href={links[0].url} key={links[0].id}><span>{links[0].title}</span>
                                     <i className="i team"></i>
                                 </a>
                             </div>
@@ -47,11 +47,12 @@ class HomePage extends Component {
                                 {links.map((link, index) => {
 
                                     if (0 !== index) {
+                                        const icon = link.icon ? 'i ' + link.icon : 'fa fa-chevron-right';
                                         return (
                                             <div className="home-team__card">
-                                                <a href="https://forms.gle/PoY7USJyU2CU5ZLKA"
-                                                target="_blank"><span>{t(data.homepage_content.request)}</span>
-                                                    <i className="i pc"></i>
+                                                <a href={link.url}
+                                                target="_blank"><span>{link.title}</span>
+                                                    <i className={icon}></i>
                                                 </a>
                                             </div>
                                         )
