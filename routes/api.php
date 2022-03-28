@@ -31,4 +31,6 @@ Route::group(['middleware' => ['auth:api']], function (){
 
     Route::get('positions', 'API\PositionController@index');
     Route::get('positions/{id}', 'API\PositionController@show');
+
+    Route::get('links', 'API\LinkController@index');
 });

@@ -62,3 +62,14 @@ export const getBirthExpPeople = monthID => {
             return response.data;
         })
 }
+
+export const getLinks = () => {
+    return axios({
+        method: 'get',
+        url: '/api/links',
+        headers: {'Authorization' : 'Bearer ' + api_token}
+    })
+        .then(response => {
+            return response.data;
+        })
+}
