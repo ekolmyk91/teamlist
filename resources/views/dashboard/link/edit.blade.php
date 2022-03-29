@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Icon</label>
+                                        <label class="bmd-label-floating">Icon**</label>
                                         <input name='icon' type="text" class="form-control"
                                                value="{{ $link->icon }}">
                                     </div>
@@ -47,6 +47,12 @@
                                                value="{{ $link->order_number }}"
                                                min="1" max="999" required>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    **icons: team, pc, improvments, chill, library, photo, blog, redmine, days, faq or
+                                    or any <a href="https://fontawesome.com/v4/icons/">other</a>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary pull-right">Update</button>

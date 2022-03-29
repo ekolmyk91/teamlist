@@ -22,7 +22,7 @@ class TeamList extends Component {
     state = {
         search: ""
     };
-    
+
     componentDidMount () {
         getUsers().then(data => {
             this.setState({
@@ -42,7 +42,7 @@ class TeamList extends Component {
     }
 
     closePopupFunc () {
-        
+
     }
 
     renderMember = member => {
@@ -63,7 +63,7 @@ class TeamList extends Component {
     updatePosition = (position, name) => {
         this.setState({ position: name });
     }
-  
+
     onchange = e => {
         let formatedValue = e.target.value.toLowerCase()
         this.setState({ search: formatedValue });
@@ -82,7 +82,7 @@ class TeamList extends Component {
             if (trimmedSearch != '') {
                 if (member.name.toLowerCase().indexOf(trimmedSearch) !== -1) {
                     return member.name.toLowerCase().indexOf(trimmedSearch) !== -1;
-                } 
+                }
                 if (member.surname.toLowerCase().indexOf(trimmedSearch) !== -1) {
                     return member.surname.toLowerCase().indexOf(trimmedSearch) !== -1;
                 }
@@ -125,7 +125,7 @@ class TeamList extends Component {
                                 </div>
                             </div>
                             <div className="sidebar">
-                                <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>   
+                                <Sidebar updateDepartment={this.updateDepartment} updatePosition={this.updatePosition}/>
                             </div>
                         </div>
                     </section>
@@ -137,4 +137,3 @@ class TeamList extends Component {
 
 export default withTranslation()(TeamList)
 
-  
