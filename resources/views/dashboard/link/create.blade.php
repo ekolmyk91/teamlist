@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Order Number</label>
                                         <input name='order_number' type="number" class="form-control"
-                                               value="{{ old('order_number') ? : ($last_record->order_number+1) }}"
+                                               value="{{ old('order_number') ? : ($order_number+1) }}"
                                                min="1" max="999" required>
                                     </div>
                                 </div>
