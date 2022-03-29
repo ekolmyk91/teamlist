@@ -1,56 +1,70 @@
 import React, {Component} from 'react'
+import {getLinks} from '../api/Api'
 import {withTranslation} from 'react-i18next'
 import data from '../data/data.json';
 
 class HomePage extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
         this.state = {
-            members: [],
+            links: [],
+            isLoaded: false,
         }
     }
 
-    state = {
-        search: ""
-    };
+    componentDidMount() {
+        getLinks().then(data => {
+            console.log(data)
+            this.setState({
+                links: data,
+                isLoaded: true
+            });
+        })
+    }
 
 
     render() {
-        const { t } = this.props;
-        return (
-            <div>
-                <section className="pageHeaderForm">
-                    <div className="wrapper">
-                        <h2>{t(data.home)}</h2>
-                    </div>
-                </section>
-                <div className="container"> 
-                    <section className="home-page">
-                        <div className="home-team"><a href="/team"><span>{t(data.homepage_content.team)}</span> <i className="i team"></i></a></div>
-                        <div className="home-team__inner sc">
-                            <div className="home-team__card"><a href="https://forms.gle/PoY7USJyU2CU5ZLKA" target="_blank"><span>{t(data.homepage_content.request)}</span> <i className="i pc"></i></a></div>
-                            <div className="home-team__card"><a href="https://forms.gle/iqcPKozbYZvhW5c36" target="_blank"><span>{t(data.homepage_content.ideas)}</span> <i className="i improvments"></i></a></div>
-                        </div>
-                        <div className="home-team__inner thr">
-                            <div className="home-team__card"><a href="https://docs.google.com/spreadsheets/d/1tlcx2XeaHB8YUAkhCnj-HRaKqZfqpf6Zx4UQeix4A0w/edit?usp=sharing" target="_blank"><span>{t(data.homepage_content.vacation)}</span> <i className="i chill"></i></a></div>
-                            <div className="home-team__card"><a href="https://docs.google.com/spreadsheets/d/1So5tPF_XtdbkwsDDFRievQNmk78QMw0PJH6JdywXH3s/edit?usp=sharing" target="_blank"><span>{t(data.homepage_content.library)}</span> <i className="i library"></i></a></div>
-                            <div className="home-team__card"><a href="https://drive.google.com/drive/folders/0B2IE7CeXw-wTcWJnQ2c0NVg0aEk?resourcekey=0-7neGEfYTLDkosvctEKYUDg&usp=sharing" target="_blank"><span>{t(data.homepage_content.photo)}</span> <i className="i photo"></i></a></div>
-                        </div>
-                        <div className="home-team__inner sc">
-                            <div className="home-team__card"><a href="http://corp.web4pro.net/"><span>{t(data.homepage_content.corp)}</span> <i className="i blog"></i></a></div>
-                            <div className="home-team__card"><a href="https://pm.web4pro.com.ua/"><span>{t(data.homepage_content.redmine)}</span> <i className="i redmine"></i></a></div>
-                        </div>
-                        <div className="home-team__inner sc">
-                            <div className="home-team__card"><a href="https://drive.google.com/file/d/1j7fTFDgRZcfanaMVkHQ2zOzalqjb9f-_/view" target="_blank"><span>{t(data.homepage_content.days)}</span> <i className="i days"></i></a></div>
-                            <div className="home-team__card"><a href="https://drive.google.com/file/d/1skO1XesytrTDsW9PPjo9oNPAHfJVHYxD/view" target="_blank"><span>{t(data.homepage_content.faq)}</span> <i className="i faq"></i></a></div>
+        const {t} = this.props;
+        const {isLoaded, links} = this.state;
+        if (!isLoaded) {
+            return <div className="preloader">Loading...</div>;
+        } else {
+            return (
+                <div>
+                    <section className="pageHeaderForm">
+                        <div className="wrapper">
+                            <h2>{t(data.home)}</h2>
                         </div>
                     </section>
+                    <div className="container">
+                        <section className="home-page">
+                            <div className="home-team">
+                                <a href={links[0].url} key={links[0].id}><span>{links[0].title}</span>
+                                    <i className="i team"></i>
+                                </a>
+                            </div>
+                            <div className="home-team__inner sc">
+                                {links.map((link, index) => {
+
+                                    if (0 !== index) {
+                                        const icon = link.icon ? 'i ' + link.icon : 'fa fa-chevron-right';
+                                        return (
+                                            <div className="home-team__card">
+                                                <a href={link.url}
+                                                target="_blank"><span>{link.title}</span>
+                                                    <i className={icon}></i>
+                                                </a>
+                                            </div>
+                                        )
+                                    }
+                                })}
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
 export default withTranslation()(HomePage)
-
-  
