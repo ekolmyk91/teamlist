@@ -32,8 +32,9 @@ class LinkController extends Controller
      */
     public function create()
     {
-        $last_record = Link::orderBy('order_number', 'desc')->first() ? : '';
-        return view('dashboard.link.create', ['last_record' => $last_record] );
+        $last_record  = Link::orderBy('order_number', 'desc')->first();
+        $order_number = ( !empty( $last_record->order_number ) ) ? $last_record->order_number : 0;
+        return view('dashboard.link.create', ['order_number' => $order_number] );
     }
 
     /**
