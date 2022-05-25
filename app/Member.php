@@ -5,10 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Stephenjude\DefaultModelSorting\Traits\DefaultOrderBy;
 
 class Member extends Model {
 
     use SearchableTrait;
+    use DefaultOrderBy;
+
+    protected static $orderByColumn = 'surname';
+
+    protected static $orderByColumnDirection = 'asc';
 
     /**
      * Searchable rules.

@@ -126,9 +126,9 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/teamlistloc/resources/js/front/frontapp.js */"./resources/js/front/frontapp.js");
-__webpack_require__(/*! /var/www/teamlistloc/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /var/www/teamlistloc/resources/sass/front/application.scss */"./resources/sass/front/application.scss");
+__webpack_require__(/*! /var/www/teamlist.loc/resources/js/front/frontapp.js */"./resources/js/front/frontapp.js");
+__webpack_require__(/*! /var/www/teamlist.loc/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /var/www/teamlist.loc/resources/sass/front/application.scss */"./resources/sass/front/application.scss");
 
 
 /***/ })
