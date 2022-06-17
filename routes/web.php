@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function (){
             Route::resource('positions', 'Dashboard\PositionController');
             Route::resource('certificates', 'Dashboard\CertificateController');
             Route::resource('links', 'Dashboard\LinkController');
+            Route::resource('off_time', 'Dashboard\OffTimeController');
+            Route::resource('off_time_type', 'Dashboard\OffTimeTypeController');
 	        Route::get('/search', 'Dashboard\MemberController@search')->name('members.search');
         });
     });
