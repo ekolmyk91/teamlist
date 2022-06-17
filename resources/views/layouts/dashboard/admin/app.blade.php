@@ -46,6 +46,12 @@
                         <p>Members</p>
                     </a>
                 </li>
+                <li class="nav-item {{ (Request::is('admin/off_time')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.off_time.index')}}">
+                        <i class="material-icons">schedule</i>
+                        <p>Off-Time</p>
+                    </a>
+                </li>
                 <li class="nav-item {{ (Request::is('admin/departments*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('admin.departments.index')}}">
                         <i class="material-icons">group_work</i>
@@ -90,7 +96,17 @@
                         <p>Links</p>
                     </a>
                 </li>
-
+                <li class="nav-item alert-dark">
+                    <a class="nav-link" href="">
+                        <p><b>Helpers</b></p>
+                    </a>
+                </li>
+                <li class="nav-item {{ (Request::is('admin/off_time_type*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.off_time_type.index')}}">
+                        <i class="material-icons">list</i>
+                        <p>Off-Time Type</p>
+                    </a>
+                </li>
                 {{--<li class="nav-item ">--}}
                     {{--<a class="nav-link" href="{{url('/  admin/members')}}">--}}
                         {{--<i class="material-icons">person</i>--}}

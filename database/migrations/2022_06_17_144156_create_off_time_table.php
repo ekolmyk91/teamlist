@@ -26,7 +26,7 @@ class CreateOffTimeTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
             $table->foreign('type_id')
-                ->references('id')->on('off_time_type')
+                ->references('id')->on('off_time_types')
                 ->onDelete('restrict');
         });
     }

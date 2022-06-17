@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOffTimeTypeTable extends Migration
+class CreateOffTimeTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateOffTimeTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('off_time_type', function (Blueprint $table) {
+        Schema::create('off_time_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateOffTimeTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('off_time_type');
+        Schema::dropIfExists('off_time_types');
     }
 }
