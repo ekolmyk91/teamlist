@@ -73,15 +73,10 @@ class LoginController extends Controller
 			$user = Socialite::driver('google')->stateless()->user();
 		} catch (Exception $e) {
 
-			return redirect('/login');
+			return redirect('/login')->withErrors(['error' => 'Try another way to login']);
 		}
 
-		if (explode("@", $user->email)[1] !== 'corp.web4pro.com.ua') {
-
-			return redirect()->to('/login');
-		}
-
-		$existing_user = User::where('email', $user->email)->first();
+		$existing_user = User::where('gmail', $user->email)->first();
 
 		if($existing_user){
 
@@ -90,21 +85,7 @@ class LoginController extends Controller
 			return redirect('login/google');
         }else {
 
-			$new_user = User::create([
-				'name'              => $user->name,
-				'email'             => $user->email,
-				'email_verified_at' => now(),
-				'password'          => password_hash( Str::random(10), PASSWORD_BCRYPT),
-				'remember_token'    => Str::random(10),
-				'api_token'         => Str::random(60),
-			]);
-
-			Auth::login($new_user);
-
-			$manager_role_id = Role::where('name', 'member')->first()->id;
-			$new_user->roles()->attach($manager_role_id);
-
-			return redirect()->back();
+            return redirect()->back()->withErrors(['error' => 'User with this email does not exist']);
 		}
 	}
 }
