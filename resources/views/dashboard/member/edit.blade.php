@@ -34,14 +34,21 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email</label>
                                         <input name='email' type="email" class="form-control"
-                                               value="{{$member->email}}" pattern="^\S+@corp\.web4pro\.com\.ua" required>
+                                               value="{{$member->email}}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Google Email</label>
+                                        <input name='gmail' type="email" class="form-control"
+                                               value="{{$member->user->gmail}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Password</label>
                                         <input id="pwd" name='password' type="password" minlength="8" class="form-control">

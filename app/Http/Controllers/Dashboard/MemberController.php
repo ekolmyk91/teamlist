@@ -61,10 +61,12 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
           'name'           => 'nullable|string|min:2|max:20',
           'surname'        => 'nullable|string|min:2|max:40',
-          'email'          => 'required|email|ends_with:corp.web4pro.com.ua|unique:users',
+          'email'          => 'required|email|ends_with:corp.web4pro.com.ua,corp.web4pro.net,web4pro.net|unique:users',
+          'gmail'          => 'email|nullable|ends_with:gmail.com,web4pro.net|unique:users',
           'password'       => 'required|string|min:8',
           'birthday'       => 'nullable|string',
           'start_work_day' => 'nullable|date|before:tomorrow',
@@ -83,6 +85,7 @@ class MemberController extends Controller
         $userFields = [
           'name'     => $request->get('name'),
           'email'    => $request->get('email'),
+          'gmail'    => $request->get('gmail'),
           'password' => password_hash($request->get('password'), PASSWORD_BCRYPT),
           'active'   => isset($active) ? 1 : 0,
           'api_token' => Str::random(60),
@@ -185,7 +188,8 @@ class MemberController extends Controller
         $request->validate([
             'surname'        => 'nullable|string|min:2|max:40',
             'name'           => 'nullable|string|min:2|max:20',
-            'email'          => 'required|email|ends_with:corp.web4pro.com.ua|unique:users,email,' . $id,
+            'email'          => 'required|email|ends_with:corp.web4pro.com.ua,corp.web4pro.net,web4pro.net|unique:users,email,' . $id,
+            'gmail'          => 'email|nullable|ends_with:gmail.com,web4pro.net|unique:users,gmail,' . $id,
             'password'       => 'nullable|string|min:8',
             'birthday'       => 'nullable|string',
             'start_work_day' => 'nullable|date|before:tomorrow',
@@ -206,6 +210,7 @@ class MemberController extends Controller
         $userFields = [
             'name'   => $request->get('name'),
             'email'  => $request->get('email'),
+            'gmail'  => $request->get('gmail'),
             'active' => isset($active) ? 1 : 0,
             'api_token' => Str::random(60),
         ];
@@ -269,7 +274,7 @@ class MemberController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
