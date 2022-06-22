@@ -73,7 +73,7 @@ class LoginController extends Controller
 			$user = Socialite::driver('google')->stateless()->user();
 		} catch (Exception $e) {
 
-			return redirect('/login');
+			return redirect('/login')->with('error', 'Try another way to login');
 		}
 
 		$existing_user = User::where('gmail', $user->email)->first();
@@ -85,7 +85,7 @@ class LoginController extends Controller
 			return redirect('login/google');
         }else {
 
-            return redirect()->back();
+            return redirect('/login')->with('error', 'User with this email does not exist');
 		}
 	}
 }
