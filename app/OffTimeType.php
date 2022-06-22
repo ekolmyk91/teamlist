@@ -16,12 +16,12 @@ class OffTimeType extends Model
      */
     public $timestamps = false;
 
-//    /**
-//     * Get the members for the position.
-//     */
-//    public function members()
-//    {
-//        return $this->hasMany('App\Member');
-//
-//    }
+    /**
+     * Get the off-time item for the type.
+     */
+    public function offTimeList()
+    {
+        return $this->hasMany('App\OffTime');
+
+    }
 }

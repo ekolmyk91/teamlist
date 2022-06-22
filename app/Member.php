@@ -104,4 +104,12 @@ class Member extends Model {
                                     WHERE users.active = 1 AND MONTH(start_work_day) = :monthNumber ORDER BY exp_years DESC', [$monthNumber]);
         }
     }
+
+    /**
+     * Get the off-time related to the member.
+     */
+    public function offTimeList()
+    {
+        return $this->hasMany(OffTime::class);
+    }
 }

@@ -46,7 +46,7 @@ class OffTimeTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|unique:off_time_types|min:2|max:50',
+            'name' => 'required|unique:off_time_types|min:2|max:50',
         ]);
 
         $type = new OffTimeType([

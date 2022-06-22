@@ -23,7 +23,7 @@ class CreateOffTimeTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')
-                ->references('id')->on('users')
+                ->references('user_id')->on('members')
                 ->onDelete('cascade');
             $table->foreign('type_id')
                 ->references('id')->on('off_time_types')
