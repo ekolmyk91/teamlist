@@ -33,4 +33,7 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::get('positions/{id}', 'API\PositionController@show');
 
     Route::get('links', 'API\LinkController@index');
+
+
 });
+Route::get('calendar/{year}', 'API\CalendarController@show');
