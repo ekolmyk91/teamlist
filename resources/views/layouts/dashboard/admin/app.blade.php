@@ -101,6 +101,12 @@
                         <p><b>Helpers</b></p>
                     </a>
                 </li>
+                <li class="nav-item {{ (Request::is('admin/calendar*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.calendar.index')}}">
+                        <i class="material-icons">list</i>
+                        <p>Calendar</p>
+                    </a>
+                </li>
                 <li class="nav-item {{ (Request::is('admin/off_time_type*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('admin.off_time_type.index')}}">
                         <i class="material-icons">list</i>
