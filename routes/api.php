@@ -34,6 +34,5 @@ Route::group(['middleware' => ['auth:api']], function (){
 
     Route::get('links', 'API\LinkController@index');
 
-
+    Route::get('calendar/{year}', 'API\CalendarController@show');
 });
-Route::get('calendar/{year}', 'API\CalendarController@show');
