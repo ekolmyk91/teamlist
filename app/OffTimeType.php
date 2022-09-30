@@ -9,7 +9,7 @@ class OffTimeType extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'days_per_year'];
 
     /**
      * @var bool

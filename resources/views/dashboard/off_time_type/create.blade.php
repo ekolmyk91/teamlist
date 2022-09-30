@@ -22,6 +22,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Days per Year</label>
+                                        <input name='days_per_year' type="number" min="1" max="365" class="form-control"
+                                               value="{{ old('days_per_year') }}" required>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary pull-right">Create Type</button>
                             <div class="clearfix"></div>
                         </form>

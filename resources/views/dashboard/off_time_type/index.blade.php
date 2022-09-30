@@ -20,6 +20,9 @@
                             <th>
                                 Name
                             </th>
+                            <th>
+                                Days per year
+                            </th>
                             <th>Actions</th>
                             </thead>
                             <tbody>
@@ -31,6 +34,9 @@
                                     </td>
                                     <td>
                                         {{$type->name}}
+                                    </td>
+                                    <td>
+                                        {{$type->days_per_year}}
                                     </td>
                                     <td class="td-actions">
                                        <a href="{{ route('admin.off_time_type.edit', $type->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>

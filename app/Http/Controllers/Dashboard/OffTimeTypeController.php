@@ -46,11 +46,13 @@ class OffTimeTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:off_time_types|min:2|max:50',
+            'name'          => 'required|unique:off_time_types|min:2|max:50',
+            'days_per_year' => 'required|min:0|max:365',
         ]);
 
         $type = new OffTimeType([
-            'name' => $request->get('name'),
+            'name'          => $request->get('name'),
+            'days_per_year' => $request->get('days_per_year'),
         ]);
         $type->save();
 
@@ -83,7 +85,8 @@ class OffTimeTypeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'=>'required|unique:off_time_types|min:2|max:50',
+            'name'          => 'required|min:2|max:50|unique:off_time_types,name,' . $id,
+            'days_per_year' => 'required|min:0|max:365',
         ]);
         $type = OffTimeType::find($id);
 
@@ -94,7 +97,8 @@ class OffTimeTypeController extends Controller
                 ->withInput();
         }
 
-        $type->name =  $request->get('name');
+        $type->name          = $request->get('name');
+        $type->days_per_year = $request->get('days_per_year');
         $type->save();
 
         return redirect()
@@ -116,7 +120,7 @@ class OffTimeTypeController extends Controller
         }
         catch(\Illuminate\Database\QueryException $ex) {
             return back()
-                ->withErrors(['msg' => 'Delete error.  Possibly used in another table.']);
+                ->withErrors(['msg' => 'Delete error. Possibly used in another table.']);
         }
 
         return redirect()
