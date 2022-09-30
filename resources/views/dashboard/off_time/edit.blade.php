@@ -35,7 +35,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">User</label>
-                                        <select name='user' class="form-control selectpicker"
+                                        <select name='user_id' class="form-control selectpicker"
                                                 data-style="btn btn-link" id="exampleFormControlSelect1">
                                             <option value="" disabled selected>-- Select --</option>
                                             @foreach($users as $user)

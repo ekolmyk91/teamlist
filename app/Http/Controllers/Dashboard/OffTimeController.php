@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Mail\ResponseMail;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class OffTimeController extends Controller
 {
@@ -53,7 +55,7 @@ class OffTimeController extends Controller
         $request->validate([
             'start_day' => 'required|date',
             'end_day'   => 'required|date',
-            'user'      => 'required|exists:members,user_id',
+            'user_id'   => 'required|exists:members,user_id',
             'type'      => 'required|exists:off_time_types,id',
             'status'    => 'required|in:'. implode(',', config('constants.off_time_status'))
         ]);
@@ -61,7 +63,7 @@ class OffTimeController extends Controller
         $offTimeItem = new OffTime([
             'start_day' => $request->get('start_day'),
             'end_day'   => $request->get('end_day'),
-            'user_id'   => $request->get('user'),
+            'user_id'   => $request->get('user_id'),
             'type_id'   => $request->get('type'),
             'status'    => $request->get('status'),
         ]);
@@ -103,16 +105,30 @@ class OffTimeController extends Controller
         $request->validate([
             'start_day' => 'required|date',
             'end_day'   => 'required|date',
-            'user'      => 'required|exists:members,user_id',
+            'user_id'   => 'required|exists:members,user_id',
             'type'      => 'required|exists:off_time_types,id',
             'status'    => 'required|in:'. implode(',', config('constants.off_time_status'))
         ]);
 
-        $offTime->update($request->all());
+        if ( $offTime->update($request->all()) ) {
 
-        return redirect()
-            ->route('admin.off_time.index')
-            ->with('success', 'Off-Time Item saved!');
+            Mail::to(Member::find($request->get('user_id'))->email)
+                ->send(
+                    new ResponseMail(
+                        $request->get('start_day'),
+                        $request->get('end_day'),
+                        $request->get('status')
+                    )
+                );
+
+            return redirect()
+                ->route('admin.off_time.index')
+                ->with('success', 'Off-Time Item saved!');
+        } else {
+            return redirect()
+                ->route('admin.off_time.index')
+                ->with('errors', 'Problem with saving. Try again.');
+        }
     }
 
     /**

@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use App\Mail\RequestMail;
+use App\Member;
+use App\OffTime;
+use App\OffTimeType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+
+class RequestController extends Controller
+{
+    public function timeOffRequest(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'user_id'   => 'required|exists:members,user_id|unique:off_time,user_id,NULL,NULL,start_day,'.$request['start_day'].'|unique:off_time,user_id,NULL,NULL,end_day,'.$request['end_day'],
+            'start_day' => 'required|date_format:Y-m-d|after:tomorrow|unique:off_time,start_day,NULL,NULL,user_id,'.$request['user_id'],
+            'end_day'   => 'required|date_format:Y-m-d|unique:off_time,end_day,NULL,NULL,user_id,'.$request['user_id'],
+            'type_id'   => 'required|exists:off_time_types,id',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validation->messages(),
+            ], 400);
+        }
+
+        $data           = $request->all();
+        $data['status'] = 'waiting_approve';
+
+        try {
+            $timeOffRequest = OffTime::create($data);
+            $member         = Member::find($request->get('user_id'));
+            $full_name      = $member->name . ' ' . $member->surname;
+            $type           = OffTimeType::find($request->get('type_id'))->name;
+            $link           = env('APP_URL') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
+        } catch (\Throwable $t) {
+
+            return response()->json([
+                'success' => false,
+                'message' => "Problems with saving...",
+            ], 400);
+        }
+
+        if ($timeOffRequest) {
+            Mail::to(explode(',', env('REQUEST_EMAILS')))
+                ->send(
+                        new RequestMail(
+                        $full_name,
+                        $request->get('start_day'),
+                        $request->get('end_day'),
+                        $type,
+                        $link
+                        )
+                    );
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Request sent"
+                ],
+                201
+            );
+        } else {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Problems with sending..."
+                ],
+                422
+            );
+        }
+    }
+}

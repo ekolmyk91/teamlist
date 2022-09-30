@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\RequestController;
 use Illuminate\Http\Request;
 
 /*
@@ -35,4 +36,9 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::get('links', 'API\LinkController@index');
 
     Route::get('calendar/{year}', 'API\CalendarController@show');
+
+    /**
+     * Request from employees
+     */
+    Route::post('/time_off_request', [RequestController::class, 'timeOffRequest'])->name('timeOffRequest');
 });
