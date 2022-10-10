@@ -17,4 +17,17 @@ class Calendar extends Model
      * @var array
      */
     protected $fillable = ['is_weekday', 'is_holiday'];
+
+    /**
+     * Check day is holiday or not.
+     *
+     * @param $date
+     * @return bool
+     */
+    static function is_holiday($date)
+    {
+        $day = Calendar::where('dt', $date)->first();
+
+        return empty($day->is_weekday) || !empty($day->is_holiday);
+    }
 }

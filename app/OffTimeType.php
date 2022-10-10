@@ -24,4 +24,15 @@ class OffTimeType extends Model
         return $this->hasMany('App\OffTime');
 
     }
+
+    /**
+     * check is request off-time vacation
+     *
+     * @param $id
+     * @return bool
+     */
+    static function is_request_vacation($id)
+    {
+        return 'vacation' === OffTimeType::find($id)->name;
+    }
 }

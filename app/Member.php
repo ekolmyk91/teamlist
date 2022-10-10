@@ -112,4 +112,16 @@ class Member extends Model {
     {
         return $this->hasMany(OffTime::class);
     }
+
+    /**
+     * Check is member trainee
+     *
+     * @param $id
+     * @return bool
+     */
+    static function is_member_trainee($id)
+    {
+
+        return !empty(Member::find($id)->trainee);
+    }
 }

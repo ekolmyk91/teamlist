@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">New Off-Time Item</h4>
+                        <h4 class="card-title">Edit Off-Time Item</h4>
                     </div>
                     <div class="card-body">
                         @include('alert')
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Create Off-Time Item</button>
+                            <button type="submit" class="btn btn-primary pull-right">Update Off-Time Item</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
