@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\RequestController;
+use App\Http\Controllers\API\TimeOffController;
 use Illuminate\Http\Request;
 
 /*
@@ -39,7 +39,8 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::get('calendar/{year}/{month}', 'API\CalendarController@showMonth');
 
     /**
-     * Request from employees
+     * TimeOff management
      */
-    Route::post('/time_off_request', [RequestController::class, 'timeOffRequest'])->name('timeOffRequest');
+    Route::post('/time_off_request', [TimeOffController::class, 'timeOffRequest'])->name('timeOffRequest');
+    Route::get('/members/vacation/{year}/{month}', 'API\MemberController@getMembersOnVacationByMonth');
 });

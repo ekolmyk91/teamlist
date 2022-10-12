@@ -9,10 +9,11 @@ use App\Member;
 use App\OffTime;
 use App\OffTimeType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
-class RequestController extends Controller
+class TimeOffController extends Controller
 {
     public function timeOffRequest(Request $request)
     {

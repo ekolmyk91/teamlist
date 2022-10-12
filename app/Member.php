@@ -110,7 +110,7 @@ class Member extends Model {
      */
     public function offTimeList()
     {
-        return $this->hasMany(OffTime::class);
+        return $this->hasMany(OffTime::class, 'user_id', 'user_id');
     }
 
     /**

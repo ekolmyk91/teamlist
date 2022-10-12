@@ -106,7 +106,7 @@ class OffTimeController extends Controller
             'start_day' => 'required|date',
             'end_day'   => 'required|date',
             'user_id'   => 'required|exists:members,user_id',
-            'type'      => 'required|exists:off_time_types,id',
+            'type_id'      => 'required|exists:off_time_types,id',
             'status'    => 'required|in:'. implode(',', config('constants.off_time_status'))
         ]);
 
