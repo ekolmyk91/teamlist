@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\OffTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MemberIndexResource extends JsonResource
@@ -15,9 +16,10 @@ class MemberIndexResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'       => $this->user_id,
-            'fullname' => $this->name . ' ' . $this->surname,
-            'off_time' => OffTimeShowResource::collection($this->offTimeList->where('status', 'approved')->sortBy('start_day'))->groupBy('type_id')
+            'id'            => $this->user_id,
+            'fullname'      => $this->name . ' ' . $this->surname,
+            'off_time_stat' => OffTime::get_count_vacation_days($this->user_id),
+            'off_time'      => OffTimeShowResource::collection($this->offTimeList->where('status', 'approved')->sortBy('start_day'))->groupBy('type_id')
         ];
     }
 }
