@@ -41,12 +41,14 @@ Department item http://127.0.0.1:8000/api/departments/{id}
 Positions list - http://127.0.0.1:8000/api/positions/
 Position item http://127.0.0.1:8000/api/positions/{id}
 
+Links list - http://127.0.0.1:8000/api/links/
 
+Calendar:
+http://127.0.0.1:8000/api/{year}
+http://127.0.0.1:8000/api/{year}/{month}
 
+Time Off:
+Request for day off - POST http://127.0.0.1:8000/api/off_time_request
+Members on vacation by month - http://127.0.0.1:8000/api/members/vacation/{year}/{month}
 
-
-
-
-
-
-
+Time Off Type List - http://127.0.0.1:8000/api/off_time/types

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MemberIndexResource;
 use App\Member;
 use App\Department;
 use App\Position;
 use App\Certificate;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,5 +80,23 @@ class MemberController extends Controller
                                 ]);
 
         return response()->json($member);
+    }
+
+    public function getMembersOnVacationByMonth($year, $month)
+    {
+
+        $membersOnVacation = Member::whereHas('offTimeList', function($q) use ($year, $month)
+        {
+            $q->whereYear('off_time.start_day', $year)->whereMonth('off_time.start_day', $month)->where('status', 'approved');
+
+        })->orderBy('surname')->get(['user_id', 'name', 'surname']);
+
+       if (!empty($membersOnVacation) && $membersOnVacation->isEmpty()) {
+            return response()->noContent();
+        }
+
+        $membersOnVacationCollection = MemberIndexResource::collection($membersOnVacation);
+
+        return response()->json(['success' => true, 'users' => MemberIndexResource::collection($membersOnVacation)]);
     }
 }
