@@ -12,6 +12,6 @@ class CommonController extends Controller
     {
         $user = Auth::user();
 
-        return response()->json($user->only(['roles']));
+        return response()->json($user->only(['id', 'roles']));
     }
 }

@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
-class TimeOffController extends Controller
+class OffTimeController extends Controller
 {
-    public function timeOffRequest(Request $request)
+    public function offTimeRequest(Request $request)
     {
         $errors = false;
         $validation = Validator::make($request->all(), [

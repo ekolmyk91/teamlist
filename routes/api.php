@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\TimeOffController;
+use App\Http\Controllers\API\OffTimeController;
 use Illuminate\Http\Request;
 
 /*
@@ -35,12 +35,14 @@ Route::group(['middleware' => ['auth:api']], function (){
 
     Route::get('links', 'API\LinkController@index');
 
-    Route::get('calendar/{year}', 'API\CalendarController@showYear');
-    Route::get('calendar/{year}/{month}', 'API\CalendarController@showMonth');
-
     /**
      * TimeOff management
      */
-    Route::post('/time_off_request', [TimeOffController::class, 'timeOffRequest'])->name('timeOffRequest');
+
+    Route::get('calendar/{year}', 'API\CalendarController@showYear');
+    Route::get('calendar/{year}/{month}', 'API\CalendarController@showMonth');
+
+    Route::post('/off_time_request', [OffTimeController::class, 'offTimeRequest'])->name('offTimeRequest');
+    Route::get('/off_time/types', 'API\OffTimeTypesController@index');
     Route::get('/members/vacation/{year}/{month}', 'API\MemberController@getMembersOnVacationByMonth');
 });
