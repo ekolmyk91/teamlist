@@ -25,7 +25,8 @@
     "home": "Home",
     "team": "Team",
     "logout": "Logout",
-    "admin":"Admin"
+    "admin":"Admin",
+    "request": "Request"
   },
   "member": {
     "phone": "Phone:",

@@ -73,3 +73,27 @@ export const getLinks = () => {
             return response.data;
         })
 }
+
+export const getOffTimeTipes = () => {
+    return axios({
+        method: 'get',
+        url: '/api/off_time/types',
+        headers: {'Authorization' : 'Bearer ' + api_token}
+    })
+        .then(response => {
+            return response.data;
+        })
+}
+
+export const postRequest = (data) => {
+    return axios({
+        method: 'post',
+        url: '/api/off_time_request',
+        headers: {'Authorization' : 'Bearer ' + api_token},
+        data: data
+
+    })
+        .then(response => {
+            return response.data;
+        })
+}

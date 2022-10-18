@@ -1019,6 +1019,84 @@ header .divHeader .navMenu li a:hover {
   opacity: 0;
 }
 
+.request__popup {
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 32px);
+  min-height: 310px;
+  text-align: left;
+  padding: 30px;
+  background-color: #F5F8FA;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+@media (min-width: 768px) {
+  .request__popup {
+    height: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .request__popup {
+    width: 776px;
+  }
+}
+
+.request__popup .close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.6;
+  color: #0e698a;
+}
+
+.request__popup .close-icon:hover {
+  opacity: 1;
+}
+
+.request__popup .close-icon svg {
+  width: 25px;
+  height: 25px;
+  fill: #4B4B4C;
+}
+
+.request__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.request__form__dates {
+  display: flex;
+  justify-content: space-between;
+}
+
+.request__form__btn {
+  display: block;
+  color: #0e698a;
+  padding: 3px 7px;
+  border: 1px solid #0e698a;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  background: transparent;
+}
+
+.request__form__btn:hover {
+  color: white;
+  background: #0e698a;
+  border-color: #0e698a;
+}
+
 .wrapper {
   padding-right: 15px;
   padding-left: 15px;
@@ -1729,7 +1807,7 @@ input[type=checkbox] {
 }
 
 .team-page .team-box__popup.overlay--show {
-  z-index: 99999;
+  z-index: 100;
 }
 
 @media (min-width: 768px) {
@@ -1975,7 +2053,7 @@ input[type=checkbox] {
 
 .overlay--show {
   opacity: 1;
-  z-index: 9999;
+  z-index: 95;
 }
 
 .m-ovrf {

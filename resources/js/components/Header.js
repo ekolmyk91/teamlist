@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {withTranslation} from 'react-i18next'
 import {getCurrentUser} from '../api/Api'
 import data from '../data/data.json';
+import RequestFormPopup from './RequestFormPopup';
 
 const handleLogout = () => {
     axios.post('/logout')
@@ -17,6 +18,7 @@ class Header extends Component {
 		super(props)
 		this.state = {
 			currentUser: [],
+            requestPopup: false
 		}
 	}
 
@@ -40,12 +42,18 @@ class Header extends Component {
         }
     }
 
+    toggleFormPopup = () => {
+        this.setState({requestPopup: !this.state.requestPopup});
+        $(".overlay").toggleClass("overlay--show")
+        $('body').toggleClass("m-ovrf")
+    }
+
     render() {
 
         const renderAuthButton = () => {
             let currentUser = this.state.currentUser,
                 isLoggedIn = false;
-    
+
             if (currentUser.length != 0) {
                 if (currentUser.roles[0].name == 'admin') {
                     isLoggedIn = true;
@@ -55,8 +63,8 @@ class Header extends Component {
               return  <li><a onClick={() => window.location.href="/admin"} >{t(data.menu.admin)}</a></li>;
             }
         }
-      
- 
+
+
         const { t } = this.props;
         return (
             <header>
@@ -68,6 +76,7 @@ class Header extends Component {
                             </svg>
                         </a>
                         <ul className="navMenu">
+                            <li><a onClick={this.toggleFormPopup}>{t(data.menu.request)}</a></li>
                             <li>
                                 <Link to='/'>{t(data.menu.home)}</Link>
                             </li>
@@ -84,6 +93,7 @@ class Header extends Component {
                         <span></span>
                     </a>
                 </div>
+                <RequestFormPopup request={this.state.requestPopup} closePopup={this.toggleFormPopup.bind(this)} user={this.state.currentUser}/>
             </header>
         );
     }
