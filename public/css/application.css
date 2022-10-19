@@ -1022,6 +1022,7 @@ header .divHeader .navMenu li a:hover {
 .request__popup {
   display: flex;
   position: fixed;
+  flex-direction: column;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -1033,6 +1034,7 @@ header .divHeader .navMenu li a:hover {
   height: 100vh;
   overflow-y: auto;
   z-index: 100;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -1075,26 +1077,41 @@ header .divHeader .navMenu li a:hover {
   margin: 0 auto;
 }
 
+.request__form input[type=text] {
+  padding-left: 0;
+}
+
+.request__form > .MuiFormControl-root {
+  margin-bottom: 2rem;
+}
+
 .request__form__dates {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .request__form__dates {
+    flex-direction: row;
+    margin-bottom: 2rem;
+  }
+}
+
+.request__form__dates .MuiFormControl-root {
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .request__form__dates .MuiFormControl-root {
+    margin-bottom: 0;
+  }
 }
 
 .request__form__btn {
   display: block;
-  color: #0e698a;
-  padding: 3px 7px;
-  border: 1px solid #0e698a;
-  margin: 5px;
-  cursor: pointer;
   transition: all 0.1s ease-out;
-  background: transparent;
-}
-
-.request__form__btn:hover {
-  color: white;
-  background: #0e698a;
-  border-color: #0e698a;
 }
 
 .wrapper {
@@ -1813,6 +1830,7 @@ input[type=checkbox] {
 @media (min-width: 768px) {
   .team-page .team-box__popup {
     height: auto;
+    max-height: 100%;
   }
 }
 
