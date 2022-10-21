@@ -43,7 +43,7 @@ class OffTimeController extends Controller
             $errors = true;
         }
 
-        if (isset($errors)) {
+        if (!empty($errors)) {
             return response()->json([
                 'success' => false,
                 'message' => $validation->messages(),
@@ -60,6 +60,15 @@ class OffTimeController extends Controller
             $type           = OffTimeType::find($request->get('type_id'))->name;
             $link           = env('APP_URL') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
 
+        } catch (\Throwable $t) {
+
+            return response()->json([
+                'success' => false,
+                'message' => "Problems with saving...",
+            ], 400);
+        }
+
+        try {
             Mail::to(explode(',', env('REQUEST_EMAILS')))
                 ->send(
                     new RequestMail(
@@ -70,14 +79,13 @@ class OffTimeController extends Controller
                         $link
                     )
                 );
-
         } catch (\Throwable $t) {
-
             return response()->json([
                 'success' => false,
-                'message' => "Problems with saving...",
-            ], 400);
+                'message' => "Request is sent, but we have problem with email sending, repeat please via Email",
+            ], 500);
         }
+
 
         return response()->json(
             [
