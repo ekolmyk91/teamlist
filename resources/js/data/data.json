@@ -5,6 +5,7 @@
   "close": "Close",
   "homepage": "Main page of the whole world",
   "team": "Team",
+  "vacation": "Vacation",
   "home": "WEB4PRO",
   "search": "Search members",
   "birthdays": "Birthdays",
@@ -26,7 +27,8 @@
     "team": "Team",
     "logout": "Logout",
     "admin":"Admin",
-    "request": "Request"
+    "request": "Request",
+    "vacation": "Vacation"
   },
   "member": {
     "phone": "Phone:",

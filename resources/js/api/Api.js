@@ -85,6 +85,41 @@ export const getOffTimeTipes = () => {
         })
 }
 
+export const getCalendar = (year,month) => {
+    return axios({
+        method: 'get',
+        url: `/api/calendar/${year}/${month}`,
+        headers: {'Authorization' : 'Bearer ' + api_token}
+    })
+        .then(response => {
+            return response.data;
+        })
+}
+
+export const getVacation = (year,month) => {
+    return axios({
+        method: 'get',
+        url: `/api/members/vacation/${year}/${month}`,
+        headers: {'Authorization' : 'Bearer ' + api_token}
+    })
+        .then(response => {
+            let arr = []
+            response.data.users.map(user => {
+                Object.keys(user.off_time).map(key => {
+                    user.off_time[key].map(pos => {
+                        arr.push({
+                            user_id: user.id,
+                            title:`${user.fullname} - ${pos.type}`,
+                            start: new Date(pos.start_day),
+                            end: new Date(pos.end_day),
+                        })
+                    })
+                })
+            })
+            return arr
+        })
+}
+
 export const postRequest = (data) => {
     return axios({
         method: 'post',

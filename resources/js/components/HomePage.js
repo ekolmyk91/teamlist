@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {getLinks} from '../api/Api'
 import {withTranslation} from 'react-i18next'
 import data from '../data/data.json';
+import {Link} from 'react-router-dom'
 
 class HomePage extends Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class HomePage extends Component {
                     </section>
                     <div className="container">
                         <section className="home-page">
+                        <Link to='/vacation'>{t(data.menu.vacation)}</Link>
                             <div className="home-team">
                                 <a href={links[0].url} key={links[0].id}><span>{links[0].title}</span>
                                     <i className="i team"></i>

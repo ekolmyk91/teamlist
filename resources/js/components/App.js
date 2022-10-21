@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './Header'
 import TeamList from './TeamList'
 import HomePage from './HomePage'
+import Vacation from './Vacation'
 
 class App extends Component {
     render () {
@@ -13,6 +14,7 @@ class App extends Component {
                 <div className="content">
                     <Switch>
                         <Route path='/team' component={TeamList} />
+                        <Route path='/vacation' component={Vacation} />
 	                    <Route path='/' component={HomePage} />
                     </Switch>
                 </div>
