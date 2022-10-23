@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Mail\offTime\AdminEditOffTimeMail;
 use App\Mail\offTime\AdminNewOffTimeMail;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
+use App\Services\MailService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -70,14 +70,12 @@ class OffTimeController extends Controller
 
         if ( $offTimeItem->save() ) {
 
-            Mail::to(Member::find($request->get('user_id'))->email)
-                ->send(
-                    new AdminNewOffTimeMail(
-                        $request->get('start_day'),
-                        $request->get('end_day'),
-                        $request->get('status')
-                    )
-                );
+            MailService::sendAdminUpdateOffTimeMail(
+                $request->get('user_id'),
+                $request->get('start_day'),
+                $request->get('end_day'),
+                $request->get('status')
+            );
 
             return redirect()
                 ->route('admin.off_time.index')
@@ -127,16 +125,12 @@ class OffTimeController extends Controller
 
         if ( $offTime->update($request->all()) ) {
 
-
-            Mail::to(Member::find($request->get('user_id'))->email)
-                ->send(
-                    new AdminEditOffTimeMail(
-                        $request->get('start_day'),
-                        $request->get('end_day'),
-                        $request->get('status')
-                    )
-                );
-
+            MailService::sendAdminUpdateOffTimeMail(
+                $request->get('user_id'),
+                $request->get('start_day'),
+                $request->get('end_day'),
+                $request->get('status')
+            );
 
             return redirect()
                 ->route('admin.off_time.index')

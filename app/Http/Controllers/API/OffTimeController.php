@@ -4,13 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Calendar;
 use App\Http\Controllers\Controller;
-use App\Mail\offTime\MemberNewOffTimeMail;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
+use App\Services\MailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class OffTimeController extends Controller
@@ -55,11 +54,6 @@ class OffTimeController extends Controller
 
         try {
             $timeOffRequest = OffTime::create($data);
-            $member         = Member::find($request->get('user_id'));
-            $full_name      = $member->name . ' ' . $member->surname;
-            $type           = OffTimeType::find($request->get('type_id'))->name;
-            $link           = env('APP_URL') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
-
         } catch (\Throwable $t) {
 
             return response()->json([
@@ -68,21 +62,17 @@ class OffTimeController extends Controller
             ], 400);
         }
 
+        $member         = Member::find($request->get('user_id'));
+        $full_name      = $member->name . ' ' . $member->surname;
+        $type           = OffTimeType::find($request->get('type_id'))->name;
+        $link           = env('APP_URL') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
+
         try {
-            Mail::to(explode(',', env('REQUEST_EMAILS')))
-                ->send(
-                    new MemberNewOffTimeMail(
-                        $request->get('start_day'),
-                        $request->get('end_day'),
-                        $full_name,
-                        $type,
-                        $link
-                    )
-                );
+            MailService::sendNewOffTimeRequest($request->get('start_day'), $request->get('end_day'), $full_name, $type, $link);
         } catch (\Throwable $t) {
             return response()->json([
                 'success' => false,
-                'message' => 'Request is sent, but we have problem with email sending, repeat please via Email',
+                'message' => 'We have problem with email sending, repeat please via Email',
             ], 500);
         }
 
