@@ -70,7 +70,7 @@ class OffTimeController extends Controller
 
         if ( $offTimeItem->save() ) {
 
-            MailService::sendAdminUpdateOffTimeMail(
+            MailService::sendAdminNewOffTimeMail(
                 $request->get('user_id'),
                 $request->get('start_day'),
                 $request->get('end_day'),
