@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Calendar;
 use App\Http\Controllers\Controller;
-use App\Mail\RequestMail;
+use App\Mail\offTime\MemberNewOffTimeMail;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
@@ -71,10 +71,10 @@ class OffTimeController extends Controller
         try {
             Mail::to(explode(',', env('REQUEST_EMAILS')))
                 ->send(
-                    new RequestMail(
-                        $full_name,
+                    new MemberNewOffTimeMail(
                         $request->get('start_day'),
                         $request->get('end_day'),
+                        $full_name,
                         $type,
                         $link
                     )
@@ -82,15 +82,14 @@ class OffTimeController extends Controller
         } catch (\Throwable $t) {
             return response()->json([
                 'success' => false,
-                'message' => "Request is sent, but we have problem with email sending, repeat please via Email",
+                'message' => 'Request is sent, but we have problem with email sending, repeat please via Email',
             ], 500);
         }
-
 
         return response()->json(
             [
                 'success' => true,
-                'message' => "Request sent"
+                'message' => 'Request sent'
             ],
             201
         );

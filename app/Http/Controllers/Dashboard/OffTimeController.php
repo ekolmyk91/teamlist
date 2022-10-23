@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Mail\ResponseMail;
+use App\Mail\offTime\AdminEditOffTimeMail;
+use App\Mail\offTime\AdminNewOffTimeMail;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -67,11 +67,26 @@ class OffTimeController extends Controller
             'type_id'   => $request->get('type'),
             'status'    => $request->get('status'),
         ]);
-        $offTimeItem->save();
 
-        return redirect()
-            ->route('admin.off_time.index')
-            ->with('success', 'Off-Time Item saved!');
+        if ( $offTimeItem->save() ) {
+
+            Mail::to(Member::find($request->get('user_id'))->email)
+                ->send(
+                    new AdminNewOffTimeMail(
+                        $request->get('start_day'),
+                        $request->get('end_day'),
+                        $request->get('status')
+                    )
+                );
+
+            return redirect()
+                ->route('admin.off_time.index')
+                ->with('success', 'Off-Time Item saved!');
+        } else {
+            return redirect()
+                ->route('admin.off_time.index')
+                ->with('errors', 'Problem with saving. Try again.');
+        }
     }
 
     /**
@@ -112,14 +127,16 @@ class OffTimeController extends Controller
 
         if ( $offTime->update($request->all()) ) {
 
+
             Mail::to(Member::find($request->get('user_id'))->email)
                 ->send(
-                    new ResponseMail(
+                    new AdminEditOffTimeMail(
                         $request->get('start_day'),
                         $request->get('end_day'),
                         $request->get('status')
                     )
                 );
+
 
             return redirect()
                 ->route('admin.off_time.index')
