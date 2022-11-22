@@ -2,11 +2,29 @@
     display: flex;
     justify-content: space-between;
     margin: 5rem 0;
+    flex-direction: column;
+    @media (min-width: 992px) {
+        flex-direction: row;
+    }
     &__departmens {
-        width: 23%;
+        width: 100%;
+        margin-bottom: 4rem;
+        @media (min-width: 992px) {
+            width: 23%;
+            margin-bottom: 0;
+        }
     }
     .rbc-calendar {
-        width: 75%;
+        width: 100%;
+        @media (min-width: 992px) {
+            width: 75%;
+        }
+    }
+    .rbc-toolbar {
+        flex-direction: column;
+        @media (min-width: 768px) {
+            flex-direction: row;
+        }
     }
 }
 

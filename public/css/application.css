@@ -3009,14 +3009,45 @@ input[type=checkbox] {
   display: flex;
   justify-content: space-between;
   margin: 5rem 0;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) {
+  .vacation {
+    flex-direction: row;
+  }
 }
 
 .vacation__departmens {
-  width: 23%;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+@media (min-width: 992px) {
+  .vacation__departmens {
+    width: 23%;
+    margin-bottom: 0;
+  }
 }
 
 .vacation .rbc-calendar {
-  width: 75%;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .vacation .rbc-calendar {
+    width: 75%;
+  }
+}
+
+.vacation .rbc-toolbar {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .vacation .rbc-toolbar {
+    flex-direction: row;
+  }
 }
 
 .departmen {
