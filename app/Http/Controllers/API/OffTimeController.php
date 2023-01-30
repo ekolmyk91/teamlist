@@ -65,7 +65,7 @@ class OffTimeController extends Controller
         $member         = Member::find($request->get('user_id'));
         $full_name      = $member->name . ' ' . $member->surname;
         $type           = OffTimeType::find($request->get('type_id'))->name;
-        $link           = env('APP_URL') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
+        $link           = config('app.url') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
 
         try {
             MailService::sendNewOffTimeRequest($request->get('start_day'), $request->get('end_day'), $full_name, $type, $link);

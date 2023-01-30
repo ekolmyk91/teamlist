@@ -133,4 +133,8 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
+    /*
+     * Emails for off time requests
+     */
+    'off_time_request_recipients' => env( 'REQUEST_EMAILS', 'azuborev.web4pro@gmail.com' ),
 ];

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class MailService {
     static function sendNewOffTimeRequest($start_day, $end_day, $full_name, $type, $link){
-        Mail::to(explode(',', env('REQUEST_EMAILS')))
+        Mail::to(explode(',', config('mail.off_time_request_recipients')))
             ->send(
                 new MemberNewOffTimeMail(
                     $start_day,
