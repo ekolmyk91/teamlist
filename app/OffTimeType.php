@@ -31,8 +31,8 @@ class OffTimeType extends Model
      * @param $id
      * @return bool
      */
-    static function is_request_vacation($id)
+    static function isVacation($id): bool
     {
-        return 'vacation' === OffTimeType::find($id)->name;
+        return 'vacation' === strtolower( OffTimeType::find($id)->name );
     }
 }

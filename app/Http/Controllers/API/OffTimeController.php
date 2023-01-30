@@ -28,13 +28,13 @@ class OffTimeController extends Controller
             $errors = true;
         }
 
-        if ( Member::is_member_trainee($request->get('user_id')) && OffTimeType::is_request_vacation($request->get('type_id')) ) {
+        if ( Member::is_member_trainee($request->get('user_id')) && OffTimeType::isVacation($request->get('type_id')) ) {
             $validation->errors()->add('user', 'Intern can\'t take a vacation');
             $errors = true;
         }
 
-        $start_day = Calendar::is_holiday($request->get('start_day')) ? $request->get('start_day') : '';
-        $end_day   = Calendar::is_holiday($request->get('end_day')) ? $request->get('end_day') : '';
+        $start_day = Calendar::isHoliday($request->get('start_day')) ? $request->get('start_day') : '';
+        $end_day   = Calendar::isHoliday($request->get('end_day')) ? $request->get('end_day') : '';
         $holiday   = !empty($start_day) ? $start_day : $end_day;
 
         if (!empty($holiday)) {

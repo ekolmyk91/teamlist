@@ -34,9 +34,6 @@ class CalendarController extends Controller
      */
     public function edit(Calendar $calendar)
     {
-        if (!$calendar) {
-            abort (404);
-        }
         return view('dashboard.calendar.edit', compact('calendar'));
     }
 

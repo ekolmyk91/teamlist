@@ -49,7 +49,7 @@ class OffTime extends Model
                 $begin = new DateTime( $vacation_period->start_day );
                 $end   = new DateTime( $vacation_period->end_day );
                 for($i = $begin; $i <= $end; $i->modify('+1 day')){
-                    if (!Calendar::is_holiday($i->format("Y-m-d"))) {
+                    if (!Calendar::isHoliday($i->format("Y-m-d"))) {
                         $count++;
                     }
                 }
