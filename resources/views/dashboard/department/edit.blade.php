@@ -22,6 +22,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Background</label>
+                                        <input name="background" type="color" value="{{$department->background}}">
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary pull-right">Update</button>
                             <div class="clearfix"></div>
                         </form>

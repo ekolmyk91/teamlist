@@ -20,6 +20,9 @@
                             <th>
                                 Name
                             </th>
+                            <th>
+                                Background
+                            </th>
                             <th>Actions</th>
                             </thead>
                             <tbody>
@@ -31,6 +34,9 @@
                                     </td>
                                     <td>
                                         {{$department->name}}
+                                    </td>
+                                    <td>
+                                        {{$department->background}}
                                     </td>
                                     <td class="td-actions">
                                        <a href="{{ route('admin.departments.edit', $department->id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>

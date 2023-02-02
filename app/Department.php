@@ -10,7 +10,7 @@ class Department extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'background'];
 
     /**
      * @var bool
