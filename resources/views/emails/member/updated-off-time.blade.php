@@ -1,9 +1,10 @@
 @component('mail::message')
-    # Response Day Off / Vacation <br>
+    # Day Off / Vacation <br>
 
-    Data updated.
+    Day Off / Vacation was updated.
 
     Date: {{$start_day}} - {{$end_day}}
+    Type: {{$type}}
     Status: {{$status}}
 
 @endcomponent

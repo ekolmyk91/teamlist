@@ -1,5 +1,5 @@
 <?php
-define('WAITING_APPROVE_STATUS', 'waiting_approve');
+define('WAITING_APPROVE_OFF_TIME_STATUS', 'waiting_approve');
 
 return [
     'off_time_status' =>

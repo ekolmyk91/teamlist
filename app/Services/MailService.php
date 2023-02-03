@@ -22,25 +22,4 @@ class MailService {
             );
     }
 
-    static function sendAdminNewOffTimeMail($user_id, $start_day, $end_day, $status){
-        Mail::to(Member::find($user_id)->email)
-            ->send(
-                new AdminNewOffTimeMail(
-                    $start_day,
-                    $end_day,
-                    $status
-                )
-            );
-    }
-
-    static function sendAdminUpdateOffTimeMail($user_id, $start_day, $end_day, $status){
-        Mail::to(Member::find($user_id)->email)
-            ->send(
-                new AdminEditOffTimeMail(
-                    $start_day,
-                    $end_day,
-                    $status
-                )
-            );
-    }
 }
