@@ -27,10 +27,9 @@ class OffTimeController extends Controller
             ], 400);
         }
 
-        $member = Member::find($request->get('user_id'));
-
+        $member = Member::find($validated_data['user_id']);
         try {
-            Mail::to(Member::find($member->email))->send(new AdminNewOffTime($timeOffRequest, $member));
+            Mail::to(explode(',', config('mail.off_time_request_recipients')))->send(new AdminNewOffTime($timeOffRequest, $member));
         } catch (\Throwable $t) {
             return response()->json([
                 'success' => false,

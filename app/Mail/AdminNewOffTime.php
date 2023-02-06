@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use App\Member;
 use App\OffTime;
+use App\OffTimeType;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -40,9 +41,9 @@ class AdminNewOffTime extends Mailable
             ->with([
                 'start_day' => $this->offTime->start_day,
                 'end_day'   => $this->offTime->end_day,
-                'type'      => $this->offTime->type,
+                'type'      => OffTimeType::find($this->offTime->type_id)->name,
                 'link'      => config('app.url') . '/admin/off_time/' . $this->offTime->id . '/edit',
-                'full_name' => $this->full_name,
+                'full_name' => $this->member->surname . ' ' . $this->member->name,
             ]);
     }
 }
