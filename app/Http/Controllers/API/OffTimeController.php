@@ -4,12 +4,15 @@ namespace App\Http\Controllers\API;
 
 use App\Calendar;
 use App\Http\Controllers\Controller;
+use App\Mail\AdminNewOffTime;
+use App\Mail\MemberNewOffTime;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
 use App\Services\MailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class OffTimeController extends Controller
@@ -63,12 +66,9 @@ class OffTimeController extends Controller
         }
 
         $member         = Member::find($request->get('user_id'));
-        $full_name      = $member->name . ' ' . $member->surname;
-        $type           = OffTimeType::find($request->get('type_id'))->name;
-        $link           = config('app.url') . '/admin/off_time/' . $timeOffRequest->id . '/edit';
 
         try {
-            MailService::sendNewOffTimeRequest($request->get('start_day'), $request->get('end_day'), $full_name, $type, $link);
+            Mail::to(Member::find($member->email))->send(new AdminNewOffTime($timeOffRequest, $member));
         } catch (\Throwable $t) {
             return response()->json([
                 'success' => false,
