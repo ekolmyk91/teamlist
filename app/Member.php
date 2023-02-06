@@ -119,7 +119,7 @@ class Member extends Model {
      * @param $id
      * @return bool
      */
-    static function is_member_trainee($id)
+    static function isMemberTrainee($id)
     {
 
         return !empty(Member::find($id)->trainee);

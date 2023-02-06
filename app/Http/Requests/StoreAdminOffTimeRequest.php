@@ -32,4 +32,13 @@ class StoreAdminOffTimeRequest extends FormRequest
             'status'    => 'required|in:'. implode(',', config('constants.off_time_status'))
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'user_id.unique'   => 'Dates are busy for this user.',
+            'start_day.unique' => 'Start Day already taken.',
+            'end_day.unique'   => 'End Date already taken.',
+        ];
+    }
 }
