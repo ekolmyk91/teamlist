@@ -31,23 +31,30 @@ class OffTime extends Model
         return $this->belongsTo('App\OffTimeType', 'type_id', 'id');
     }
 
-    static function get_count_vacation_days($id)
+    /**
+     * Get off time days count by user_id
+     *
+     * @param $user_id
+     * @return array
+     * @throws \Exception
+     */
+    static function getOffTimeDaysCount($user_id)
     {
-        $used_days = OffTime::where('user_id', $id)
+        $usedDays = OffTime::where('user_id', $user_id)
             ->where('status', 'approved')
             ->get(['start_day', 'end_day', 'type_id'])
             ->sortBy('start_day')->groupBy('type_id');
 
-        $off_time_stat = [];
+        $statistic = [];
 
-        foreach ( $used_days as $type_id => $days_by_type ) {
+        foreach ( $usedDays as $typeID => $daysByType ) {
 
-            $off_time_type = OffTimeType::find($type_id);
-            $count         = 0;
+            $offTimeType = OffTimeType::find($typeID);
+            $count       = 0;
 
-            foreach ( $days_by_type as $vacation_period ) {
-                $begin = new DateTime( $vacation_period->start_day );
-                $end   = new DateTime( $vacation_period->end_day );
+            foreach ( $daysByType as $offTimePeriod ) {
+                $begin = new DateTime( $offTimePeriod->start_day );
+                $end   = new DateTime( $offTimePeriod->end_day );
                 for($i = $begin; $i <= $end; $i->modify('+1 day')){
                     if (!Calendar::isHoliday($i->format("Y-m-d"))) {
                         $count++;
@@ -55,9 +62,24 @@ class OffTime extends Model
                 }
             }
 
-            $off_time_stat['used'][$off_time_type->name] = $count;
-            $off_time_stat['rest'][$off_time_type->name] = $off_time_type->days_per_year - $count;
+            $statistic['used'][$offTimeType->name] = $count;
+            $statistic['rest'][$offTimeType->name] = $offTimeType->days_per_year - $count;
         }
-        return $off_time_stat;
+
+        $offTimeTypes = OffTimeType::all();
+
+        if ( ! empty( $offTimeTypes ) ) {
+
+            foreach ( $offTimeTypes as $typeItem ) {
+                if ( empty( $statistic['rest'] ) || ! array_key_exists( $typeItem->name, $statistic['rest'] ) ) {
+                    $statistic['rest'][$typeItem->name] = $typeItem->days_per_year;
+                }
+                if ( empty( $statistic['used'] ) || ! array_key_exists( $typeItem->name, $statistic['used'] ) ) {
+                    $statistic['used'][$typeItem->name] = 0;
+                }
+            }
+        }
+
+        return $statistic;
     }
 }
