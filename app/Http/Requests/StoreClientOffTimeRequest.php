@@ -8,6 +8,7 @@ use App\OffTimeType;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreClientOffTimeRequest extends FormRequest
 {
@@ -30,9 +31,21 @@ class StoreClientOffTimeRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'user_id'   => 'required|exists:members,user_id|unique:off_time,user_id,NULL,NULL,start_day,'.$request['start_day'].'|unique:off_time,user_id,NULL,NULL,end_day,'.$request['end_day'],
-            'start_day' => 'required|date_format:Y-m-d|after:today|unique:off_time,start_day,NULL,NULL,user_id,'.$request['user_id'],
-            'end_day'   => 'required|date_format:Y-m-d|after:today|unique:off_time,end_day,NULL,NULL,user_id,'.$request['user_id'],
+            'user_id'   => 'required|exists:members,user_id',
+            'start_day' =>  array(
+                'required',
+                'date_format:Y-m-d',
+                'after:today',
+                Rule::unique('off_time')
+                    ->where('user_id', $this->user_id),
+            ),
+            'end_day'  => array(
+                'required',
+                'date_format:Y-m-d',
+                'after:today',
+                Rule::unique('off_time')
+                    ->where('user_id', $this->user_id),
+            ),
             'type_id'   => 'required|exists:off_time_types,id',
         ];
     }
@@ -95,7 +108,6 @@ class StoreClientOffTimeRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.unique'   => 'Dates are busy for this user.',
             'start_day.unique' => 'Start Day already taken.',
             'end_day.unique'   => 'End Date already taken.',
         ];
