@@ -24,7 +24,7 @@ class Calendar extends Model
      * @param $date
      * @return bool
      */
-    static function is_holiday($date)
+    static function isHoliday($date)
     {
         $day = Calendar::where('dt', $date)->first();
 

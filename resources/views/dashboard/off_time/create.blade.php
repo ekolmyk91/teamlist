@@ -46,7 +46,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Type</label>
-                                        <select name='type' class="form-control selectpicker"
+                                        <select name='type_id' class="form-control selectpicker"
                                                 data-style="btn btn-link" id="exampleFormControlSelect1">
                                             <option value="" disabled selected>-- Select --</option>
                                             @foreach($types as $type)

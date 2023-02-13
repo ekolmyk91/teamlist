@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Mail\ResponseMail;
+use App\Http\Requests\StoreAdminOffTimeRequest;
+use App\Http\Requests\UpdateAdminOffTimeRequest;
+use App\Mail\MemberNewOffTime;
+use App\Mail\MemberUpdatedOffTime;
 use App\Member;
 use App\OffTime;
 use App\OffTimeType;
-use App\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,7 +24,7 @@ class OffTimeController extends Controller
     public function index()
     {
         $offTimeList = OffTime::with('member', 'offTimeType')
-            ->orderByRaw('FIELD(status , "'.WAITING_APPROVE_STATUS.'") DESC')
+            ->orderByRaw('FIELD(status , "'.WAITING_APPROVE_OFF_TIME_STATUS.'") DESC')
             ->orderByDesc('status')
             ->orderBy('start_day')
             ->paginate(10);
@@ -47,31 +49,23 @@ class OffTimeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreAdminOffTimeRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreAdminOffTimeRequest $request)
     {
-        $request->validate([
-            'start_day' => 'required|date',
-            'end_day'   => 'required|date',
-            'user_id'   => 'required|exists:members,user_id',
-            'type'      => 'required|exists:off_time_types,id',
-            'status'    => 'required|in:'. implode(',', config('constants.off_time_status'))
-        ]);
+        $offTime = OffTime::query()->create($request->validated());
+        $message = array( 'type' => 'errors', 'msg' => 'Problem with saving. Try again.' );
 
-        $offTimeItem = new OffTime([
-            'start_day' => $request->get('start_day'),
-            'end_day'   => $request->get('end_day'),
-            'user_id'   => $request->get('user_id'),
-            'type_id'   => $request->get('type'),
-            'status'    => $request->get('status'),
-        ]);
-        $offTimeItem->save();
+        if (!empty($offTime) && $offTime instanceof OffTime) {
+
+            Mail::to(Member::find($offTime->user_id)->email)->send(new MemberNewOffTime($offTime));
+            $message = array( 'type' => 'success', 'msg' => 'Off-Time was saved!' );
+        }
 
         return redirect()
             ->route('admin.off_time.index')
-            ->with('success', 'Off-Time Item saved!');
+            ->with($message['type'], $message['msg']);
     }
 
     /**
@@ -82,10 +76,6 @@ class OffTimeController extends Controller
      */
     public function edit(OffTime $offTime)
     {
-        if (!$offTime) {
-            abort (404);
-        }
-
         $types    = OffTimeType::all();
         $users    = Member::select('user_id', 'name', 'surname')->get();
         $statuses = config('constants.off_time_status');
@@ -96,39 +86,23 @@ class OffTimeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param UpdateAdminOffTimeRequest $request
+     * @param OffTime $offTime
+     * @return RedirectResponse
      */
-    public function update(Request $request, OffTime $offTime)
+    public function update(UpdateAdminOffTimeRequest $request, OffTime $offTime)
     {
-        $request->validate([
-            'start_day' => 'required|date',
-            'end_day'   => 'required|date',
-            'user_id'   => 'required|exists:members,user_id',
-            'type_id'      => 'required|exists:off_time_types,id',
-            'status'    => 'required|in:'. implode(',', config('constants.off_time_status'))
-        ]);
+        $message = array( 'type' => 'errors', 'msg' => 'Problem with updating. Try again.' );
 
-        if ( $offTime->update($request->all()) ) {
+        if ( $offTime->update($request->validated()) ) {
 
-            Mail::to(Member::find($request->get('user_id'))->email)
-                ->send(
-                    new ResponseMail(
-                        $request->get('start_day'),
-                        $request->get('end_day'),
-                        $request->get('status')
-                    )
-                );
-
-            return redirect()
-                ->route('admin.off_time.index')
-                ->with('success', 'Off-Time Item saved!');
-        } else {
-            return redirect()
-                ->route('admin.off_time.index')
-                ->with('errors', 'Problem with saving. Try again.');
+            Mail::to(Member::find($offTime->user_id)->email)->send(new MemberUpdatedOffTime($offTime));
+            $message = array( 'type' => 'success', 'msg' => 'Off-Time was updated!' );
         }
+
+        return redirect()
+            ->route('admin.off_time.index')
+            ->with($message['type'], $message['msg']);
     }
 
     /**
@@ -145,10 +119,9 @@ class OffTimeController extends Controller
             $offTimeItem->delete();
         }
         catch(\Illuminate\Database\QueryException $ex) {
-            return back()
-                ->withErrors(['msg' => 'Delete error.']);
+            return back()->withErrors(['msg' => 'Delete error.']);
         }
 
-        return redirect()->action('Dashboard\OffTimeController@index')->with('success', 'Off Time Item deleted!');
+        return redirect()->action('Dashboard\OffTimeController@index')->with('success', 'Off-Time Item was deleted!');
     }
 }

@@ -84,18 +84,26 @@ class MemberController extends Controller
 
     public function getMembersOnVacationByMonth($year, $month)
     {
+        $membersOnVacation = Member::with(array('offTimeList' => function($query) use ($year, $month) {
+            $query->whereYear('off_time.start_day', $year)
+                ->where(function($query) use ($month) {
+                    $query->whereMonth('off_time.start_day', '=', $month)
+                        ->orWhereMonth('off_time.end_day', '=', $month);
+                })
+                ->where('status', 'approved');
+        }))->orderBy('surname')->get(['user_id', 'name', 'surname']);
 
-        $membersOnVacation = Member::whereHas('offTimeList', function($q) use ($year, $month)
-        {
-            $q->whereYear('off_time.start_day', $year)->whereMonth('off_time.start_day', $month)->where('status', 'approved');
-
-        })->orderBy('surname')->get(['user_id', 'name', 'surname']);
-
-       if (!empty($membersOnVacation) && $membersOnVacation->isEmpty()) {
-            return response()->noContent();
+        if (!empty($membersOnVacation)) {
+            foreach ($membersOnVacation as $key => $member) {
+                if ($member->offTimeList->isEmpty()) {
+                    unset($membersOnVacation[$key]);
+                }
+            }
         }
 
-        $membersOnVacationCollection = MemberIndexResource::collection($membersOnVacation);
+        if (!empty($membersOnVacation) && $membersOnVacation->isEmpty()) {
+            return response()->noContent();
+        }
 
         return response()->json(['success' => true, 'users' => MemberIndexResource::collection($membersOnVacation)]);
     }

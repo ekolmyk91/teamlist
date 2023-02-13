@@ -45,11 +45,13 @@ class DepartmentController extends Controller
     {
 
         $request->validate([
-          'name'=>'required',
+          'name'       => 'required',
+          'background' => 'nullable|string',
         ]);
 
         $department = new Department([
-          'name' => $request->get('name'),
+            'name'       => $request->get('name'),
+            'background' => $request->get('background'),
         ]);
 
         $department->save();
@@ -80,12 +82,14 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'name'=>'required',
+            'name'       => 'required',
+            'background' => 'nullable|string',
         ]);
 
         $department = Department::find($id);
 
         $department->name =  $request->get('name');
+        $department->background = $request->get('background');
         $department->save();
 
         return redirect()->action('Dashboard\DepartmentController@index')->with('success', 'Department updated!');

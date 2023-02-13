@@ -28,28 +28,16 @@
                                 <tbody>
                                 @foreach ($offTimeList as $item)
                                     <tr
-                                        @if(WAITING_APPROVE_STATUS === $item->status)
+                                        @if(WAITING_APPROVE_OFF_TIME_STATUS === $item->status)
                                             style="font-weight:bold"
                                         @endif
                                     >
-                                        <td>
-                                            {{$item->id}}
-                                        </td>
-                                        <td>
-                                            {{$item->start_day}}
-                                        </td>
-                                        <td>
-                                            {{$item->end_day}}
-                                        </td>
-                                        <td>
-                                            {{$item->member->name}} {{$item->member->surname}}
-                                        </td>
-                                        <td>
-                                            {{$item->offTimeType->name}}
-                                        </td>
-                                        <td>
-                                            {{$item->status}}
-                                        </td>
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->start_day}}</td>
+                                        <td>{{$item->end_day}}</td>
+                                        <td>{{$item->member->name}} {{$item->member->surname}}</td>
+                                        <td>{{$item->offTimeType->name}}</td>
+                                        <td>{{$item->status}}</td>
                                         <td class="td-actions">
                                             <a href="{{ route('admin.off_time.edit', $item->id)}}"
                                                class="btn btn-success"><i class="material-icons">edit</i></a>
