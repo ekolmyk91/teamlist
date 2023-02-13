@@ -19,6 +19,17 @@ export const getUsers = () => {
         })
 }
 
+export const getUsersId = (id) => {
+    return axios({
+        method: 'get',
+        url: `/api/members/${id}`,
+        headers: {'Authorization' : 'Bearer ' + api_token},
+    })
+        .then(response => {
+            return response.data;
+        })
+}
+
 export const getCurrentUser = () => {
 	return axios({
 		method: 'get',
