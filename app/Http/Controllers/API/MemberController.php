@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MemberIndexResource;
 use App\Member;
 use App\Department;
+use App\OffTime;
 use App\Position;
 use App\Certificate;
 use App\User;
@@ -78,6 +79,8 @@ class MemberController extends Controller
                                   'position_id',
 	                              'trainee'
                                 ]);
+
+        $member['statistic'] = OffTime::getOffTimeDaysCount($id);
 
         return response()->json($member);
     }

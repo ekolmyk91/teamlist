@@ -32,14 +32,14 @@ class UpdateAdminOffTimeRequest extends FormRequest
                 'required',
                 'date',
                 Rule::unique('off_time')
-                    ->ignore($this->user_id)
+                    ->ignore($this->user_id, 'user_id')
                     ->where('user_id', $this->user_id),
             ),
             'end_day'  => array(
                 'required',
                 'date',
                 Rule::unique('off_time')
-                    ->ignore($this->user_id)
+                    ->ignore($this->user_id, 'user_id')
                     ->where('user_id', $this->user_id),
             ),
             'type_id'      => 'required|exists:off_time_types,id',
