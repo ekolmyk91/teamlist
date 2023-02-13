@@ -5,6 +5,7 @@
     flex-direction: column;
     @media (min-width: 992px) {
         flex-direction: row;
+        flex-wrap: wrap;
     }
     &__departmens {
         width: 100%;
@@ -12,6 +13,14 @@
         @media (min-width: 992px) {
             width: 23%;
             margin-bottom: 0;
+        }
+    }
+    &__statistic {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        @media (min-width: 768px) {
+            flex-direction: row;
         }
     }
     .rbc-calendar {
@@ -122,5 +131,31 @@
         font-size: $fontSize-large;
         font-weight: $fontWeight-extraBold;
         margin-bottom: 10px;
+    }
+}
+
+.statistic {
+    &__block {
+        margin-bottom: 2rem;
+        width: 100%;
+        border-radius: 1rem;
+        padding: 1rem;
+        @media (min-width: 768px) {
+            width: 50%;
+            margin: 0 1rem 2rem;
+        }
+        &.m-rest {
+            -webkit-box-shadow: 0px 0px 20px 0px #b7dcad;
+            box-shadow: 0px 0px 20px 0px #b7dcad;
+        }
+        &.m-used {
+            -webkit-box-shadow: 0px 0px 20px 0px #FFC4C7;
+            box-shadow: 0px 0px 20px 0px #FFC4C7;
+        }
+    }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
     }
 }

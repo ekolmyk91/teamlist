@@ -30,10 +30,10 @@ class VacationDepartment extends Component {
 
         const { t } = this.props;
         const titleStyle = {
-            background: this.props.department.color
+            background: this.props.department.background
         }
         const listStyle = {
-            boxShadow: `inset 0px 0px 15px 0px ${this.props.department.color}`
+            boxShadow: `inset 0px 0px 15px 0px ${this.props.department.background}`
         }
         return (
             <div className='departmen'>

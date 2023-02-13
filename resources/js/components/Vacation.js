@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {getUsers, getCalendar, getVacation, getDepartments} from '../api/Api';
+import {getUsers, getCalendar, getVacation, getDepartments, getCurrentUser} from '../api/Api';
 import {withTranslation} from 'react-i18next';
 import data from '../data/data.json';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import VacationDepartment from './VacationDepartment'
+import VacationStatistic from './VacationStatistic';
 
 const localizer = momentLocalizer(moment)
 
@@ -17,7 +18,8 @@ class Vacation extends Component {
             eventsList: [],
             year: new Date().getFullYear(),
             month: new Date().getMonth() + 1,
-            departments:[]
+            departments:[],
+            statistic: []
         }
     }
 
@@ -28,6 +30,12 @@ class Vacation extends Component {
                 members: data
             });
         });
+
+        getCurrentUser().then(data => {
+			this.setState({
+				statistic: data,
+			});
+		})
 
         getCalendar(this.state.year, this.state.month).then(data => {
             this.setState({
@@ -42,16 +50,6 @@ class Vacation extends Component {
         });
 
         getDepartments().then(data => {
-            data.map(dep => {
-                if(dep.id === 11 ){dep.color = '#333333'}
-                else if (dep.id === 12) {dep.color = '#4F4C73'}
-                else if (dep.id === 13) {dep.color = '#731F1F'}
-                else if (dep.id === 14) {dep.color = '#71731A'}
-                else if (dep.id === 15) {dep.color = '#1F731C'}
-                else if (dep.id === 16) {dep.color = '#0F2473'}
-                else if (dep.id === 17) {dep.color = '#73116D'}
-                else {dep.color = '#1C7173'}
-            })
             this.setState({
                 departments: data
             });
@@ -112,7 +110,7 @@ class Vacation extends Component {
         if(color.length) {
             return {
                 style: {
-                    backgroundColor: color[0].color,
+                    backgroundColor: color[0].background,
                     fontSize: '12px',
                     fontWeight: '600'
                 }
@@ -123,7 +121,6 @@ class Vacation extends Component {
     render() {
 
         const { t } = this.props;
-
         return (
             <div>
                 <section className="pageHeaderForm">
@@ -132,6 +129,7 @@ class Vacation extends Component {
                     </div>
                 </section>
                 <div className="container vacation">
+                    <VacationStatistic statistic={this.state.statistic}/>
                     <div className='vacation__departmens'>
                         {
                             this.state.departments.map(dep => {

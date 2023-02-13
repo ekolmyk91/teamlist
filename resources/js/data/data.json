@@ -39,5 +39,9 @@
     "position": "Position:",
     "about": "About: :",
     "years": "years"
+  },
+  "vacation_page": {
+    "remnant": "Remnant",
+    "used": "Used"
   }
 }
