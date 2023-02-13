@@ -1,6 +1,9 @@
 @import 'setup/setup';
 //@import 'vendor/vendor';
 
+@import '~react-big-calendar/lib/sass/styles';
+@import '~react-big-calendar/lib/addons/dragAndDrop/styles'; // if using DnD
+
 
 @import 'global';
 @import 'partials/forms';
@@ -13,3 +16,4 @@
 @import 'partials/page-canvas';
 @import 'partials/team';
 @import 'partials/sidebar';
+@import 'partials/vacation';

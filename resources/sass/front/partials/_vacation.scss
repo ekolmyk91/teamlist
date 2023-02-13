@@ -1,0 +1,126 @@
+.vacation {
+    display: flex;
+    justify-content: space-between;
+    margin: 5rem 0;
+    flex-direction: column;
+    @media (min-width: 992px) {
+        flex-direction: row;
+    }
+    &__departmens {
+        width: 100%;
+        margin-bottom: 4rem;
+        @media (min-width: 992px) {
+            width: 23%;
+            margin-bottom: 0;
+        }
+    }
+    .rbc-calendar {
+        width: 100%;
+        @media (min-width: 992px) {
+            width: 75%;
+        }
+    }
+    .rbc-toolbar {
+        flex-direction: column;
+        @media (min-width: 768px) {
+            flex-direction: row;
+        }
+    }
+}
+
+.departmen {
+    margin-bottom: 1rem;
+    &__title {
+        color: #fff;
+        text-align: center;
+        padding: .5rem;
+        cursor: pointer;
+        &:hover {
+            opacity: .7;
+        }
+    }
+    &__item {
+        padding: .2rem 1rem;
+        cursor: pointer;
+        &:hover {
+            background: rgb(195, 194, 194);
+        }
+    }
+}
+
+.vacation-popup {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 32px);
+    min-height: 310px;
+    text-align: left;
+    padding: 30px;
+    background-color: $fliceBlue;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+    @media (min-width: 768px) {
+        height: auto;
+    }
+    @media (min-width: 992px) {
+        width: 776px;
+    }
+    .close-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        opacity: 0.6;
+        color: #0e698a;
+        z-index: 105;
+        &:hover {
+            opacity: 1;
+        }
+        svg {
+            width: 25px;
+            height: 25px;
+            fill: #4B4B4C;
+        }
+    }
+    &__img {
+        width: auto;
+        height: 250px;
+        margin: 0 auto 30px;
+        @media (min-width: 768px) {
+            margin: 0 30px 0 0;
+            width: 300px;
+        }
+        img {
+            object-fit: cover;
+            object-position: center;
+            border-radius: 70%;
+            overflow: hidden;
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    &__info {
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        text-align: center;
+        @media (min-width: 768px) {
+            text-align: left;
+        }
+        &__label {
+            font-weight: $fontWeight-bold;
+            margin-right: 5px;
+        }
+    }
+    &__name {
+        font-size: $fontSize-large;
+        font-weight: $fontWeight-extraBold;
+        margin-bottom: 10px;
+    }
+}
