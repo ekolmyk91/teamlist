@@ -40,7 +40,6 @@ class VacationInfoPopup extends Component {
         if(vacation) {
             let startDate = this.updateDate(vacation.start)
             let endDate = this.updateDate(vacation.end)
-            console.log(startDate, endDate)
             return (
                 <div className="vacation-popup__vacation">
                     <span className="vacation-popup__label">{vacation.type}:</span>
@@ -58,7 +57,6 @@ class VacationInfoPopup extends Component {
         const { t } = this.props;
 
         if(this.props.vacation) {
-            console.log(this.props.vacation)
             this.state.vacationBlock = this.renderVacation(this.props.vacation)
         }
 
