@@ -47,7 +47,7 @@ class VacationDepartment extends Component {
                                     <li className='departmen__item' key={employee.user_id} >
                                         <div onClick={this.togglePopup.bind(this, employee.user_id)}>{employee.surname} {employee.name}</div>
                                         {this.state.showPopupId == employee.user_id ?
-                                            <VacationInfoPopup member={employee} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> : null
+                                            <VacationInfoPopup userId={employee.user_id} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)} /> : null
                                         }
                                     </li>
 

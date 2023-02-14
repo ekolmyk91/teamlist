@@ -18,17 +18,16 @@ class VacationStatistic extends Component {
     render () {
         const { t } = this.props;
         const statistic = this.props.statistic;
-        if(!!statistic.statistic) {
-            console.log(statistic.statistic)
+        if(!!statistic) {
             return (
                 <div className='vacation__statistic'>
                     <div className='statistic__block m-rest'>
                         <p className='statistic__title'>{t(data.vacation_page.remnant)}</p>
-                        {this.renderList(statistic.statistic.rest)}
+                        {this.renderList(statistic.rest)}
                     </div>
                     <div className='statistic__block m-used'>
                         <p className='statistic__title'>{t(data.vacation_page.used)}</p>
-                        {this.renderList(statistic.statistic.used)}
+                        {this.renderList(statistic.used)}
                     </div>
                 </div>
             )
