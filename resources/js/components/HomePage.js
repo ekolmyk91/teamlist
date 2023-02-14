@@ -15,7 +15,6 @@ class HomePage extends Component {
 
     componentDidMount() {
         getLinks().then(data => {
-            console.log(data)
             this.setState({
                 links: data,
                 isLoaded: true
@@ -51,7 +50,7 @@ class HomePage extends Component {
                                     if (0 !== index) {
                                         const icon = link.icon ? 'i ' + link.icon : 'fa fa-chevron-right';
                                         return (
-                                            <div className="home-team__card">
+                                            <div className="home-team__card" key={link.id}>
                                                 <a href={link.url}
                                                 target="_blank"><span>{link.title}</span>
                                                     <i className={icon}></i>
