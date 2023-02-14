@@ -6,6 +6,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import VacationDepartment from './VacationDepartment'
 import VacationStatistic from './VacationStatistic';
+import VacationInfoPopup from './VacationInfoPopup'
 
 const localizer = momentLocalizer(moment)
 
@@ -19,7 +20,9 @@ class Vacation extends Component {
             year: new Date().getFullYear(),
             month: new Date().getMonth() + 1,
             departments:[],
-            statistic: []
+            statistic: [],
+            showPopupId: false,
+            popup: null
         }
     }
 
@@ -118,8 +121,29 @@ class Vacation extends Component {
         }
     }
 
-    render() {
+    togglePopup(id, e) {
+        this.setState({
+            showPopupId: id ? id : null,
+            stateClass: 'overlay--show',
+            popup: null
+        });
+        $(".overlay").toggleClass("overlay--show")
+        $('body').toggleClass("m-ovrf")
+    }
 
+    handleSelectEvent = (event) => {
+        if(event) {
+            this.setState({
+                showPopupId: event.user_id ? event.user_id : null,
+                stateClass: 'overlay--show',
+                popup: event.user_id ? <VacationInfoPopup userId={event.user_id} stateClass={this.state.stateClass} closePopup={this.togglePopup.bind(this)}  vacation={event}/> : null
+            });
+            $(".overlay").toggleClass("overlay--show")
+            $('body').toggleClass("m-ovrf")
+        }
+    }
+
+    render() {
         const { t } = this.props;
         return (
             <div>
@@ -129,7 +153,7 @@ class Vacation extends Component {
                     </div>
                 </section>
                 <div className="container vacation">
-                    <VacationStatistic statistic={this.state.statistic}/>
+                    <VacationStatistic statistic={this.state.statistic.statistic}/>
                     <div className='vacation__departmens'>
                         {
                             this.state.departments.map(dep => {
@@ -153,7 +177,9 @@ class Vacation extends Component {
                         dayPropGetter={this.dayStyle}
                         eventPropGetter={(this.eventStyleGetter)}
                         showAllEvents={true}
+                        onSelectEvent={this.handleSelectEvent}
                     />
+                    {this.state.popup}
                 </div>
             </div>
         );

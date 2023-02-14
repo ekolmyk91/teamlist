@@ -3087,6 +3087,34 @@ input[type=checkbox] {
   background: #c3c2c2;
 }
 
+.statistic__block {
+  margin-bottom: 2rem;
+  width: 100%;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .statistic__block {
+    width: 50%;
+    margin: 0 1rem 2rem;
+  }
+}
+
+.statistic__block.m-rest {
+  box-shadow: 0px 0px 20px 0px #b7dcad;
+}
+
+.statistic__block.m-used {
+  box-shadow: 0px 0px 20px 0px #FFC4C7;
+}
+
+.statistic__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
 .vacation-popup {
   display: flex;
   position: fixed;
@@ -3101,11 +3129,13 @@ input[type=checkbox] {
   height: 100vh;
   overflow-y: auto;
   z-index: 100;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
   .vacation-popup {
     height: auto;
+    flex-direction: row;
   }
 }
 
@@ -3140,6 +3170,9 @@ input[type=checkbox] {
   width: auto;
   height: 250px;
   margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -3167,17 +3200,22 @@ input[type=checkbox] {
   justify-content: space-between;
   width: 100%;
   text-align: center;
+  font-size: 14px;
+  text-align: start;
 }
 
 @media (min-width: 768px) {
   .vacation-popup__info {
     text-align: left;
+    padding-bottom: 25px;
   }
 }
 
-.vacation-popup__info__label {
+.vacation-popup__label {
+  display: inline-block;
   font-weight: 600;
   margin-right: 5px;
+  min-width: 20%;
 }
 
 .vacation-popup__name {
@@ -3186,31 +3224,43 @@ input[type=checkbox] {
   margin-bottom: 10px;
 }
 
-.statistic__block {
-  margin-bottom: 2rem;
-  width: 100%;
-  border-radius: 1rem;
-  padding: 1rem;
+.vacation-popup__text,
+.vacation-popup__vacation {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  justify-content: flex-start;
+  margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
-  .statistic__block {
-    width: 50%;
-    margin: 0 1rem 2rem;
+  .vacation-popup .vacation__statistic {
+    flex-direction: column;
   }
 }
 
-.statistic__block.m-rest {
-  box-shadow: 0px 0px 20px 0px #b7dcad;
-}
-
-.statistic__block.m-used {
-  box-shadow: 0px 0px 20px 0px #FFC4C7;
-}
-
-.statistic__list {
+.vacation-popup .vacation__statistic .statistic__block {
+  margin: 0 0 10px;
+  padding: 0;
   display: flex;
-  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .vacation-popup .vacation__statistic .statistic__block {
+    width: 100%;
+  }
+}
+
+.vacation-popup .vacation__statistic .statistic__block.m-rest,
+.vacation-popup .vacation__statistic .statistic__block.m-used {
+  box-shadow: none;
+}
+
+.vacation-popup .vacation__statistic .statistic__title {
   margin: 0;
+  font-weight: 600;
+  margin-right: 5px;
+  min-width: 20%;
+  text-align: start;
 }
 

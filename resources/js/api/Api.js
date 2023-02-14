@@ -123,6 +123,7 @@ export const getVacation = (year,month) => {
                             title:`${user.fullname} - ${pos.type}`,
                             start: new Date(pos.start_day),
                             end: new Date(pos.end_day),
+                            type: pos.type
                         })
                     })
                 })
