@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('CURL_SSLVERSION_TLSv1_2')) {
+    define('CURL_SSLVERSION_TLSv1_2', 6);
+}
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
