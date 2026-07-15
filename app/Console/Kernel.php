@@ -31,6 +31,32 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(10)
             ->onOneServer()
             ->runInBackground();
+
+        $coffeeTimezone = (string) config('coffee.timezone', 'UTC');
+        $coffeeBotConfigured = fn () => (string) config('coffee.bot_token', '') !== '';
+
+        // The command itself checks coffee_settings (enabled, matching day,
+        // frequency) in --auto mode, so it is safe to trigger daily.
+        $schedule->command('coffee:generate-meetings --auto')
+            ->dailyAt('09:00')
+            ->timezone($coffeeTimezone)
+            ->withoutOverlapping(10)
+            ->onOneServer()
+            ->runInBackground();
+
+        $schedule->command('coffee:send-confirmations')
+            ->dailyAt('10:00')
+            ->timezone($coffeeTimezone)
+            ->withoutOverlapping(10)
+            ->onOneServer()
+            ->runInBackground();
+
+        $schedule->command('coffee:telegram-poll')
+            ->everyMinute()
+            ->when($coffeeBotConfigured)
+            ->withoutOverlapping(5)
+            ->onOneServer()
+            ->runInBackground();
     }
 
     /**

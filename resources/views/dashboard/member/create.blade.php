@@ -154,6 +154,36 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <input type="checkbox" name="random_coffee" checked>
+                                            <label>Random Coffee participant</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Work time from</label>
+                                        <input type="text" name="work_time_from" class="form-control js-timepicker" placeholder="HH:MM" autocomplete="off"
+                                               value="{{ old('work_time_from') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Work time to</label>
+                                        <input type="text" name="work_time_to" class="form-control js-timepicker" placeholder="HH:MM" autocomplete="off"
+                                               value="{{ old('work_time_to') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Telegram</label>
+                                        <p><span class="badge badge-secondary">not linked</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label for="avatar"
                                            class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>

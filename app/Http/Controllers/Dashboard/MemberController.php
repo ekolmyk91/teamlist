@@ -8,6 +8,7 @@ use App\Member;
 use App\Department;
 use App\Position;
 use App\Role;
+use App\Services\RandomCoffee\ParticipationCanceller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
@@ -79,6 +80,8 @@ class MemberController extends Controller
           'about'          => 'nullable|string|max:1000',
           'avatar'         => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
           'manager'        => 'nullable|string',
+          'work_time_from' => 'nullable|date_format:H:i',
+          'work_time_to'   => 'nullable|date_format:H:i|after:work_time_from',
         ]);
 
         $active = $request->get('active');
@@ -131,6 +134,9 @@ class MemberController extends Controller
           'department_id'  => $request->get('department'),
           'position_id'    => $request->get('position'),
           'trainee'        => $request->get('trainee') ? 1 : 0,
+          'random_coffee'  => $request->get('random_coffee') ? 1 : 0,
+          'work_time_from' => $request->get('work_time_from'),
+          'work_time_to'   => $request->get('work_time_to'),
           'user'           => $user
         ]);
         $member->save();
@@ -183,7 +189,7 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ParticipationCanceller $canceller, $id)
     {
         $request->validate([
             'surname'        => 'nullable|string|min:2|max:40',
@@ -202,9 +208,13 @@ class MemberController extends Controller
             'about'          => 'nullable|string|max:1000',
             'avatar'         => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'manager'        => 'nullable|string',
+            'work_time_from' => 'nullable|date_format:H:i',
+            'work_time_to'   => 'nullable|date_format:H:i|after:work_time_from',
         ]);
 
         $member = Member::find($id);
+
+        $wasParticipating = (bool) $member->random_coffee && (bool) $member->user->active;
 
         $active = $request->get('active');
         $userFields = [
@@ -256,8 +266,25 @@ class MemberController extends Controller
             'about'          => $request->get('about'),
             'department_id'  => $request->get('department'),
             'position_id'    => $request->get('position'),
-	        'trainee'        => $request->get('trainee') ? 1 : 0
+	        'trainee'        => $request->get('trainee') ? 1 : 0,
+            'random_coffee'  => $request->get('random_coffee') ? 1 : 0,
+            'work_time_from' => $request->get('work_time_from'),
+            'work_time_to'   => $request->get('work_time_to')
         ]);
+
+        // The bot refuses to re-link an employee who is already connected, so
+        // an account change has to be released here first.
+        if ($request->get('unlink_telegram')) {
+            $member->update(['telegram_chat_id' => null]);
+        }
+
+        // Dropping out of the programme (or of the company) must not leave the
+        // partner waiting in an empty room next Thursday.
+        $member->refresh()->load('user');
+
+        if ($wasParticipating && ! ((bool) $member->random_coffee && (bool) $member->user->active)) {
+            $canceller->cancelUpcomingFor($member);
+        }
 
         if(!empty($request->certificate[0])) {
             $member->certificates()->sync($request->input('certificate', []));
