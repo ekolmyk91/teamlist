@@ -50,7 +50,15 @@ class Member extends Model {
       'department_id',
       'position_id',
 	  'trainee',
-      'about'
+      'about',
+      'random_coffee',
+      'work_time_from',
+      'work_time_to',
+      'telegram_chat_id'
+    ];
+
+    protected $casts = [
+      'random_coffee' => 'boolean',
     ];
 
     protected $primaryKey = 'user_id';

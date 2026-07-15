@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\DateEvents\DateEventTriggerRegistry;
 use App\Services\DateEvents\Triggers\BirthdayEventTrigger;
+use App\Services\RandomCoffee\Contracts\CoffeeBotClientInterface;
+use App\Services\RandomCoffee\Telegram\CoffeeBotClient;
 use App\Services\Telegram\Contracts\TelegramClientInterface;
 use App\Services\Telegram\TelegramClient;
 use Illuminate\Http\Client\Factory as HttpFactory;
@@ -24,6 +26,15 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(HttpFactory::class),
                 (string) config('services.telegram.api_url', 'https://api.telegram.org'),
                 (string) config('services.telegram.bot_token', ''),
+                (int) config('services.telegram.timeout', 10),
+            );
+        });
+
+        $this->app->singleton(CoffeeBotClientInterface::class, function ($app) {
+            return new CoffeeBotClient(
+                $app->make(HttpFactory::class),
+                (string) config('services.telegram.api_url', 'https://api.telegram.org'),
+                (string) config('coffee.bot_token', ''),
                 (int) config('services.telegram.timeout', 10),
             );
         });

@@ -32,6 +32,15 @@ Route::group(['middleware' => ['auth']], function (){
             Route::resource('certificates', 'Dashboard\CertificateController');
             Route::resource('links', 'Dashboard\LinkController');
 	        Route::get('/search', 'Dashboard\MemberController@search')->name('members.search');
+
+            Route::get('coffee', 'Dashboard\CoffeeController@index')->name('coffee.index');
+            Route::post('coffee/generate', 'Dashboard\CoffeeController@generate')->name('coffee.generate');
+            Route::post('coffee/meetings', 'Dashboard\CoffeeController@storeMeeting')->name('coffee.meetings.store');
+            Route::delete('coffee/meetings/{meeting}', 'Dashboard\CoffeeController@destroyMeeting')->name('coffee.meetings.destroy');
+            Route::patch('coffee/meetings/{meeting}/status', 'Dashboard\CoffeeController@updateStatus')->name('coffee.meetings.status');
+            Route::get('coffee/settings', 'Dashboard\CoffeeController@settings')->name('coffee.settings');
+            Route::put('coffee/settings', 'Dashboard\CoffeeController@updateSettings')->name('coffee.settings.update');
+            Route::get('coffee/guide', 'Dashboard\CoffeeController@guide')->name('coffee.guide');
         });
     });
 
@@ -39,5 +48,10 @@ Route::group(['middleware' => ['auth']], function (){
 
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
+
+// Public signed links from the Random Coffee bot ("did the meeting happen?").
+Route::get('coffee/confirm/{meeting}/{user}/{answer}', 'CoffeeConfirmationController')
+    ->name('coffee.confirm')
+    ->middleware('signed');
 
 Route::view('/{path?}', 'app')->middleware('auth', 'apiToken');

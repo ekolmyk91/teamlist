@@ -16,7 +16,65 @@
     <!-- Material Kit CSS -->
     <link href="{{ asset('css/dashboard/material-dashboard.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/dashboard/jquery.datetimepicker.css') }}" rel="stylesheet" />
+    <style>
+        /* The datetimepicker widget is built for Bootstrap 3: its popup is a
+           .dropdown-menu, which Bootstrap 4 keeps hidden unless it has .show. */
+        .bootstrap-datetimepicker-widget.dropdown-menu {
+            display: block;
+            width: auto;
+            min-width: 0;
+            padding: 4px;
+        }
 
+        .bootstrap-datetimepicker-widget table {
+            width: auto;
+            margin: 0;
+        }
+
+        .bootstrap-datetimepicker-widget td {
+            padding: 2px 6px;
+            text-align: center;
+        }
+
+        /* Without this the theme's .btn styling blows the arrows up into large
+           grey squares. */
+        .bootstrap-datetimepicker-widget .btn {
+            min-width: 0;
+            margin: 0;
+            padding: 2px 6px;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            color: rgba(0, 0, 0, 0.55);
+        }
+
+        .bootstrap-datetimepicker-widget .btn:hover {
+            background: rgba(0, 0, 0, 0.06);
+            box-shadow: none;
+        }
+
+        .bootstrap-datetimepicker-widget .timepicker-hour,
+        .bootstrap-datetimepicker-widget .timepicker-minute {
+            padding: 2px 8px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* It also expects glyphicons for the up/down arrows; this theme ships
+           Material Icons instead, so draw the arrows with CSS. */
+        .picker-arrow::before {
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .picker-arrow-up::before {
+            content: "\25B2";
+        }
+
+        .picker-arrow-down::before {
+            content: "\25BC";
+        }
+    </style>
 </head>
 
 <body>
@@ -88,6 +146,13 @@
                     <a class="nav-link" href="{{route('admin.links.index')}}">
                         <i class="fa fa-external-link"></i>
                         <p>Links</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {{ (Request::is('admin/coffee*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.coffee.index')}}">
+                        <i class="material-icons">local_cafe</i>
+                        <p>Random Coffee</p>
                     </a>
                 </li>
 
@@ -205,6 +270,22 @@
 <script src="{{ asset('js/dashboard/moment.min.js') }}"></script>
 <script src="{{ asset('js/dashboard/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('js/dashboard/material-dashboard.js') }}"></script>
+<script>
+    // Native input[type=time] has no picker at all in Firefox, so time fields
+    // are plain text inputs driven by this widget: same popup in every browser.
+    $(function () {
+        $('.js-timepicker').datetimepicker({
+            format: 'HH:mm',
+            stepping: 5,
+            useCurrent: false,
+            keepInvalid: false,
+            icons: {
+                up: 'picker-arrow picker-arrow-up',
+                down: 'picker-arrow picker-arrow-down',
+            },
+        });
+    });
+</script>
 </body>
 
 </html>

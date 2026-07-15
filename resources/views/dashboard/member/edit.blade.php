@@ -166,6 +166,59 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <input type="checkbox" name="random_coffee"
+                                                   @if($member->random_coffee)
+                                                   checked
+                                                    @endif
+                                            >
+                                            <label>Random Coffee participant</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Work time from</label>
+                                        <input type="text" name="work_time_from" class="form-control js-timepicker" placeholder="HH:MM" autocomplete="off"
+                                               value="{{ old('work_time_from', $member->work_time_from ? substr($member->work_time_from, 0, 5) : '') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Work time to</label>
+                                        <input type="text" name="work_time_to" class="form-control js-timepicker" placeholder="HH:MM" autocomplete="off"
+                                               value="{{ old('work_time_to', $member->work_time_to ? substr($member->work_time_to, 0, 5) : '') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Telegram</label>
+                                        <p>
+                                            @if($member->telegram_chat_id)
+                                                <span class="badge badge-success">linked</span>
+                                            @else
+                                                <span class="badge badge-secondary">not linked</span>
+                                            @endif
+                                        </p>
+                                        @if($member->telegram_chat_id)
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           name="unlink_telegram" value="1">
+                                                    Unlink
+                                                    <span class="form-check-sign"><span class="check"></span></span>
+                                                </label>
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Frees the employee to connect the bot from another Telegram account.
+                                            </small>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
                                     <label class="bmd-label-floating">Avatar</label>
                                     <input name='avatar' type="file" class="form-control"
