@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function (){
     Route::group(['middleware' => ['admin']], function (){
         Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/', 'Dashboard\AdminController@index')->name('dashboard');
+            Route::patch('members/{member}/coffee', 'Dashboard\MemberController@toggleCoffee')->name('members.coffee.toggle');
             Route::resource('members', 'Dashboard\MemberController');
             Route::resource('solutions', 'Dashboard\SolutionController');
             Route::resource('departments', 'Dashboard\DepartmentController');
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth']], function (){
 
             Route::get('coffee', 'Dashboard\CoffeeController@index')->name('coffee.index');
             Route::post('coffee/generate', 'Dashboard\CoffeeController@generate')->name('coffee.generate');
+            Route::post('coffee/top-up', 'Dashboard\CoffeeController@topUp')->name('coffee.topUp');
             Route::post('coffee/meetings', 'Dashboard\CoffeeController@storeMeeting')->name('coffee.meetings.store');
             Route::delete('coffee/meetings/{meeting}', 'Dashboard\CoffeeController@destroyMeeting')->name('coffee.meetings.destroy');
             Route::patch('coffee/meetings/{meeting}/status', 'Dashboard\CoffeeController@updateStatus')->name('coffee.meetings.status');

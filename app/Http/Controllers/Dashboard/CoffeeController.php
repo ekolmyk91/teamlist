@@ -80,6 +80,29 @@ class CoffeeController extends Controller
             ->with('success', sprintf('Generated %d meeting(s), sent %d notification(s).', $meetings->count(), $sent));
     }
 
+    /**
+     * Fills the gaps in the cycle that is already running: the generate button
+     * is a no-op once the cycle exists, so somebody added mid-cycle - or left
+     * partnerless when their pair dropped out - has nowhere else to come from.
+     */
+    public function topUp(MeetingGenerator $generator, MeetingNotifier $notifier): RedirectResponse
+    {
+        $today = CarbonImmutable::now((string) config('coffee.timezone', 'UTC'))->startOfDay();
+        $cycleDate = $generator->currentCycleDate($today);
+
+        $meetings = $generator->topUp($cycleDate, $today->addDay());
+
+        if ($meetings->isEmpty()) {
+            return redirect()->route('admin.coffee.index')
+                ->with('success', 'Nothing to top up: everyone already has a meeting this cycle, or no working days are left.');
+        }
+
+        $sent = $meetings->sum(fn (CoffeeMeeting $meeting) => $notifier->notify($meeting));
+
+        return redirect()->route('admin.coffee.index')
+            ->with('success', sprintf('Added %d meeting(s) to the current cycle, sent %d notification(s).', $meetings->count(), $sent));
+    }
+
     public function storeMeeting(
         StoreCoffeeMeetingRequest $request,
         MeetingGenerator $generator,

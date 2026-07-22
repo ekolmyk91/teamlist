@@ -13,6 +13,13 @@
                     Generate pairs now
                 </button>
             </form>
+            <form action="{{ route('admin.coffee.topUp') }}" method="post" style="display: inline-block">
+                @csrf
+                <button type="submit" class="btn btn-warning"
+                        title="Pairs up everyone the running cycle left without a meeting: joined mid-cycle, or lost their partner. Keeps the current cycle's date, so the schedule does not shift.">
+                    Top up cycle
+                </button>
+            </form>
 
             <div class="row">
                 @foreach ([

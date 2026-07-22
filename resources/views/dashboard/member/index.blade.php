@@ -70,6 +70,15 @@
                                 </td>
                                 <td class="td-actions">
                                     <a href="{{ route('admin.members.edit', $member->user_id)}}" class="btn btn-success"><i class="material-icons">edit</i></a>
+                                    <form action="{{ route('admin.members.coffee.toggle', $member->user_id)}}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" rel="tooltip"
+                                                class="btn {{ $member->random_coffee ? 'btn-info' : 'btn-secondary' }}"
+                                                title="{{ $member->random_coffee ? 'Takes part in Random Coffee — click to remove' : 'Not in Random Coffee — click to add' }}">
+                                            <i class="material-icons">{{ $member->random_coffee ? 'local_cafe' : 'free_breakfast' }}</i>
+                                        </button>
+                                    </form>
                                     <form action="{{ route('admin.members.destroy', $member->user_id)}}" method="post">
                                         @csrf
                                         @method('DELETE')

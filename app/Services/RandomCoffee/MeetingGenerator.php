@@ -77,8 +77,18 @@ final class MeetingGenerator
      */
     public function plan(CarbonImmutable $generationDate, ?CarbonImmutable $notBefore = null): Collection
     {
+        return $this->planFor($this->participants(), $generationDate, $notBefore);
+    }
+
+    /**
+     * Plan meetings for a given set of participants.
+     *
+     * @param  Collection<int, Member>  $participants
+     * @return Collection<int, array<string, mixed>>
+     */
+    private function planFor(Collection $participants, CarbonImmutable $generationDate, ?CarbonImmutable $notBefore = null): Collection
+    {
         $settings = CoffeeSetting::current();
-        $participants = $this->participants();
 
         $recentPairs = $this->recentPairKeys($generationDate, $settings->exclusion_weeks);
 
@@ -87,15 +97,20 @@ final class MeetingGenerator
             $recentPairs,
         );
 
-        $meetingDays = $this->workingDaysAfter($generationDate, $notBefore);
+        $meetingDays = $this->workingDaysAfter($generationDate, $settings->frequency_weeks, $notBefore);
 
         if ($meetingDays === []) {
             return new Collection();
         }
 
-        return collect($pairs)->values()->map(function (array $pair, int $index) use ($participants, $settings, $meetingDays, $generationDate) {
+        $pairCount = count($pairs);
+
+        return collect($pairs)->values()->map(function (array $pair, int $index) use ($participants, $settings, $meetingDays, $generationDate, $pairCount) {
             [$userOneId, $userTwoId] = $pair;
-            $day = $meetingDays[$index % count($meetingDays)];
+            // Spread the pairs across the whole window instead of filling it
+            // from the front: with a 4-week frequency the last pairs would
+            // otherwise still meet in week one and three weeks stay empty.
+            $day = $meetingDays[intdiv($index * count($meetingDays), max(1, $pairCount))];
 
             return [
                 'user_one_id' => $userOneId,
@@ -138,6 +153,64 @@ final class MeetingGenerator
     }
 
     /**
+     * Pair up the participants the current cycle left without a meeting.
+     *
+     * Needed because the cycle is generated once and then frozen: somebody who
+     * joins the programme mid-cycle - or whose partner left and took the
+     * meeting with them - would otherwise wait for the next cycle, which with a
+     * 4-week frequency is a month away.
+     *
+     * New meetings keep the running cycle's date, so max(cycle_date) stays on
+     * the matching-day grid and the frequency countdown does not shift. (That
+     * shift is exactly what made the first version of this button be removed,
+     * before currentCycleDate() existed.)
+     *
+     * @return Collection<int, CoffeeMeeting>
+     */
+    public function topUp(CarbonImmutable $cycleDate, ?CarbonImmutable $notBefore = null): Collection
+    {
+        CoffeeSetting::current();
+
+        return DB::transaction(function () use ($cycleDate, $notBefore) {
+            $settings = CoffeeSetting::query()->lockForUpdate()->first();
+
+            $busy = $this->busyUserIds($cycleDate, (int) $settings->frequency_weeks);
+
+            $waiting = $this->participants()
+                ->reject(fn (Member $member) => in_array((int) $member->user_id, $busy, true));
+
+            if ($waiting->count() < 2) {
+                return new Collection();
+            }
+
+            return $this->planFor($waiting, $cycleDate, $notBefore)
+                ->map(fn (array $attributes) => CoffeeMeeting::create($attributes));
+        });
+    }
+
+    /**
+     * Everyone who already has a meeting inside the running cycle - generated
+     * or added by hand, so a manual meeting is not doubled by a top-up.
+     *
+     * @return array<int, int>
+     */
+    private function busyUserIds(CarbonImmutable $cycleDate, int $frequencyWeeks): array
+    {
+        $windowEnd = $cycleDate->addDays(max(1, $frequencyWeeks) * 7);
+
+        $meetings = CoffeeMeeting::query()
+            ->where('scheduled_at', '>=', $cycleDate->startOfDay())
+            ->where('scheduled_at', '<', $windowEnd->startOfDay())
+            ->get(['user_one_id', 'user_two_id']);
+
+        return $meetings
+            ->flatMap(fn (CoffeeMeeting $meeting) => [(int) $meeting->user_one_id, (int) $meeting->user_two_id])
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    /**
      * Active employees participating in Random Coffee, keyed by user id.
      *
      * @return Collection<int, Member>
@@ -164,16 +237,20 @@ final class MeetingGenerator
     }
 
     /**
-     * Next working days (Mon-Fri) strictly inside the cycle week: days +1..+6
-     * after the generation date, so the next cycle's generation day is free.
+     * Working days (Mon-Fri) strictly inside the cycle: days +1 up to the day
+     * before the next cycle's generation day, so that day itself stays free.
+     *
+     * The window follows frequency_weeks - a 4-week cycle spreads its meetings
+     * over four weeks instead of cramming them into the first one.
      *
      * @return array<int, CarbonImmutable>
      */
-    private function workingDaysAfter(CarbonImmutable $generationDate, ?CarbonImmutable $notBefore = null): array
+    private function workingDaysAfter(CarbonImmutable $generationDate, int $frequencyWeeks, ?CarbonImmutable $notBefore = null): array
     {
         $days = [];
+        $lastOffset = max(1, $frequencyWeeks) * 7 - 1;
 
-        for ($offset = 1; $offset <= 6; $offset++) {
+        for ($offset = 1; $offset <= $lastOffset; $offset++) {
             $day = $generationDate->addDays($offset);
 
             if ($notBefore !== null && $day->lt($notBefore->startOfDay())) {

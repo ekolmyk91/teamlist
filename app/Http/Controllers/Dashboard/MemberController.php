@@ -298,6 +298,35 @@ class MemberController extends Controller
     }
 
     /**
+     * Switch Random Coffee participation straight from the list.
+     *
+     * Same rule as the checkbox on the member card - it is just reachable
+     * without opening (and re-saving) the whole form, which is what setting up
+     * a pilot group turns into otherwise.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function toggleCoffee(Member $member, ParticipationCanceller $canceller)
+    {
+        $wasParticipating = (bool) $member->random_coffee && (bool) $member->user->active;
+
+        $member->update(['random_coffee' => ! $member->random_coffee]);
+
+        // Leaving the programme must not leave the partner waiting in an empty
+        // room: drop the meetings that have not happened yet and warn them.
+        $cancelled = $wasParticipating ? $canceller->cancelUpcomingFor($member) : 0;
+
+        $name = trim($member->name . ' ' . $member->surname);
+
+        $message = $member->random_coffee
+            ? $name . ' now takes part in Random Coffee.'
+            : $name . ' no longer takes part in Random Coffee.'
+                . ($cancelled > 0 ? sprintf(' %d upcoming meeting(s) cancelled.', $cancelled) : '');
+
+        return Redirect::back()->with('success', $message);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
