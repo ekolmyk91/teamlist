@@ -248,6 +248,110 @@ class CoffeeAdminPagesTest extends TestCase
         $this->assertNull(CoffeeMeeting::find($upcoming->id));
     }
 
+    public function testParticipationCanBeToggledFromTheMembersList(): void
+    {
+        $leaver = $this->createEmployee('leaver-toggle@w4p.com');
+        $partner = $this->createEmployee('partner-toggle@w4p.com');
+        $partner->update(['telegram_chat_id' => '888']);
+
+        $upcoming = CoffeeMeeting::create([
+            'user_one_id' => $leaver->user_id,
+            'user_two_id' => $partner->user_id,
+            'scheduled_at' => CarbonImmutable::now()->addDays(2),
+            'meeting_url' => 'https://meet.jit.si/w4p-coffee-upcoming',
+        ]);
+
+        $this->actingAs($this->admin)
+            ->patch(route('admin.members.coffee.toggle', $leaver->user_id))
+            ->assertRedirect();
+
+        $this->assertFalse($leaver->fresh()->random_coffee);
+        // Same rule as unticking the box on the member card.
+        $this->assertNull(CoffeeMeeting::find($upcoming->id));
+
+        $this->actingAs($this->admin)
+            ->patch(route('admin.members.coffee.toggle', $leaver->user_id))
+            ->assertRedirect();
+
+        $this->assertTrue($leaver->fresh()->random_coffee);
+    }
+
+    public function testTopUpPairsEmployeesTheRunningCycleLeftWithoutAMeeting(): void
+    {
+        $this->createEmployee('a-top@w4p.com');
+        $this->createEmployee('b-top@w4p.com');
+
+        CoffeeSetting::current()->update(['enabled' => true, 'matching_day' => 1, 'frequency_weeks' => 1]);
+
+        // Monday: the scheduler pairs the two employees there are.
+        $this->travelTo(CarbonImmutable::parse('2026-07-13 09:00:00', config('coffee.timezone')));
+        $this->artisan('coffee:generate-meetings', ['--date' => '2026-07-13', '--auto' => true])->assertExitCode(0);
+        $this->assertSame(1, CoffeeMeeting::count());
+
+        // Tuesday: two more people join the programme. "Generate" is a no-op -
+        // the cycle exists - so they can only come in through the top-up.
+        $this->travelTo(CarbonImmutable::parse('2026-07-14 11:00:00', config('coffee.timezone')));
+        $this->createEmployee('c-top@w4p.com');
+        $this->createEmployee('d-top@w4p.com');
+
+        $this->actingAs($this->admin)->post(route('admin.coffee.generate'))->assertRedirect();
+        $this->assertSame(1, CoffeeMeeting::count());
+
+        $this->actingAs($this->admin)->post(route('admin.coffee.topUp'))->assertRedirect();
+        $this->assertSame(2, CoffeeMeeting::count());
+
+        $added = CoffeeMeeting::orderByDesc('id')->first();
+        // Dated as the running cycle, so the frequency countdown stays put.
+        $this->assertSame('2026-07-13', $added->cycle_date->toDateString());
+        $this->assertTrue($added->scheduled_at->greaterThan('2026-07-14'));
+        $this->assertTrue($added->scheduled_at->isWeekday());
+
+        $this->travelBack();
+
+        // The next Monday still runs on schedule.
+        $this->artisan('coffee:generate-meetings', ['--date' => '2026-07-20', '--auto' => true])->assertExitCode(0);
+        $this->assertSame(4, CoffeeMeeting::count());
+    }
+
+    public function testTopUpDoesNothingWhenEveryoneAlreadyHasAMeeting(): void
+    {
+        $this->createEmployee('a-full@w4p.com');
+        $this->createEmployee('b-full@w4p.com');
+
+        $this->travelTo(CarbonImmutable::parse('2026-07-13 09:00:00', config('coffee.timezone')));
+        $this->artisan('coffee:generate-meetings', ['--date' => '2026-07-13'])->assertExitCode(0);
+
+        $this->travelTo(CarbonImmutable::parse('2026-07-14 11:00:00', config('coffee.timezone')));
+        $this->actingAs($this->admin)->post(route('admin.coffee.topUp'))->assertRedirect();
+
+        $this->assertSame(1, CoffeeMeeting::count());
+
+        $this->travelBack();
+    }
+
+    public function testTopUpSkipsEmployeesWhoAlreadyHaveAManualMeeting(): void
+    {
+        $paired = $this->createEmployee('manual-a@w4p.com');
+        $partner = $this->createEmployee('manual-b@w4p.com');
+        $this->createEmployee('lonely@w4p.com');
+
+        $this->travelTo(CarbonImmutable::parse('2026-07-14 11:00:00', config('coffee.timezone')));
+
+        CoffeeMeeting::create([
+            'user_one_id' => $paired->user_id,
+            'user_two_id' => $partner->user_id,
+            'scheduled_at' => CarbonImmutable::parse('2026-07-16 12:00:00', config('coffee.timezone')),
+            'meeting_url' => 'https://meet.jit.si/w4p-coffee-manual',
+        ]);
+
+        // Only one person is free, so there is nobody to pair them with.
+        $this->actingAs($this->admin)->post(route('admin.coffee.topUp'))->assertRedirect();
+
+        $this->assertSame(1, CoffeeMeeting::count());
+
+        $this->travelBack();
+    }
+
     public function testMeetingCanBeDeleted(): void
     {
         $meeting = $this->createMeeting();

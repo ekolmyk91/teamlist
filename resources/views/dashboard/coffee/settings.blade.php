@@ -58,7 +58,7 @@
                                     </select>
                                     <small class="form-text text-muted">
                                         Day of week when pairs are generated. Meetings themselves are spread over
-                                        the following working days (Mon-Fri), each pair gets its own day.
+                                        the working days of the whole cycle (Mon-Fri), up to the next generation day.
                                     </small>
                                 </div>
                             </div>

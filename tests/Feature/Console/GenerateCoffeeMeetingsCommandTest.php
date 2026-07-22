@@ -62,6 +62,32 @@ class GenerateCoffeeMeetingsCommandTest extends TestCase
         $this->assertSame(['111', '222'], $sentTo);
     }
 
+    public function testMeetingsAreSpreadOverTheWholeCycleNotOnlyItsFirstWeek(): void
+    {
+        for ($i = 0; $i < 8; $i++) {
+            $this->createEmployee('spread-' . $i . '@w4p.com');
+        }
+
+        CoffeeSetting::current()->update(['frequency_weeks' => 4]);
+
+        $this->artisan('coffee:generate-meetings', ['--date' => '2026-07-13'])->assertExitCode(0);
+
+        $meetings = CoffeeMeeting::all();
+        $this->assertCount(4, $meetings);
+
+        foreach ($meetings as $meeting) {
+            $this->assertTrue($meeting->scheduled_at->isWeekday());
+            $this->assertTrue($meeting->scheduled_at->greaterThan('2026-07-13'));
+            // The next cycle starts on 2026-08-10 and its own day stays free.
+            $this->assertTrue($meeting->scheduled_at->lessThan('2026-08-10'));
+        }
+
+        // Four pairs over a four-week window: one meeting per week, not four
+        // meetings crammed into the first one.
+        $weeks = $meetings->map(fn (CoffeeMeeting $meeting) => $meeting->scheduled_at->format('o-W'))->unique();
+        $this->assertCount(4, $weeks);
+    }
+
     public function testDoesNotDuplicateMeetingsForTheSameCycle(): void
     {
         $this->createEmployee('a@w4p.com');
