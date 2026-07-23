@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        // Random Coffee Telegram webhook: an external POST from Telegram that
+        // carries no CSRF token; authenticated by its secret-token header.
+        'coffee/telegram/webhook',
     ];
 }

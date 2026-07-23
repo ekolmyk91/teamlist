@@ -113,6 +113,19 @@ class CoffeeConfirmationTest extends TestCase
             {
                 return [];
             }
+
+            public function setWebhook(string $url, string $secretToken, bool $dropPendingUpdates = false): void
+            {
+            }
+
+            public function deleteWebhook(bool $dropPendingUpdates = false): void
+            {
+            }
+
+            public function getWebhookInfo(): array
+            {
+                return [];
+            }
         };
         $this->app->instance(CoffeeBotClientInterface::class, $bot);
 

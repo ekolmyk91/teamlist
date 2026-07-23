@@ -33,7 +33,12 @@ class Kernel extends ConsoleKernel
             ->runInBackground();
 
         $coffeeTimezone = (string) config('coffee.timezone', 'UTC');
-        $coffeeBotConfigured = fn () => (string) config('coffee.bot_token', '') !== '';
+
+        // Locally the app has no public HTTPS URL, so updates are pulled with
+        // getUpdates; elsewhere Telegram pushes them to the webhook and this
+        // cron must stay off (setWebhook and getUpdates are mutually exclusive).
+        $coffeePollingEnabled = fn () => $this->app->environment('local')
+            && (string) config('coffee.bot_token', '') !== '';
 
         // The command itself checks coffee_settings (enabled, matching day,
         // frequency) in --auto mode, so it is safe to trigger daily.
@@ -53,7 +58,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('coffee:telegram-poll')
             ->everyMinute()
-            ->when($coffeeBotConfigured)
+            ->when($coffeePollingEnabled)
             ->withoutOverlapping(5)
             ->onOneServer()
             ->runInBackground();

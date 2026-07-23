@@ -56,4 +56,9 @@ Route::get('coffee/confirm/{meeting}/{user}/{answer}', 'CoffeeConfirmationContro
     ->name('coffee.confirm')
     ->middleware('signed');
 
+// Telegram webhook for the Random Coffee bot (non-local; secured by the
+// X-Telegram-Bot-Api-Secret-Token header, CSRF-exempt — see VerifyCsrfToken).
+Route::post('coffee/telegram/webhook', 'CoffeeTelegramWebhookController')
+    ->name('coffee.telegram.webhook');
+
 Route::view('/{path?}', 'app')->middleware('auth', 'apiToken');
