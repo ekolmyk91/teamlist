@@ -42,6 +42,32 @@ final class CoffeeBotClient implements CoffeeBotClientInterface
         return is_array($updates) ? $updates : [];
     }
 
+    public function setWebhook(string $url, string $secretToken, bool $dropPendingUpdates = false): void
+    {
+        $this->call('setWebhook', [
+            'url' => $url,
+            'secret_token' => $secretToken,
+            'allowed_updates' => ['message'],
+            'drop_pending_updates' => $dropPendingUpdates,
+        ]);
+    }
+
+    public function deleteWebhook(bool $dropPendingUpdates = false): void
+    {
+        $this->call('deleteWebhook', [
+            'drop_pending_updates' => $dropPendingUpdates,
+        ]);
+    }
+
+    public function getWebhookInfo(): array
+    {
+        $body = $this->call('getWebhookInfo', []);
+
+        $result = $body['result'] ?? [];
+
+        return is_array($result) ? $result : [];
+    }
+
     /**
      * @param array<string, mixed> $payload
      * @return array<string, mixed>

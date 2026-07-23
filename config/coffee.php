@@ -24,6 +24,14 @@ return [
     'bot_username' => env('TELEGRAM_COFFEE_BOT_USERNAME', ''),
 
     /*
+    | Shared secret sent by Telegram in the X-Telegram-Bot-Api-Secret-Token
+    | header on every webhook request (set via setWebhook). The webhook
+    | endpoint rejects anything that does not match. Used only in non-local
+    | environments, where updates arrive by webhook instead of polling.
+    */
+    'webhook_secret' => env('TELEGRAM_COFFEE_BOT_WEBHOOK_SECRET', ''),
+
+    /*
     | Base URL used to build per-meeting video call links.
     */
     'jitsi_base_url' => env('COFFEE_JITSI_BASE_URL', 'https://meet.jit.si'),
