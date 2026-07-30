@@ -138,11 +138,13 @@
                                 <th>Scheduled at</th>
                                 <th>Link</th>
                                 <th>Answers</th>
+                                <th>Feedback</th>
                                 <th>Status</th>
                                 <th>Set status</th>
                             </thead>
                             <tbody>
                             @forelse ($meetings as $meeting)
+                                @php $feedbackBy = $meeting->answers->groupBy('user_id'); @endphp
                                 <tr>
                                     <td>{{ $meeting->id }}</td>
                                     <td>{{ $meeting->userOne?->member?->name }} {{ $meeting->userOne?->member?->surname }}</td>
@@ -153,6 +155,17 @@
                                         {{ $meeting->user_one_attended === null ? '—' : ($meeting->user_one_attended ? 'yes' : 'no') }}
                                         /
                                         {{ $meeting->user_two_attended === null ? '—' : ($meeting->user_two_attended ? 'yes' : 'no') }}
+                                    </td>
+                                    <td>
+                                        @if ($feedbackBy->isNotEmpty())
+                                            <button type="button" class="btn btn-success btn-sm js-survey-toggle"
+                                                    data-target="survey-{{ $meeting->id }}"
+                                                    title="Show the feedback answers">
+                                                <i class="material-icons">comment</i> {{ $feedbackBy->count() }}/2
+                                            </button>
+                                        @else
+                                            <span class="text-muted">—</span>
+                                        @endif
                                     </td>
                                     <td>
                                         @if ($meeting->status === \App\CoffeeMeeting::STATUS_HELD)
@@ -190,15 +203,51 @@
                                         </form>
                                     </td>
                                 </tr>
+                                @if ($feedbackBy->isNotEmpty())
+                                    <tr id="survey-{{ $meeting->id }}" style="display: none">
+                                        <td colspan="9">
+                                            @foreach ($feedbackBy as $userId => $answers)
+                                                @php
+                                                    $member = (int) $userId === (int) $meeting->user_one_id
+                                                        ? $meeting->userOne?->member
+                                                        : $meeting->userTwo?->member;
+                                                @endphp
+                                                <p class="mb-1">
+                                                    <strong>{{ trim(($member->name ?? '') . ' ' . ($member->surname ?? '')) ?: 'User #' . $userId }}</strong>
+                                                    <small class="text-muted">
+                                                        {{ $answers->max('updated_at')?->format('d.m.Y H:i') }}
+                                                    </small>
+                                                </p>
+                                                <ul>
+                                                    @foreach ($answers as $answer)
+                                                        <li>
+                                                            {{ $answer->question_label }} —
+                                                            <strong>{{ $answer->answer_text ?? $survey->optionLabel($answer->question_key, $answer->answer_value) }}</strong>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endif
                             @empty
                                 <tr>
-                                    <td colspan="8">No meetings yet. Enable the program in Settings or press "Generate pairs now".</td>
+                                    <td colspan="9">No meetings yet. Enable the program in Settings or press "Generate pairs now".</td>
                                 </tr>
                             @endforelse
                             </tbody>
                         </table>
                     </div>
                     {{ $meetings->links() }}
+
+                    <script>
+                        document.querySelectorAll('.js-survey-toggle').forEach(function (button) {
+                            button.addEventListener('click', function () {
+                                var row = document.getElementById(button.dataset.target);
+                                row.style.display = row.style.display === 'none' ? '' : 'none';
+                            });
+                        });
+                    </script>
                 </div>
             </div>
         </div>

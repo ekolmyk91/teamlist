@@ -7,6 +7,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class CoffeeMeeting extends Model
@@ -53,6 +54,11 @@ class CoffeeMeeting extends Model
         return $this->belongsTo(User::class, 'user_two_id');
     }
 
+    public function answers(): HasMany
+    {
+        return $this->hasMany(CoffeeMeetingAnswer::class, 'meeting_id');
+    }
+
     public function scopeForUser(Builder $query, int $userId): Builder
     {
         return $query->where(function (Builder $query) use ($userId) {
@@ -68,6 +74,18 @@ class CoffeeMeeting extends Model
     public function hasParticipant(int $userId): bool
     {
         return (int) $this->user_one_id === $userId || (int) $this->user_two_id === $userId;
+    }
+
+    /**
+     * This participant's "did it happen?" answer: true, false, or null when
+     * they have not answered yet. Callers must check hasParticipant() first -
+     * for an outsider the value of the second participant would be returned.
+     */
+    public function attendanceOf(int $userId): ?bool
+    {
+        $column = (int) $this->user_one_id === $userId ? 'user_one_attended' : 'user_two_attended';
+
+        return $this->{$column} === null ? null : (bool) $this->{$column};
     }
 
     /**
