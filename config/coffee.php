@@ -36,4 +36,64 @@ return [
     */
     'jitsi_base_url' => env('COFFEE_JITSI_BASE_URL', 'https://meet.jit.si'),
 
+    /*
+    | Lifetime of the signed links the bot sends: the "did it happen?" yes/no
+    | answer and the feedback form opened behind the "yes" one.
+    */
+    'link_ttl_days' => 7,
+
+    /*
+    | Short feedback survey shown right after a participant confirms that the
+    | meeting took place. The questions live here rather than in the database:
+    | the list changes rarely, and every stored answer keeps a snapshot of the
+    | question text, so re-wording a question never rewrites past answers.
+    |
+    | type: bool   - Так / Ні
+    |       choice - own options, value => label
+    |       text   - free-form textarea
+    | ":duration" inside a label is replaced with the configured meeting length,
+    | so the question cannot go stale when the admin changes it in settings.
+    */
+    'survey' => [
+
+        'title' => 'Дякуємо, що знайшли час на Random Coffee! ☕',
+
+        'intro' => 'Нам дуже цікаво дізнатися, як пройшла ваша зустріч. Будемо вдячні, якщо '
+            . 'відповісте на кілька коротких запитань — ваш фідбек допоможе зробити наступні '
+            . 'Random Coffee ще більш цікавими та корисними.',
+
+        'questions' => [
+            [
+                'key' => 'useful',
+                'type' => 'bool',
+                'label' => 'Чи була ця зустріч для вас корисною?',
+                'required' => true,
+            ],
+            [
+                'key' => 'again',
+                'type' => 'choice',
+                'label' => 'Чи хотіли б ви зустрітися з іншим випадковим колегою ще раз через певний період?',
+                'options' => [
+                    'yes' => 'Так',
+                    'no' => 'Ні',
+                    'maybe' => 'Можливо',
+                ],
+                'required' => true,
+            ],
+            [
+                'key' => 'duration_enough',
+                'type' => 'bool',
+                'label' => 'Чи достатньо :duration хвилин для такої зустрічі?',
+                'required' => true,
+            ],
+            [
+                'key' => 'suggestions',
+                'type' => 'text',
+                'label' => 'Ваші побажання або пропозиції (за бажанням)',
+                'required' => false,
+            ],
+        ],
+
+    ],
+
 ];

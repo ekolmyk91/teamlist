@@ -22,5 +22,9 @@ class VerifyCsrfToken extends Middleware
         // Random Coffee Telegram webhook: an external POST from Telegram that
         // carries no CSRF token; authenticated by its secret-token header.
         'coffee/telegram/webhook',
+        // Random Coffee feedback survey: a public page opened from a signed
+        // bot link, possibly days later, so it cannot rely on a session token;
+        // the URL signature authenticates the request instead.
+        'coffee/survey/*',
     ];
 }

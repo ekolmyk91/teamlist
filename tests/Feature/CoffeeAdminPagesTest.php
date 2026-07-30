@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\CoffeeMeeting;
+use App\CoffeeMeetingAnswer;
 use App\CoffeeSetting;
 use App\Member;
 use App\Role;
@@ -388,6 +389,40 @@ class CoffeeAdminPagesTest extends TestCase
             ->get(route('admin.coffee.index', ['employee' => $outsider->user_id]))
             ->assertOk()
             ->assertDontSee('w4p-coffee-test');
+    }
+
+    public function testFeedbackIsFlaggedAndReadableInTheListing(): void
+    {
+        $meeting = $this->createMeeting();
+
+        // Without feedback the column is an empty placeholder.
+        $this->actingAs($this->admin)->get(route('admin.coffee.index'))
+            ->assertOk()
+            ->assertSee('<span class="text-muted">—</span>', false);
+
+        CoffeeMeetingAnswer::create([
+            'meeting_id' => $meeting->id,
+            'user_id' => $meeting->user_one_id,
+            'question_key' => 'useful',
+            'question_label' => 'Чи була ця зустріч для вас корисною?',
+            'answer_value' => 'yes',
+        ]);
+        CoffeeMeetingAnswer::create([
+            'meeting_id' => $meeting->id,
+            'user_id' => $meeting->user_one_id,
+            'question_key' => 'suggestions',
+            'question_label' => 'Ваші побажання або пропозиції (за бажанням)',
+            'answer_text' => 'Більше часу на розмову',
+        ]);
+
+        $this->actingAs($this->admin)->get(route('admin.coffee.index'))
+            ->assertOk()
+            // How many of the two participants left feedback - visible at a glance.
+            ->assertSee('1/2')
+            ->assertSee('Чи була ця зустріч для вас корисною?')
+            // The stored value is shown with its configured label.
+            ->assertSee('Так')
+            ->assertSee('Більше часу на розмову');
     }
 
     private function createMeeting(): CoffeeMeeting

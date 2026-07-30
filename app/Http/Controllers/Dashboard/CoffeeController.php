@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoffeeMeetingRequest;
 use App\Http\Requests\UpdateCoffeeSettingsRequest;
 use App\Member;
+use App\Services\RandomCoffee\FeedbackSurvey;
 use App\Services\RandomCoffee\MeetingGenerator;
 use App\Services\RandomCoffee\MeetingNotifier;
 use Carbon\CarbonImmutable;
@@ -23,10 +24,12 @@ class CoffeeController extends Controller
         $this->middleware('admin');
     }
 
-    public function index(Request $request)
+    public function index(Request $request, FeedbackSurvey $survey)
     {
         $meetings = CoffeeMeeting::query()
             ->with(['userOne.member', 'userTwo.member'])
+            // Insertion order matches the configured question order.
+            ->with(['answers' => fn ($query) => $query->orderBy('id')])
             ->when($request->filled('employee'), fn ($query) => $query->forUser((int) $request->input('employee')))
             ->when($request->filled('status'), fn ($query) => $query->withStatus((string) $request->input('status')))
             ->orderByDesc('scheduled_at')
@@ -43,6 +46,8 @@ class CoffeeController extends Controller
                 ->orderBy('surname')
                 ->get(['user_id', 'name', 'surname']),
             'stats' => $this->stats(),
+            // Resolves stored answer values ("yes") into their labels ("Так").
+            'survey' => $survey,
             'botUsername' => (string) config('coffee.bot_username'),
             'filters' => [
                 'employee' => $request->input('employee'),

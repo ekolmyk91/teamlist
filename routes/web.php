@@ -56,6 +56,12 @@ Route::get('coffee/confirm/{meeting}/{user}/{answer}', 'CoffeeConfirmationContro
     ->name('coffee.confirm')
     ->middleware('signed');
 
+// Feedback survey shown on that page after a "yes" answer (CSRF-exempt: the
+// page is session-free, the signature authenticates it - see VerifyCsrfToken).
+Route::post('coffee/survey/{meeting}/{user}', 'CoffeeSurveyController')
+    ->name('coffee.survey')
+    ->middleware('signed');
+
 // Telegram webhook for the Random Coffee bot (non-local; secured by the
 // X-Telegram-Bot-Api-Secret-Token header, CSRF-exempt — see VerifyCsrfToken).
 Route::post('coffee/telegram/webhook', 'CoffeeTelegramWebhookController')

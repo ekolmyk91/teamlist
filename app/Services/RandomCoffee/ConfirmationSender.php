@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\URL;
  */
 final class ConfirmationSender
 {
-    private const LINK_TTL_DAYS = 7;
-
     public function __construct(
         private readonly CoffeeBotClientInterface $bot,
     ) {
@@ -111,7 +109,7 @@ final class ConfirmationSender
 
     private function buildText(CoffeeMeeting $meeting, int $userId, ?Member $partner): string
     {
-        $expiresAt = now()->addDays(self::LINK_TTL_DAYS);
+        $expiresAt = now()->addDays((int) config('coffee.link_ttl_days', 7));
 
         $yes = URL::temporarySignedRoute('coffee.confirm', $expiresAt, [
             'meeting' => $meeting->id,
