@@ -41,6 +41,50 @@ class CoffeeConfirmationTest extends TestCase
         $this->assertSame(CoffeeMeeting::STATUS_NOT_HELD, $meeting->status);
     }
 
+    public function testSingleNoAnswerMarksMeetingNotHeld(): void
+    {
+        $meeting = $this->createMeeting();
+
+        // The partner may never click, so one "no" is enough to close the
+        // meeting - it must not sit in "scheduled" for ever.
+        $this->get($this->confirmUrl($meeting, (int) $meeting->user_one_id, 'no'))->assertOk();
+
+        $meeting->refresh();
+        $this->assertFalse($meeting->user_one_attended);
+        $this->assertNull($meeting->user_two_attended);
+        $this->assertSame(CoffeeMeeting::STATUS_NOT_HELD, $meeting->status);
+    }
+
+    public function testSwitchingFromYesToNoMarksMeetingNotHeld(): void
+    {
+        $meeting = $this->createMeeting();
+        $userId = (int) $meeting->user_one_id;
+
+        $this->get($this->confirmUrl($meeting, $userId, 'yes'))->assertOk();
+        $this->assertSame(CoffeeMeeting::STATUS_HELD, $meeting->fresh()->status);
+
+        // Changing one's mind must land on "not held", never back on the
+        // pending "scheduled" state.
+        $this->get($this->confirmUrl($meeting, $userId, 'no'))->assertOk();
+
+        $this->assertSame(CoffeeMeeting::STATUS_NOT_HELD, $meeting->fresh()->status);
+    }
+
+    public function testPartnerConfirmationOutweighsANoAnswer(): void
+    {
+        $meeting = $this->createMeeting();
+
+        $this->get($this->confirmUrl($meeting, (int) $meeting->user_one_id, 'no'))->assertOk();
+        $this->get($this->confirmUrl($meeting, (int) $meeting->user_two_id, 'yes'))->assertOk();
+
+        $this->assertSame(CoffeeMeeting::STATUS_HELD, $meeting->fresh()->status);
+
+        // ... and it keeps outweighing it when the "no" is the later click.
+        $this->get($this->confirmUrl($meeting, (int) $meeting->user_one_id, 'no'))->assertOk();
+
+        $this->assertSame(CoffeeMeeting::STATUS_HELD, $meeting->fresh()->status);
+    }
+
     public function testRepeatedClickIsIdempotent(): void
     {
         $meeting = $this->createMeeting();

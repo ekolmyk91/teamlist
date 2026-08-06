@@ -108,13 +108,22 @@ class CoffeeMeeting extends Model
         });
     }
 
+    /**
+     * Status from the two attendance answers. A single answer already decides
+     * it - waiting for the partner would leave the meeting "scheduled" long
+     * after it is over, and the partner may never click at all.
+     *
+     * "It happened" wins over "it did not": the one who showed up knows more
+     * than the one who forgot, and a meeting one side confirms is held.
+     * Nothing answered yet - still scheduled.
+     */
     private function resolveStatus(): string
     {
         if ($this->user_one_attended === true || $this->user_two_attended === true) {
             return self::STATUS_HELD;
         }
 
-        if ($this->user_one_attended === false && $this->user_two_attended === false) {
+        if ($this->user_one_attended === false || $this->user_two_attended === false) {
             return self::STATUS_NOT_HELD;
         }
 
